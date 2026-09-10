@@ -1,11 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
 import {
-  Shield,
-  Sparkles,
-  Play,
-  LayoutDashboard,
-  Crosshair,
-  FolderLock,
   Search,
   Share2,
   Coins,
@@ -15,7 +9,10 @@ import {
   Clock,
   FileCheck,
   FileText,
-  ChevronDown
+  ChevronDown,
+  ArrowRight,
+  Sparkles,
+  Play
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -24,6 +21,35 @@ interface NavbarProps {
   onNavigate: (page: string) => void;
   activePage: string;
 }
+
+// Pixel-perfect SVG Curly Braces matching the screenshot
+const LeftBrace: React.FC = () => (
+  <svg
+    className="w-4 h-9 md:w-5 md:h-11 text-slate-800 shrink-0 select-none mr-1.5 transition-transform duration-200 hover:scale-105"
+    viewBox="0 0 24 64"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.7"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M19 6 C10 6 10 21 10 27 C10 30.5 4 32 2 32 C4 32 10 33.5 10 37 C10 43 10 58 19 58" />
+  </svg>
+);
+
+const RightBrace: React.FC = () => (
+  <svg
+    className="w-4 h-9 md:w-5 md:h-11 text-slate-800 shrink-0 select-none ml-1.5 transition-transform duration-200 hover:scale-105"
+    viewBox="0 0 24 64"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2.7"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    <path d="M5 6 C14 6 14 21 14 27 C14 30.5 20 32 22 32 C20 32 14 33.5 14 37 C14 43 14 58 5 58" />
+  </svg>
+);
 
 export const Navbar: React.FC<NavbarProps> = ({
   onOpenAssistant,
@@ -44,7 +70,6 @@ export const Navbar: React.FC<NavbarProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Compact items (Small & sleek without tall paragraphs)
   const exploreItems = [
     { id: 'search', title: 'Universal Search', icon: Search, badge: 'All clues' },
     { id: 'graph', title: 'Interactive Map', icon: Share2, badge: 'Visual' }
@@ -58,11 +83,15 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   const caseItems = [
-    { id: 'investigations', title: 'Active Cases', icon: FolderLock, badge: 'Cases' },
+    { id: 'investigations', title: 'Active Cases', icon: FolderLockIcon, badge: 'Cases' },
     { id: 'evidence', title: 'Evidence Vault', icon: FileCheck, badge: 'SHA-256' },
     { id: 'timeline', title: 'Event Timeline', icon: Clock, badge: 'Time' },
     { id: 'reports', title: 'Formal Reports', icon: FileText, badge: 'Legal' }
   ];
+
+  function FolderLockIcon(props: any) {
+    return <FileText {...props} />;
+  }
 
   const handleSelect = (pageId: string) => {
     onNavigate(pageId);
@@ -74,72 +103,74 @@ export const Navbar: React.FC<NavbarProps> = ({
   const isCasesActive = ['investigations', 'evidence', 'timeline', 'reports'].includes(activePage);
 
   return (
-    <header className="h-16 border-b border-slate-200/90 bg-white/90 backdrop-blur-xl sticky top-0 z-40 px-4 md:px-6 flex items-center justify-between shadow-2xs">
-      {/* Brand Identity */}
-      <div
-        className="flex items-center space-x-3 cursor-pointer shrink-0 group"
-        onClick={() => onNavigate('dashboard')}
-      >
-        <div className="w-10 h-10 rounded-2xl bg-blue-600 flex items-center justify-center shadow-md shadow-blue-500/25 group-hover:scale-105 transition-all">
-          <Shield className="w-5 h-5 text-white" />
-        </div>
-        <div>
-          <div className="flex items-center space-x-2">
-            <span className="font-extrabold text-base tracking-tight text-slate-900">TRACE-X</span>
-            <span className="text-[10px] uppercase font-mono font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-              SIH26151
-            </span>
-          </div>
-          <p className="text-[11px] text-slate-500 font-medium">Threat De-anonymization</p>
-        </div>
-      </div>
+    <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-xl border-b border-slate-200/80 px-3 md:px-8 py-2.5 transition-all">
+      <div className="max-w-7xl mx-auto flex items-center justify-between">
+        
+        {/* Left Section: Left Brace "{" + Brand Wordmark */}
+        <div className="flex items-center">
+          <LeftBrace />
 
-      {/* Streamlined, Compact Navigation Bar with Small Liquid Dropdowns */}
-      <nav ref={dropdownRef} className="hidden md:flex items-center space-x-1 bg-slate-100/80 p-1.5 rounded-2xl border border-slate-200/80">
-        {/* 1. Overview */}
-        <button
-          onClick={() => onNavigate('dashboard')}
-          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${activePage === 'dashboard'
-              ? 'bg-blue-600 text-white font-bold shadow-sm'
-              : 'text-slate-600 hover:text-blue-600 hover:bg-white/80 font-semibold'
-            }`}
-        >
-          <LayoutDashboard className="w-3.5 h-3.5" />
-          <span>Overview</span>
-        </button>
-
-        {/* 2. De-anonymize */}
-        <button
-          onClick={() => onNavigate('deanonymization')}
-          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${activePage === 'deanonymization'
-              ? 'bg-blue-600 text-white font-bold shadow-sm'
-              : 'text-blue-700 hover:text-blue-800 hover:bg-blue-50/70 font-bold'
-            }`}
-        >
-          <Crosshair className="w-3.5 h-3.5 text-blue-600" />
-          <span>De-anonymize</span>
-          {activePage !== 'deanonymization' && (
-            <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-          )}
-        </button>
-
-        {/* 3. Explore Dropdown (Small & Flexible) */}
-        <div className="relative">
-          <button
-            onClick={() => setOpenDropdown(openDropdown === 'explore' ? null : 'explore')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${isExploreActive
-                ? 'bg-blue-600 text-white font-bold shadow-sm'
-                : 'text-slate-600 hover:text-blue-600 hover:bg-white/80 font-semibold'
-              }`}
+          <div
+            onClick={() => onNavigate('dashboard')}
+            className="cursor-pointer group select-none ml-0.5 md:ml-1"
           >
-            <Search className="w-3.5 h-3.5" />
-            <span>Explore</span>
-            <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openDropdown === 'explore' ? 'rotate-180' : ''}`} />
+            <div className="flex items-baseline space-x-1.5">
+              <span className="font-black text-xl md:text-2xl tracking-tighter text-slate-950 font-sans group-hover:text-blue-600 transition-colors">
+                TRACE-X
+              </span>
+              <span className="text-[9px] font-extrabold uppercase px-1.5 py-0.2 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                PRO
+              </span>
+            </div>
+            <p className="text-[10px] md:text-[11px] font-medium text-slate-500 tracking-tight leading-none mt-0.5">
+              Threat Attribution Engine
+            </p>
+          </div>
+        </div>
+
+        {/* Center Section: Sleek Pill Nav Links (Identical to screenshot style) */}
+        <nav ref={dropdownRef} className="hidden lg:flex items-center space-x-1 font-sans">
+          {/* 1. Overview (Home pill style) */}
+          <button
+            onClick={() => onNavigate('dashboard')}
+            className={`px-4 py-1.5 rounded-full text-[13px] transition-all duration-150 ${
+              activePage === 'dashboard'
+                ? 'bg-slate-100 text-slate-950 font-bold shadow-2xs'
+                : 'text-slate-600 hover:text-slate-950 hover:bg-slate-50 font-medium'
+            }`}
+          >
+            Overview
           </button>
 
-          {openDropdown === 'explore' && (
-            <div className="absolute left-0 mt-2 w-56 bg-white/95 backdrop-blur-2xl border border-blue-200/80 rounded-2xl shadow-xl shadow-blue-500/10 p-1.5 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-1 duration-150">
-              <div className="space-y-0.5">
+          {/* 2. De-anonymize */}
+          <button
+            onClick={() => onNavigate('deanonymization')}
+            className={`px-4 py-1.5 rounded-full text-[13px] transition-all duration-150 flex items-center space-x-1.5 ${
+              activePage === 'deanonymization'
+                ? 'bg-slate-100 text-blue-700 font-bold shadow-2xs'
+                : 'text-slate-600 hover:text-slate-950 hover:bg-slate-50 font-medium'
+            }`}
+          >
+            <span>De-anonymize</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-pulse" />
+          </button>
+
+          {/* 3. Explore Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setOpenDropdown(openDropdown === 'explore' ? null : 'explore')}
+              className={`px-3.5 py-1.5 rounded-full text-[13px] transition-all duration-150 flex items-center space-x-1 ${
+                isExploreActive
+                  ? 'bg-slate-100 text-slate-950 font-bold shadow-2xs'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-50 font-medium'
+              }`}
+            >
+              <span>Explore</span>
+              <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${openDropdown === 'explore' ? 'rotate-180' : ''}`} />
+            </button>
+
+            {openDropdown === 'explore' && (
+              <div className="absolute left-0 mt-2 w-56 bg-white/98 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
                 {exploreItems.map((item) => {
                   const Icon = item.icon;
                   const isItemActive = activePage === item.id;
@@ -147,44 +178,42 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button
                       key={item.id}
                       onClick={() => handleSelect(item.id)}
-                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-all duration-150 ${isItemActive
-                          ? 'bg-blue-600 text-white font-bold shadow-2xs'
-                          : 'text-slate-700 hover:bg-blue-50/90 hover:text-blue-700 font-semibold'
-                        }`}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all ${
+                        isItemActive
+                          ? 'bg-blue-600 text-white font-bold'
+                          : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950 font-medium'
+                      }`}
                     >
                       <div className="flex items-center space-x-2">
                         <Icon className={`w-3.5 h-3.5 ${isItemActive ? 'text-white' : 'text-blue-600'}`} />
                         <span>{item.title}</span>
                       </div>
-                      <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-mono ${isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'
-                        }`}>
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'}`}>
                         {item.badge}
                       </span>
                     </button>
                   );
                 })}
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
 
-        {/* 4. Data Feeds Dropdown (Small & Flexible) */}
-        <div className="relative">
-          <button
-            onClick={() => setOpenDropdown(openDropdown === 'feeds' ? null : 'feeds')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${isFeedsActive
-                ? 'bg-blue-600 text-white font-bold shadow-sm'
-                : 'text-slate-600 hover:text-blue-600 hover:bg-white/80 font-semibold'
+          {/* 4. Feeds Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setOpenDropdown(openDropdown === 'feeds' ? null : 'feeds')}
+              className={`px-3.5 py-1.5 rounded-full text-[13px] transition-all duration-150 flex items-center space-x-1 ${
+                isFeedsActive
+                  ? 'bg-slate-100 text-slate-950 font-bold shadow-2xs'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-50 font-medium'
               }`}
-          >
-            <Globe2 className="w-3.5 h-3.5" />
-            <span>Data Feeds</span>
-            <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openDropdown === 'feeds' ? 'rotate-180' : ''}`} />
-          </button>
+            >
+              <span>Services</span>
+              <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${openDropdown === 'feeds' ? 'rotate-180' : ''}`} />
+            </button>
 
-          {openDropdown === 'feeds' && (
-            <div className="absolute left-0 mt-2 w-56 bg-white/95 backdrop-blur-2xl border border-blue-200/80 rounded-2xl shadow-xl shadow-blue-500/10 p-1.5 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-1 duration-150">
-              <div className="space-y-0.5">
+            {openDropdown === 'feeds' && (
+              <div className="absolute left-0 mt-2 w-56 bg-white/98 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
                 {feedsItems.map((item) => {
                   const Icon = item.icon;
                   const isItemActive = activePage === item.id;
@@ -192,44 +221,42 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button
                       key={item.id}
                       onClick={() => handleSelect(item.id)}
-                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-all duration-150 ${isItemActive
-                          ? 'bg-blue-600 text-white font-bold shadow-2xs'
-                          : 'text-slate-700 hover:bg-blue-50/90 hover:text-blue-700 font-semibold'
-                        }`}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all ${
+                        isItemActive
+                          ? 'bg-blue-600 text-white font-bold'
+                          : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950 font-medium'
+                      }`}
                     >
                       <div className="flex items-center space-x-2">
                         <Icon className={`w-3.5 h-3.5 ${isItemActive ? 'text-white' : 'text-blue-600'}`} />
                         <span>{item.title}</span>
                       </div>
-                      <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-mono ${isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'
-                        }`}>
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'}`}>
                         {item.badge}
                       </span>
                     </button>
                   );
                 })}
               </div>
-            </div>
-          )}
-        </div>
+            )}
+          </div>
 
-        {/* 5. Case Files Dropdown (Small & Flexible) */}
-        <div className="relative">
-          <button
-            onClick={() => setOpenDropdown(openDropdown === 'cases' ? null : 'cases')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${isCasesActive
-                ? 'bg-blue-600 text-white font-bold shadow-sm'
-                : 'text-slate-600 hover:text-blue-600 hover:bg-white/80 font-semibold'
+          {/* 5. Case Dossier Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setOpenDropdown(openDropdown === 'cases' ? null : 'cases')}
+              className={`px-3.5 py-1.5 rounded-full text-[13px] transition-all duration-150 flex items-center space-x-1 ${
+                isCasesActive
+                  ? 'bg-slate-100 text-slate-950 font-bold shadow-2xs'
+                  : 'text-slate-600 hover:text-slate-950 hover:bg-slate-50 font-medium'
               }`}
-          >
-            <FolderLock className="w-3.5 h-3.5" />
-            <span>Case Files</span>
-            <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${openDropdown === 'cases' ? 'rotate-180' : ''}`} />
-          </button>
+            >
+              <span>Activity Vault</span>
+              <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform duration-200 ${openDropdown === 'cases' ? 'rotate-180' : ''}`} />
+            </button>
 
-          {openDropdown === 'cases' && (
-            <div className="absolute right-0 mt-2 w-56 bg-white/95 backdrop-blur-2xl border border-blue-200/80 rounded-2xl shadow-xl shadow-blue-500/10 p-1.5 z-50 animate-in fade-in zoom-in-95 slide-in-from-top-1 duration-150">
-              <div className="space-y-0.5">
+            {openDropdown === 'cases' && (
+              <div className="absolute right-0 mt-2 w-56 bg-white/98 backdrop-blur-2xl border border-slate-200 rounded-2xl shadow-xl p-1.5 z-50 animate-in fade-in zoom-in-95 duration-150">
                 {caseItems.map((item) => {
                   const Icon = item.icon;
                   const isItemActive = activePage === item.id;
@@ -237,52 +264,57 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button
                       key={item.id}
                       onClick={() => handleSelect(item.id)}
-                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-all duration-150 ${isItemActive
-                          ? 'bg-blue-600 text-white font-bold shadow-2xs'
-                          : 'text-slate-700 hover:bg-blue-50/90 hover:text-blue-700 font-semibold'
-                        }`}
+                      className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs transition-all ${
+                        isItemActive
+                          ? 'bg-blue-600 text-white font-bold'
+                          : 'text-slate-700 hover:bg-slate-100 hover:text-slate-950 font-medium'
+                      }`}
                     >
                       <div className="flex items-center space-x-2">
                         <Icon className={`w-3.5 h-3.5 ${isItemActive ? 'text-white' : 'text-blue-600'}`} />
                         <span>{item.title}</span>
                       </div>
-                      <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-mono ${isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'
-                        }`}>
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded font-mono ${isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'}`}>
                         {item.badge}
                       </span>
                     </button>
                   );
                 })}
               </div>
-            </div>
-          )}
+            )}
+          </div>
+        </nav>
+
+        {/* Right Section: Status Pill + Demo Action + Get Started CTA + Right Brace "}" */}
+        <div className="flex items-center space-x-2 md:space-x-3">
+          {/* Status Pill (matching screenshot "● Theme ▾" button) */}
+          <div className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-full border border-slate-200/90 bg-white hover:bg-slate-50 transition text-xs font-semibold text-slate-700 shadow-2xs">
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span>Alchemy Live</span>
+          </div>
+
+          {/* Guided Tour Link */}
+          <button
+            onClick={onOpenDemo}
+            className="hidden sm:flex items-center space-x-1 px-3 py-1.5 rounded-full text-xs font-semibold text-slate-600 hover:text-slate-950 hover:bg-slate-100 transition"
+          >
+            <Play className="w-3 h-3 text-blue-600 fill-blue-600" />
+            <span>Tour</span>
+          </button>
+
+          {/* Dark "Get Started →" CTA button */}
+          <button
+            onClick={onOpenAssistant}
+            className="flex items-center space-x-2 px-4 md:px-5 py-2 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-xs md:text-[13px] font-bold shadow-md shadow-slate-900/15 hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+          >
+            <span>AI Copilot</span>
+            <ArrowRight className="w-3.5 h-3.5 text-white/80" />
+          </button>
+
+          {/* Right Brace "}" */}
+          <RightBrace />
         </div>
-      </nav>
 
-      {/* Action Buttons & Status */}
-      <div className="flex items-center space-x-2 shrink-0">
-        <div className="hidden xl:flex items-center space-x-2 bg-blue-50 border border-blue-200/80 rounded-full px-3 py-1">
-          <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
-          <span className="text-[11px] font-mono font-bold text-blue-800">System Ready</span>
-        </div>
-
-        {/* Guided Demo Button */}
-        <button
-          onClick={onOpenDemo}
-          className="btn-liquid-secondary px-3 py-1.5 text-xs font-bold"
-        >
-          <Play className="w-3 h-3 mr-1.5 fill-blue-600/20 text-blue-600" />
-          <span>Demo Tour</span>
-        </button>
-
-        {/* AI Copilot Button */}
-        <button
-          onClick={onOpenAssistant}
-          className="btn-liquid px-3.5 py-1.5 text-xs font-bold"
-        >
-          <Sparkles className="w-3 h-3 mr-1.5" />
-          <span>AI Copilot</span>
-        </button>
       </div>
     </header>
   );
