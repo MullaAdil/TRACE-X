@@ -13,7 +13,10 @@ import {
   AlertTriangle,
   FolderLock,
   Sparkles,
-  CheckCircle2
+  CheckCircle2,
+  FileText,
+  Crosshair,
+  ArrowRight
 } from 'lucide-react';
 import { api } from '../services/api';
 import { DashboardStats } from '../types';
@@ -380,96 +383,156 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         </div>
       </div>
 
-      {/* Two Column Layout: Timeline Telemetry & Responsible Attribution */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Recent Telemetry Stream (Horizontal Rows) */}
-        <div className="lg:col-span-2 rounded-3xl bg-white border border-slate-200 p-6 space-y-4 shadow-2xs">
-          <div className="flex items-center justify-between border-b border-slate-100 pb-4">
-            <div className="flex items-center space-x-2.5">
-              <div className="p-2 rounded-xl bg-blue-50 text-blue-600 border border-blue-100">
-                <Clock className="w-4 h-4" />
-              </div>
-              <div>
-                <h2 className="text-base font-extrabold text-slate-900 tracking-tight">Recent Activity Stream</h2>
-                <p className="text-xs text-slate-500">Live feed of verified clues and forensic events</p>
-              </div>
-            </div>
-            <button
-              onClick={() => onNavigate('timeline')}
-              className="text-xs text-blue-600 hover:text-blue-700 hover:underline flex items-center space-x-1 font-bold"
-            >
-              <span>View Full Timeline</span>
-              <ArrowUpRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-
-          <div className="divide-y divide-slate-100">
-            {stats.recent_activity.map((evt) => (
-              <div key={evt.id} className="py-3 flex items-center justify-between space-x-4 hover:bg-blue-50/30 -mx-3 px-3 rounded-xl transition">
-                <div className="space-y-1 min-w-0">
-                  <div className="flex items-center space-x-2.5">
-                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase bg-blue-50 border border-blue-200 text-blue-700 shrink-0">
-                      {evt.source}
-                    </span>
-                    <span className="text-sm font-bold text-slate-800 truncate">{evt.title}</span>
-                  </div>
-                  <p className="text-xs text-slate-500 font-normal truncate">{evt.details || "Observed forensic event"}</p>
-                </div>
-                <div className="text-right shrink-0">
-                  <span className="text-xs font-mono font-semibold text-slate-400 block">{evt.timestamp}</span>
-                  {evt.evidence_id && (
-                    <button
-                      onClick={() => onSelectEvidence(evt.evidence_id!)}
-                      className="text-xs font-mono font-bold text-blue-600 hover:underline"
-                    >
-                      {evt.evidence_id}
-                    </button>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
+      {/* Slide-on-Slide Theme Section (Matching User Reference Design) */}
+      <div className="space-y-4 pt-2">
+        <div className="flex items-center justify-between px-1">
+          <h2 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight flex items-center space-x-2">
+            <span>TRACE-X</span>
+            <span className="text-slate-400 font-light">—</span>
+            <span>Active Dossier & Threat Activity</span>
+          </h2>
+          <span className="text-xs font-semibold text-slate-500 hidden sm:inline">
+            Case: CASE-SIH-26151
+          </span>
         </div>
 
-        {/* Responsible Attribution Safeguards Card (Apple Plain English) */}
-        <div className="rounded-3xl bg-gradient-to-br from-blue-50/60 via-white to-blue-50/30 border border-blue-200/80 p-6 space-y-5 flex flex-col justify-between shadow-2xs">
-          <div className="space-y-4">
-            <div className="flex items-center space-x-2.5 text-blue-900">
-              <div className="p-2 rounded-xl bg-blue-100 text-blue-700 border border-blue-200">
-                <AlertTriangle className="w-4 h-4" />
-              </div>
-              <div>
-                <h3 className="text-base font-extrabold tracking-tight text-slate-900">Guaranteed Safeguards</h3>
-                <p className="text-xs text-slate-500">Legal rules that keep our evidence court-ready</p>
-              </div>
-            </div>
+        {/* The Slide-on-Slide Multi-Layer Stacked Box */}
+        <div className="mr-4 mb-5">
+          <div className="card-slide-stack p-6 md:p-8 shadow-sm">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+              
+              {/* Left Column: Dossier Document Sheet Preview + Details */}
+              <div className="lg:col-span-7 flex flex-col sm:flex-row items-start space-y-4 sm:space-y-0 sm:space-x-6">
+                {/* Visual Document Sheet Thumbnail */}
+                <div className="w-36 h-48 sm:w-40 sm:h-52 rounded-2xl bg-white border border-slate-200 shadow-md p-3.5 flex flex-col justify-between shrink-0 select-none group hover:border-blue-400 transition-colors">
+                  <div className="space-y-2">
+                    <div className="flex items-center justify-between border-b border-slate-100 pb-2">
+                      <span className="text-[8px] font-mono font-extrabold uppercase px-1.5 py-0.5 rounded bg-red-50 text-red-700 border border-red-200">
+                        TOP SECRET
+                      </span>
+                      <span className="text-[8px] font-mono text-slate-400">#26151</span>
+                    </div>
+                    <div className="space-y-1">
+                      <div className="h-2 w-3/4 bg-slate-800 rounded-xs"></div>
+                      <div className="h-1.5 w-full bg-slate-200 rounded-xs"></div>
+                      <div className="h-1.5 w-5/6 bg-slate-200 rounded-xs"></div>
+                    </div>
+                    <div className="pt-2 space-y-1">
+                      <div className="flex items-center space-x-1">
+                        <span className="w-1.5 h-1.5 rounded-full bg-blue-600"></span>
+                        <div className="h-1.5 w-16 bg-blue-100 rounded-xs"></div>
+                      </div>
+                      <div className="h-1.5 w-20 bg-slate-100 rounded-xs ml-2.5"></div>
+                    </div>
+                  </div>
 
-            <p className="text-xs text-slate-600 leading-relaxed font-normal">
-              TRACE-X strictly adheres to forensic standards. We never guess who a person is without certified legal proof.
-            </p>
+                  <div className="space-y-1.5 pt-2 border-t border-slate-100">
+                    <div className="text-[8px] font-mono font-bold text-slate-500 truncate">
+                      SHA: e3b0c44298fc1c14...
+                    </div>
+                    <div className="w-full py-1 rounded-lg bg-blue-600 text-white text-[9px] font-bold text-center">
+                      Verified Clue
+                    </div>
+                  </div>
+                </div>
 
-            <div className="space-y-3 text-xs text-slate-600 font-medium pt-1">
-              <div className="flex items-start space-x-3">
-                <span className="w-2 h-2 rounded-full bg-blue-600 mt-1.5 shrink-0"></span>
-                <span><strong>Accounts, not people:</strong> We trace where cryptocurrency moves, but never guess a human name without official bank KYC records.</span>
+                {/* Dossier Metadata & Action Buttons */}
+                <div className="space-y-3.5 flex-1">
+                  <div className="space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                        Active Case Dossier
+                      </span>
+                      <span className="text-[10px] font-semibold px-2 py-0.2 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                        Primary Target
+                      </span>
+                    </div>
+                    <h3 className="text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-snug">
+                      Packrat APT — Cyber Espionage Campaign
+                    </h3>
+                    <p className="text-xs text-slate-500 font-medium">
+                      Coordinated South American Infrastructure & Political Espionage
+                    </p>
+                  </div>
+
+                  <div className="flex items-center space-x-2 text-xs font-semibold text-slate-600">
+                    <FileText className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                    <span className="truncate">CASE-SIH-26151 · CitizenLab Telemetry · 100% Correlated</span>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2.5 pt-1">
+                    {/* Primary Dark Button matching screenshot "Rebuild & Edit Resume" */}
+                    <button
+                      onClick={() => onNavigate('reports')}
+                      className="flex items-center space-x-2 px-5 py-2.5 rounded-full bg-slate-950 hover:bg-slate-800 text-white text-xs font-bold shadow-md shadow-slate-950/15 hover:shadow-lg transition-all transform hover:-translate-y-0.5 active:translate-y-0"
+                    >
+                      <Crosshair className="w-3.5 h-3.5" />
+                      <span>Open Full Dossier</span>
+                      <ArrowRight className="w-3.5 h-3.5 text-white/70" />
+                    </button>
+
+                    {/* Secondary Light Pill matching screenshot "Start Fresh" */}
+                    <button
+                      onClick={() => onNavigate('deanonymization')}
+                      className="flex items-center space-x-1.5 px-4 py-2.5 rounded-full border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-xs font-bold transition shadow-2xs"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-blue-600" />
+                      <span>De-anonymize Target</span>
+                    </button>
+                  </div>
+                </div>
               </div>
-              <div className="flex items-start space-x-3">
-                <span className="w-2 h-2 rounded-full bg-blue-600 mt-1.5 shrink-0"></span>
-                <span><strong>No fabricated names:</strong> Dark web forum authors are masked ([AUTHOR]). We analyze what was leaked, never made-up identities.</span>
+
+              {/* Right Column: Recent Activity Stream matching screenshot */}
+              <div className="lg:col-span-5 lg:border-l lg:border-slate-100 lg:pl-8 space-y-3.5">
+                <div className="flex items-center space-x-2">
+                  <Clock className="w-4 h-4 text-slate-700" />
+                  <h4 className="text-sm font-extrabold text-slate-900 tracking-tight">
+                    Recent Activity & Forensic Telemetry
+                  </h4>
+                </div>
+
+                <div className="space-y-2">
+                  {stats.recent_activity.slice(0, 3).map((evt, idx) => (
+                    <div
+                      key={evt.id || idx}
+                      onClick={() => evt.evidence_id && onSelectEvidence(evt.evidence_id)}
+                      className="p-3 rounded-2xl bg-slate-50/80 hover:bg-blue-50/60 border border-slate-100 hover:border-blue-200 transition cursor-pointer flex items-center justify-between group"
+                    >
+                      <div className="flex items-center space-x-3 min-w-0">
+                        <div className="w-8 h-8 rounded-xl bg-white border border-slate-200 text-blue-600 flex items-center justify-center shrink-0 shadow-2xs group-hover:scale-105 transition">
+                          <FileText className="w-4 h-4" />
+                        </div>
+                        <div className="min-w-0">
+                          <div className="text-xs font-bold text-slate-900 group-hover:text-blue-700 transition truncate">
+                            {evt.title}
+                          </div>
+                          <div className="text-[11px] text-slate-400 truncate">
+                            {evt.source} · {evt.evidence_id || 'Forensic Event'}
+                          </div>
+                        </div>
+                      </div>
+                      <span className="text-[11px] font-mono text-slate-400 shrink-0 ml-2">
+                        {evt.timestamp?.split('T')[1]?.slice(0, 5) || '19:07'}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Footer Link matching screenshot "View Full Activity Vault →" */}
+                <div className="text-right pt-1">
+                  <button
+                    onClick={() => onNavigate('timeline')}
+                    className="text-xs font-bold text-slate-700 hover:text-blue-600 transition inline-flex items-center space-x-1"
+                  >
+                    <span>View Full Activity Vault</span>
+                    <ArrowRight className="w-3.5 h-3.5" />
+                  </button>
+                </div>
               </div>
-              <div className="flex items-start space-x-3">
-                <span className="w-2 h-2 rounded-full bg-blue-600 mt-1.5 shrink-0"></span>
-                <span><strong>Verifiable benchmarks:</strong> Test every connection against verified public reference keys from European security agencies.</span>
-              </div>
+
             </div>
           </div>
-
-          <button
-            onClick={() => onNavigate('reports')}
-            className="w-full py-3 btn-liquid text-xs font-bold"
-          >
-            Open Case Investigation Reports
-          </button>
         </div>
       </div>
     </div>

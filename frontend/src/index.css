@@ -59,6 +59,94 @@
   box-shadow: 0 10px 30px -5px rgba(37, 99, 235, 0.08);
 }
 
+/* Slide-on-Slide Multi-Layer Stacked Card Theme */
+.card-slide-stack {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 1.75rem;
+  isolation: isolate;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-slide-stack::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  transform: translate(8px, 8px);
+  z-index: -1;
+  pointer-events: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-slide-stack::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  transform: translate(16px, 16px);
+  z-index: -2;
+  pointer-events: none;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-slide-stack:hover::before {
+  transform: translate(10px, 10px);
+}
+
+.card-slide-stack:hover::after {
+  transform: translate(19px, 19px);
+}
+
+/* Compact version for smaller cards */
+.card-slide-stack-sm {
+  position: relative;
+  background: #FFFFFF;
+  border: 1px solid #CBD5E1;
+  border-radius: 1.25rem;
+  isolation: isolate;
+  transition: all 0.2s ease;
+}
+
+.card-slide-stack-sm::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #F8FAFC;
+  border: 1px solid #CBD5E1;
+  transform: translate(5px, 5px);
+  z-index: -1;
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+.card-slide-stack-sm::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: #F1F5F9;
+  border: 1px solid #E2E8F0;
+  transform: translate(10px, 10px);
+  z-index: -2;
+  pointer-events: none;
+  transition: transform 0.2s ease;
+}
+
+.card-slide-stack-sm:hover::before {
+  transform: translate(7px, 7px);
+}
+
+.card-slide-stack-sm:hover::after {
+  transform: translate(13px, 13px);
+}
+
 /* Fluid animated connections */
 @keyframes fluid-dash {
   to {
