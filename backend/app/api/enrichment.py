@@ -78,7 +78,7 @@ KNOWN_IP_DB = {
 
 def generate_synthetic_ip_intel(ip_str: str) -> Dict[str, Any]:
     """Generates consistent, realistic threat metadata for any arbitrary IP entered by evaluator."""
-    h = int(hashlib.md5(ip_str.encode()).hexdigest(), 16)
+    h = int(hashlib.sha256(ip_str.encode()).hexdigest(), 16)
     
     countries = [
         {"country": "Germany", "code": "DE", "flag": "🇩🇪", "city": "Frankfurt", "region": "Hesse", "isp": "Hetzner Online GmbH"},
