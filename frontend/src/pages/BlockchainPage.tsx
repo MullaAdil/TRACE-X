@@ -66,18 +66,38 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
 
   return (
     <div className="p-8 space-y-6 max-w-7xl mx-auto">
-      {/* Apple-style Hero Header */}
-      <div className="space-y-1.5">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
-          <Coins className="w-3.5 h-3.5" />
-          <span>Crypto Ledger Intelligence</span>
+      {/* Apple-style Hero Header with AI-Generated Ledger Visual */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 border border-slate-800 p-8 shadow-xl text-white">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div className="lg:col-span-7 space-y-3">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold">
+              <Coins className="w-3.5 h-3.5" />
+              <span>STANDALONE MICROSERVICE • BLOCKCHAIN FORENSICS</span>
+            </div>
+            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+              Follow the money. Track every Ethereum transfer.
+            </h1>
+            <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
+              When funds move across accounts, TRACE-X follows each hop on the public Ethereum ledger. Powered by live Alchemy RPC and on-chain transaction decoders, you get a crystal-clear breakdown of who sent what, who received it, and how wallets connect to known threat campaigns.
+            </p>
+          </div>
+
+          <div className="lg:col-span-5">
+            <div className="relative rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl group">
+              <img
+                src="/src/assets/visuals/crypto_visual.jpg"
+                alt="Cryptocurrency Forensics Flow"
+                className="w-full h-44 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-3.5">
+                <span className="text-[11px] font-mono text-emerald-400 font-bold flex items-center space-x-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                  <span>Ethereum Mainnet • Real-Time Decryption Active</span>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-        <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-          Follow the money. Track every Ethereum transfer.
-        </h1>
-        <p className="text-sm text-slate-500 max-w-3xl leading-relaxed">
-          When funds move across accounts, TRACE-X follows each hop on the public Ethereum ledger. You get a crystal-clear breakdown of who sent what, who received it, and how wallets connect to known threat campaigns.
-        </p>
       </div>
 
       {/* Horizontal Stats Strip (Apple-style wide blocks) */}

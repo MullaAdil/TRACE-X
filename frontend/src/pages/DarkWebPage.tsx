@@ -31,18 +31,38 @@ export const DarkWebPage: React.FC<DarkWebPageProps> = ({ onSelectEvidence }) =>
 
   return (
     <div className="p-8 space-y-6 max-w-7xl mx-auto">
-      {/* Apple-style Hero Header */}
-      <div className="space-y-1.5">
-        <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
-          <Globe2 className="w-3.5 h-3.5" />
-          <span>Underground Forum Intelligence</span>
+      {/* Apple-style Hero Header with AI-Generated Onion Routing Visual */}
+      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-purple-950/90 to-slate-900 border border-purple-900/60 p-8 shadow-xl text-white">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+          <div className="lg:col-span-7 space-y-3">
+            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-400/30 text-purple-300 text-xs font-bold">
+              <Globe2 className="w-3.5 h-3.5" />
+              <span>STANDALONE MICROSERVICE • DARK WEB ONION CRAWLER</span>
+            </div>
+            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+              What the dark web is saying. In plain view.
+            </h1>
+            <p className="text-sm text-purple-200 max-w-2xl leading-relaxed font-normal">
+              TRACE-X continuously indexes verified underground onion forum discussions, identifying stolen credentials, leaked databases, and hacker collaboration threads—with zero hallucination and strict cryptographic chain of custody.
+            </p>
+          </div>
+
+          <div className="lg:col-span-5">
+            <div className="relative rounded-2xl overflow-hidden border border-purple-700/60 shadow-2xl group">
+              <img
+                src="/src/assets/visuals/darkweb_visual.jpg"
+                alt="Dark Web Onion Layer De-anonymization"
+                className="w-full h-44 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-3.5">
+                <span className="text-[11px] font-mono text-purple-300 font-bold flex items-center space-x-1.5">
+                  <span className="w-2 h-2 rounded-full bg-purple-400 animate-ping" />
+                  <span>Tor Circuit Multihop Telemetry Active</span>
+                </span>
+              </div>
+            </div>
+          </div>
         </div>
-        <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
-          What the dark web is saying. In plain view.
-        </h1>
-        <p className="text-sm text-slate-500 max-w-3xl leading-relaxed">
-          TRACE-X indexes verified underground forum discussions, uncovering targeted database leaks, stolen credentials, and breach disclosures—with full provenance and responsible attribution safeguards.
-        </p>
       </div>
 
       {/* Prominent Anonymity & Safeguard Disclaimer (Horizontal card) */}
