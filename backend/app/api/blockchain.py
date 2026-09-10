@@ -1,4 +1,5 @@
 import json
+import re
 from fastapi import APIRouter, Depends, Query, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import or_
@@ -152,3 +153,82 @@ def get_wallet_dossier(address: str, db: Session = Depends(get_db)):
         "outgoing_transactions": outgoing_txs[:20],
         "attribution_warning": "No real-world person attribution should be inferred solely from public blockchain data without corroborating authorized evidence."
     }
+
+@router.get("/live/{address}")
+async def get_live_blockchain_telemetry(address: str):
+    """Queries live Ethereum Mainnet telemetry via Alchemy RPC."""
+    import httpx
+    from ..config import ALCHEMY_ETH_RPC_URL
+
+    addr = address.strip()
+    if not re.match(r"^0x[a-fA-F0-9]{40}$", addr):
+        raise HTTPException(status_code=400, detail="Invalid Ethereum address format")
+
+    try:
+        async with httpx.AsyncClient(timeout=8.0) as client:
+            # 1. Batch query blockNumber, balance, tx count, and code
+            batch_payload = [
+                {"jsonrpc": "2.0", "id": 1, "method": "eth_blockNumber", "params": []},
+                {"jsonrpc": "2.0", "id": 2, "method": "eth_getBalance", "params": [addr, "latest"]},
+                {"jsonrpc": "2.0", "id": 3, "method": "eth_getTransactionCount", "params": [addr, "latest"]},
+                {"jsonrpc": "2.0", "id": 4, "method": "eth_getCode", "params": [addr, "latest"]},
+            ]
+            resp = await client.post(ALCHEMY_ETH_RPC_URL, json=batch_payload)
+            results = resp.json()
+
+            res_map = {item["id"]: item.get("result") for item in results if isinstance(item, dict)}
+
+            block_num = int(res_map.get(1, "0x0"), 16)
+            bal_wei = int(res_map.get(2, "0x0"), 16)
+            bal_eth = bal_wei / 1e18
+            nonce = int(res_map.get(3, "0x0"), 16)
+            code = res_map.get(4, "0x")
+            is_contract = code is not None and code != "0x" and len(code) > 2
+
+            # 2. Query recent asset transfers via Alchemy Enhanced API
+            transfers_payload = {
+                "jsonrpc": "2.0",
+                "id": 5,
+                "method": "alchemy_getAssetTransfers",
+                "params": [
+                    {
+                        "fromBlock": "0x0",
+                        "toBlock": "latest",
+                        "toAddress": addr,
+                        "category": ["external", "erc20"],
+                        "maxCount": "0xa",
+                        "order": "desc"
+                    }
+                ]
+            }
+            tx_resp = await client.post(ALCHEMY_ETH_RPC_URL, json=transfers_payload)
+            transfers_data = tx_resp.json().get("result", {}).get("transfers", [])
+
+            recent_txs = []
+            for t in transfers_data:
+                recent_txs.append({
+                    "hash": t.get("hash"),
+                    "from": t.get("from"),
+                    "to": t.get("to"),
+                    "value": t.get("value"),
+                    "asset": t.get("asset", "ETH"),
+                    "category": t.get("category"),
+                    "timestamp": t.get("metadata", {}).get("blockTimestamp")
+                })
+
+            return {
+                "address": addr,
+                "network": "Ethereum Mainnet",
+                "rpc_provider": "Alchemy Enhanced RPC",
+                "is_smart_contract": is_contract,
+                "account_type": "Smart Contract" if is_contract else "Externally Owned Account (EOA)",
+                "live_block_height": block_num,
+                "balance_eth": round(bal_eth, 6),
+                "balance_wei": str(bal_wei),
+                "onchain_tx_count": nonce,
+                "recent_transfers": recent_txs,
+                "etherscan_url": f"https://etherscan.io/address/{addr}"
+            }
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=f"Failed querying Alchemy RPC: {str(e)}")
+

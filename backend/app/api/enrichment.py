@@ -117,7 +117,7 @@ def generate_synthetic_ip_intel(ip_str: str) -> Dict[str, Any]:
     }
 
 @router.get("/lookup")
-def enrich_target(
+async def enrich_target(
     target: str = Query(..., min_length=1, description="Target IP, domain, or wallet to enrich"),
     db: Session = Depends(get_db)
 ):
@@ -163,8 +163,35 @@ def enrich_target(
             }
         }
 
-    # 3. Ethereum Wallet Enrichment Pipeline
+    # 3. Ethereum Wallet Enrichment Pipeline (Live Alchemy RPC)
     if re.match(r"^0x[a-fA-F0-9]{40}$", target):
+        import httpx
+        from ..config import ALCHEMY_ETH_RPC_URL
+
+        live_balance = None
+        live_tx_count = None
+        is_contract = False
+
+        try:
+            async with httpx.AsyncClient(timeout=4.0) as client:
+                batch = [
+                    {"jsonrpc": "2.0", "id": 1, "method": "eth_getBalance", "params": [target, "latest"]},
+                    {"jsonrpc": "2.0", "id": 2, "method": "eth_getTransactionCount", "params": [target, "latest"]},
+                    {"jsonrpc": "2.0", "id": 3, "method": "eth_getCode", "params": [target, "latest"]},
+                ]
+                r = await client.post(ALCHEMY_ETH_RPC_URL, json=batch)
+                if r.status_code == 200:
+                    data = r.json()
+                    res = {x["id"]: x.get("result") for x in data if isinstance(x, dict)}
+                    if res.get(1):
+                        live_balance = round(int(res[1], 16) / 1e18, 4)
+                    if res.get(2):
+                        live_tx_count = int(res[2], 16)
+                    code = res.get(3, "0x")
+                    is_contract = code is not None and code != "0x" and len(code) > 2
+        except Exception:
+            pass
+
         return {
             "type": "wallet",
             "target": target,
@@ -173,10 +200,14 @@ def enrich_target(
             "entity_id": existing_entity.id if existing_entity else None,
             "intel": {
                 "chain": "Ethereum (Mainnet)",
-                "address_type": "Externally Owned Account (EOA)",
-                "risk_score": 88 if existing_entity else 45,
+                "rpc_live_feed": "Alchemy Mainnet RPC",
+                "live_balance_eth": live_balance,
+                "live_tx_count": live_tx_count,
+                "is_smart_contract": is_contract,
+                "address_type": "Smart Contract" if is_contract else "Externally Owned Account (EOA)",
+                "risk_score": 88 if existing_entity else (65 if is_contract else 35),
                 "threat_level": "ELEVATED" if existing_entity else "NEUTRAL",
-                "category": "Active Cryptographic Ledger Account",
+                "category": "Smart Contract / Escrow" if is_contract else "Active Cryptographic Ledger Account",
                 "subpoena_admissible": True,
                 "recommended_action": "Subpoena Exchange KYC Anchor via Section 91 CrPC / MLAT"
             }

@@ -11,6 +11,10 @@ if not DATA_DIR.exists() or not (DATA_DIR / "blockchain").exists():
     DATA_DIR = BASE_DIR / "trace-x-data"
 
 DATABASE_URL = os.getenv("DATABASE_URL", f"sqlite:///{BACKEND_DIR}/trace_x.db")
+ALCHEMY_ETH_RPC_URL = os.getenv(
+    "ALCHEMY_ETH_RPC_URL",
+    "https://eth-mainnet.g.alchemy.com/v2/alch_9YJOoCFSssXT0-cQvgk8I"
+)
 
 APP_NAME = "TRACE-X"
 APP_DESCRIPTION = "Threat Actor Correlation & Attribution Engine (SIH26151)"

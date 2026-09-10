@@ -83,6 +83,7 @@ export const api = {
     return fetchJson<BlockchainTx[]>(`/blockchain/transactions${q}`);
   },
   getWalletDossier: (address: string) => fetchJson<any>(`/blockchain/wallet/${address}`),
+  getLiveBlockchainTelemetry: (address: string) => fetchJson<any>(`/blockchain/live/${encodeURIComponent(address)}`),
 
   // CTI
   getCtiOverview: () => fetchJson<CtiOverview>('/cti/overview'),

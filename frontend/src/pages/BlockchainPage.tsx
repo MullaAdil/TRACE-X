@@ -13,6 +13,7 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
   const [loading, setLoading] = useState(true);
   const [walletFilter, setWalletFilter] = useState('');
   const [walletDossier, setWalletDossier] = useState<any>(null);
+  const [liveRpcData, setLiveRpcData] = useState<any>(null);
   const [searchingWallet, setSearchingWallet] = useState(false);
 
   useEffect(() => {
@@ -26,24 +27,38 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  const handleWalletSearch = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!walletFilter.trim()) {
+  const handleWalletSearch = async (e?: React.FormEvent, overrideAddr?: string) => {
+    if (e) e.preventDefault();
+    const queryAddr = (overrideAddr ?? walletFilter).trim();
+
+    if (!queryAddr) {
       setWalletDossier(null);
+      setLiveRpcData(null);
       const txs = await api.getTransactions(undefined, 50);
       setTransactions(txs);
       return;
     }
+
     setSearchingWallet(true);
+    setLiveRpcData(null);
+
+    // 1. Fetch live Alchemy RPC data if address looks like ETH (0x...)
+    if (/^0x[a-fA-F0-9]{40}$/.test(queryAddr)) {
+      api.getLiveBlockchainTelemetry(queryAddr)
+        .then(data => setLiveRpcData(data))
+        .catch(err => console.warn('Alchemy RPC query error:', err));
+    }
+
+    // 2. Fetch local case repository data
     try {
       const [dos, txs] = await Promise.all([
-        api.getWalletDossier(walletFilter.trim()),
-        api.getTransactions(walletFilter.trim(), 50)
+        api.getWalletDossier(queryAddr).catch(() => null),
+        api.getTransactions(queryAddr, 50).catch(() => [])
       ]);
       setWalletDossier(dos);
-      setTransactions(txs);
+      if (txs && txs.length > 0) setTransactions(txs);
     } catch (err: any) {
-      alert(`Wallet not found or no transactions recorded: ${err.message}`);
+      console.warn('Local dossier error:', err);
     } finally {
       setSearchingWallet(false);
     }
@@ -159,15 +174,14 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
         {stats && stats.top_wallets.length > 0 && !walletDossier && (
           <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-500">
             <span className="font-semibold text-slate-700">Frequently Tracked Accounts:</span>
-            {stats.top_wallets.slice(0, 4).map((w, i) => (
+            {stats.top_wallets.slice(0, 3).map((w, i) => (
               <button
                 key={i}
                 onClick={() => {
                   setWalletFilter(w.address);
-                  api.getWalletDossier(w.address).then(setWalletDossier);
-                  api.getTransactions(w.address, 50).then(setTransactions);
+                  handleWalletSearch(undefined, w.address);
                 }}
-                className="px-3.5 py-1.5 rounded-xl bg-white border border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-400 font-mono font-bold text-xs transition shadow-2xs flex items-center space-x-1.5"
+                className="px-3 py-1 rounded-xl bg-white border border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-400 font-mono font-bold text-xs transition shadow-2xs flex items-center space-x-1.5"
               >
                 <span>{w.address.slice(0, 8)}...{w.address.slice(-6)}</span>
                 <span className="text-[10px] px-1.5 py-0.2 bg-blue-100/80 rounded-md font-sans font-semibold">
@@ -175,9 +189,141 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                 </span>
               </button>
             ))}
+
+            {/* Quick Live Mainnet Test Button (Alchemy RPC) */}
+            <button
+              onClick={() => {
+                const sample = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
+                setWalletFilter(sample);
+                handleWalletSearch(undefined, sample);
+              }}
+              className="px-3 py-1 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-300 text-emerald-800 hover:border-emerald-500 font-mono font-bold text-xs transition shadow-2xs flex items-center space-x-1.5"
+              title="Test live Alchemy RPC query with Vitalik Buterin's public mainnet address"
+            >
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+              <span>Test Live Mainnet (0xd8dA6...)</span>
+              <span className="text-[9px] uppercase font-sans font-extrabold px-1.5 py-0.2 rounded bg-emerald-200/80 text-emerald-900">
+                Alchemy
+              </span>
+            </button>
           </div>
         )}
       </div>
+
+      {/* Live Ethereum Mainnet Telemetry Strip (Alchemy RPC) */}
+      {liveRpcData && (
+        <div className="p-6 rounded-3xl bg-gradient-to-br from-white to-slate-50 border border-emerald-200/90 shadow-sm space-y-5 animate-in fade-in duration-300">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-emerald-100 pb-4">
+            <div className="space-y-1">
+              <div className="flex items-center space-x-2">
+                <span className="flex items-center space-x-1.5 text-[10px] uppercase font-bold text-emerald-800 bg-emerald-100/80 border border-emerald-300 px-2.5 py-0.5 rounded-full">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-ping" />
+                  <span>Live Mainnet RPC Feed</span>
+                </span>
+                <span className="text-xs font-semibold text-slate-500">Powered by Alchemy</span>
+              </div>
+              <h3 className="text-sm md:text-base font-extrabold text-slate-900 font-mono select-all break-all">
+                {liveRpcData.address}
+              </h3>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <a
+                href={liveRpcData.etherscan_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-liquid-secondary px-3.5 py-1.5 rounded-xl text-xs font-bold inline-flex items-center space-x-1.5"
+              >
+                <span>View on Etherscan</span>
+                <ExternalLink className="w-3.5 h-3.5" />
+              </a>
+            </div>
+          </div>
+
+          {/* Live Metrics Grid */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+            <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs">
+              <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Live On-Chain Balance</span>
+              <span className="text-xl font-black font-mono text-emerald-600 mt-1 block">
+                {liveRpcData.balance_eth} ETH
+              </span>
+              <span className="text-[10px] text-slate-400">Current block balance</span>
+            </div>
+
+            <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs">
+              <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">On-Chain Nonce / Txs</span>
+              <span className="text-xl font-black font-mono text-slate-900 mt-1 block">
+                {liveRpcData.onchain_tx_count?.toLocaleString()}
+              </span>
+              <span className="text-[10px] text-slate-400">Total submitted transactions</span>
+            </div>
+
+            <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs">
+              <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Account Classification</span>
+              <span className="text-base font-bold text-blue-700 mt-1 block truncate">
+                {liveRpcData.account_type}
+              </span>
+              <span className="text-[10px] text-slate-400">
+                {liveRpcData.is_smart_contract ? 'Deployed contract bytecode' : 'Private key wallet (EOA)'}
+              </span>
+            </div>
+
+            <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs">
+              <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Live Block Height</span>
+              <span className="text-base font-bold font-mono text-slate-900 mt-1 block">
+                #{liveRpcData.live_block_height?.toLocaleString()}
+              </span>
+              <span className="text-[10px] text-emerald-600 font-semibold">Synced in real-time</span>
+            </div>
+          </div>
+
+          {/* Recent Live Asset Transfers */}
+          {liveRpcData.recent_transfers && liveRpcData.recent_transfers.length > 0 && (
+            <div className="space-y-2 pt-2">
+              <div className="flex items-center justify-between text-xs">
+                <span className="font-bold text-slate-800">Recent Real-World Transfers (Alchemy Asset API)</span>
+                <span className="text-slate-400 text-[11px]">{liveRpcData.recent_transfers.length} transfers recorded</span>
+              </div>
+              <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-2xs">
+                <table className="w-full text-left text-xs">
+                  <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200 text-[11px]">
+                    <tr>
+                      <th className="px-4 py-2.5">Tx Hash</th>
+                      <th className="px-4 py-2.5">From</th>
+                      <th className="px-4 py-2.5">To</th>
+                      <th className="px-4 py-2.5">Asset / Value</th>
+                      <th className="px-4 py-2.5">Timestamp</th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-slate-100">
+                    {liveRpcData.recent_transfers.slice(0, 5).map((t: any, idx: number) => (
+                      <tr key={idx} className="hover:bg-slate-50/80 font-mono text-[11px]">
+                        <td className="px-4 py-2 text-blue-600 truncate max-w-[120px]">
+                          <a href={`https://etherscan.io/tx/${t.hash}`} target="_blank" rel="noopener noreferrer" className="hover:underline">
+                            {t.hash?.slice(0, 10)}...
+                          </a>
+                        </td>
+                        <td className="px-4 py-2 text-slate-600 truncate max-w-[120px]">
+                          {t.from ? `${t.from.slice(0, 6)}...${t.from.slice(-4)}` : 'Mint/Genesis'}
+                        </td>
+                        <td className="px-4 py-2 text-slate-600 truncate max-w-[120px]">
+                          {t.to ? `${t.to.slice(0, 6)}...${t.to.slice(-4)}` : 'Burn'}
+                        </td>
+                        <td className="px-4 py-2 font-bold text-slate-900">
+                          {t.value ? Number(t.value).toFixed(4) : '0.0000'} {t.asset}
+                        </td>
+                        <td className="px-4 py-2 text-slate-400 font-sans text-[10px]">
+                          {t.timestamp ? new Date(t.timestamp).toLocaleDateString() : 'Confirmed'}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Wallet Dossier (Wide Horizontal Layout) */}
       {walletDossier && (

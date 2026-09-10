@@ -99,11 +99,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* 1. Overview */}
         <button
           onClick={() => onNavigate('dashboard')}
-          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${
-            activePage === 'dashboard'
+          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${activePage === 'dashboard'
               ? 'bg-blue-600 text-white font-bold shadow-sm'
               : 'text-slate-600 hover:text-blue-600 hover:bg-white/80 font-semibold'
-          }`}
+            }`}
         >
           <LayoutDashboard className="w-3.5 h-3.5" />
           <span>Overview</span>
@@ -112,11 +111,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* 2. De-anonymize */}
         <button
           onClick={() => onNavigate('deanonymization')}
-          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${
-            activePage === 'deanonymization'
+          className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${activePage === 'deanonymization'
               ? 'bg-blue-600 text-white font-bold shadow-sm'
               : 'text-blue-700 hover:text-blue-800 hover:bg-blue-50/70 font-bold'
-          }`}
+            }`}
         >
           <Crosshair className="w-3.5 h-3.5 text-blue-600" />
           <span>De-anonymize</span>
@@ -129,11 +127,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="relative">
           <button
             onClick={() => setOpenDropdown(openDropdown === 'explore' ? null : 'explore')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${
-              isExploreActive
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${isExploreActive
                 ? 'bg-blue-600 text-white font-bold shadow-sm'
                 : 'text-slate-600 hover:text-blue-600 hover:bg-white/80 font-semibold'
-            }`}
+              }`}
           >
             <Search className="w-3.5 h-3.5" />
             <span>Explore</span>
@@ -150,19 +147,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button
                       key={item.id}
                       onClick={() => handleSelect(item.id)}
-                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-all duration-150 ${
-                        isItemActive
+                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-all duration-150 ${isItemActive
                           ? 'bg-blue-600 text-white font-bold shadow-2xs'
                           : 'text-slate-700 hover:bg-blue-50/90 hover:text-blue-700 font-semibold'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center space-x-2">
                         <Icon className={`w-3.5 h-3.5 ${isItemActive ? 'text-white' : 'text-blue-600'}`} />
                         <span>{item.title}</span>
                       </div>
-                      <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-mono ${
-                        isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'
-                      }`}>
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-mono ${isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'
+                        }`}>
                         {item.badge}
                       </span>
                     </button>
@@ -177,11 +172,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="relative">
           <button
             onClick={() => setOpenDropdown(openDropdown === 'feeds' ? null : 'feeds')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${
-              isFeedsActive
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${isFeedsActive
                 ? 'bg-blue-600 text-white font-bold shadow-sm'
                 : 'text-slate-600 hover:text-blue-600 hover:bg-white/80 font-semibold'
-            }`}
+              }`}
           >
             <Globe2 className="w-3.5 h-3.5" />
             <span>Data Feeds</span>
@@ -198,19 +192,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button
                       key={item.id}
                       onClick={() => handleSelect(item.id)}
-                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-all duration-150 ${
-                        isItemActive
+                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-all duration-150 ${isItemActive
                           ? 'bg-blue-600 text-white font-bold shadow-2xs'
                           : 'text-slate-700 hover:bg-blue-50/90 hover:text-blue-700 font-semibold'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center space-x-2">
                         <Icon className={`w-3.5 h-3.5 ${isItemActive ? 'text-white' : 'text-blue-600'}`} />
                         <span>{item.title}</span>
                       </div>
-                      <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-mono ${
-                        isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'
-                      }`}>
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-mono ${isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'
+                        }`}>
                         {item.badge}
                       </span>
                     </button>
@@ -225,11 +217,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="relative">
           <button
             onClick={() => setOpenDropdown(openDropdown === 'cases' ? null : 'cases')}
-            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${
-              isCasesActive
+            className={`flex items-center space-x-1.5 px-3 py-1.5 rounded-xl text-xs transition-all duration-200 ${isCasesActive
                 ? 'bg-blue-600 text-white font-bold shadow-sm'
                 : 'text-slate-600 hover:text-blue-600 hover:bg-white/80 font-semibold'
-            }`}
+              }`}
           >
             <FolderLock className="w-3.5 h-3.5" />
             <span>Case Files</span>
@@ -246,19 +237,17 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <button
                       key={item.id}
                       onClick={() => handleSelect(item.id)}
-                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-all duration-150 ${
-                        isItemActive
+                      className={`w-full flex items-center justify-between px-2.5 py-2 rounded-xl text-xs transition-all duration-150 ${isItemActive
                           ? 'bg-blue-600 text-white font-bold shadow-2xs'
                           : 'text-slate-700 hover:bg-blue-50/90 hover:text-blue-700 font-semibold'
-                      }`}
+                        }`}
                     >
                       <div className="flex items-center space-x-2">
                         <Icon className={`w-3.5 h-3.5 ${isItemActive ? 'text-white' : 'text-blue-600'}`} />
                         <span>{item.title}</span>
                       </div>
-                      <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-mono ${
-                        isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'
-                      }`}>
+                      <span className={`text-[10px] px-1.5 py-0.2 rounded-md font-mono ${isItemActive ? 'bg-blue-700 text-white' : 'bg-slate-100 text-slate-500'
+                        }`}>
                         {item.badge}
                       </span>
                     </button>
