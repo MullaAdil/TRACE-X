@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+**/node_modules/
+backend/venv/
+**/venv/
+venv/
+env/
+.venv/
+
+# Build artifacts
+dist/
+**/dist/
+build/
+
+# Python cache & artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Local databases & logs
+*.sqlite3
+*.db
+backend/trace_x.db
+*.log
+logs/
+
+# Environment and secrets
+.env
+.env.local
+.env.*.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea/
+.vscode/
+*.swp
