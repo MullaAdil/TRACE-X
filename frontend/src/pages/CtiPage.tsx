@@ -45,11 +45,11 @@ export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
       case 'domain':
         return 'Web Domain';
       case 'ip':
-        return 'Server IP';
+        return 'Internet Protocol (IP) Address';
       case 'hash':
-        return 'File Digital Hash';
+        return 'Cryptographic Hash';
       case 'url':
-        return 'Malicious Link';
+        return 'Uniform Resource Locator (URL)';
       default:
         return type.toUpperCase();
     }
@@ -64,13 +64,13 @@ export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
             <div className="lg:col-span-7 space-y-3">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full badge-subtle-green text-xs font-bold">
                 <Bug className="w-3.5 h-3.5 text-emerald-600" />
-                <span>STANDALONE MICROSERVICE • CTI & MALWARE ATTRIBUTION</span>
+                <span>STANDALONE MICROSERVICE • CYBER THREAT INTELLIGENCE & MALWARE ATTRIBUTION</span>
               </div>
               <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
                 Malware & Threat Infrastructure. Real campaigns, decoded.
               </h1>
               <p className="text-sm text-slate-600 leading-relaxed font-normal">
-                CitizenLab and MISP documented the servers, phishing domains, and malicious software used in targeted cyber campaigns. TRACE-X organizes these into tamper-proof clues that link directly to blockchain and forum evidence.
+                CitizenLab and Malware Information Sharing Platform (MISP) documented the servers, phishing domains, and malicious software used in targeted cyber campaigns. TRACE-X organizes these into tamper-proof clues that link directly to blockchain and forum evidence.
               </p>
             </div>
 
@@ -78,13 +78,13 @@ export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
               <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-md group bg-slate-100">
                 <img
                   src="/src/assets/visuals/cti_visual.jpg"
-                  alt="Malware Analysis & C2 Infrastructure Visual"
+                  alt="Malware Analysis & Command and Control Infrastructure Visual"
                   className="w-full h-52 md:h-56 object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                 />
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
                   <span className="px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200/80 text-[11px] font-mono text-slate-800 font-bold flex items-center space-x-2 shadow-sm">
                     <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                    <span>MISP Threat Telemetry • C2 Beacons Active</span>
+                    <span>Malware Information Sharing Platform (MISP) Telemetry • Command and Control Beacons Active</span>
                   </span>
                 </div>
               </div>
@@ -181,7 +181,7 @@ export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
                 type="text"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                placeholder="Search CTI clues by domain, IP, hash, or malware description (e.g. '198.12.150', 'wjwj', 'outlook', 'trojan')..."
+                placeholder="Search Cyber Threat Intelligence clues by domain, IP address, cryptographic hash, or malware description (e.g. '198.12.150', 'wjwj', 'outlook', 'trojan')..."
                 className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-2xl text-xs text-slate-900 placeholder-slate-400 font-medium focus:outline-none focus:border-blue-500 focus:bg-white shadow-inner transition"
               />
             </div>
@@ -213,10 +213,10 @@ export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
               <div className="flex flex-wrap gap-1.5">
                 {[
                   { id: 'ALL', label: 'All Indicators' },
-                  { id: 'domain', label: 'Domains' },
-                  { id: 'ip', label: 'Server IPs' },
-                  { id: 'hash', label: 'File Hashes' },
-                  { id: 'url', label: 'Links' }
+                  { id: 'domain', label: 'Web Domains' },
+                  { id: 'ip', label: 'Internet Protocol (IP) Addresses' },
+                  { id: 'hash', label: 'Cryptographic Hashes' },
+                  { id: 'url', label: 'Uniform Resource Locators (URLs)' }
                 ].map((f) => (
                   <button
                     key={f.id}

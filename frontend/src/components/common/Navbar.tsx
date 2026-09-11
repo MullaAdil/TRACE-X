@@ -76,17 +76,17 @@ export const Navbar: React.FC<NavbarProps> = ({
   ];
 
   const feedsItems = [
-    { id: 'blockchain', title: 'Crypto Wallets', icon: Coins, badge: 'ETH' },
-    { id: 'darkweb', title: 'Dark Web Posts', icon: Globe2, badge: 'Tor' },
-    { id: 'cti', title: 'Malware & C2', icon: Bug, badge: 'MISP' },
-    { id: 'pgp', title: 'Digital Keys', icon: KeyRound, badge: 'PGP' }
+    { id: 'blockchain', title: 'Cryptocurrency Wallets', icon: Coins, badge: 'Ethereum' },
+    { id: 'darkweb', title: 'Dark Web Forum Discussions', icon: Globe2, badge: 'The Onion Router' },
+    { id: 'cti', title: 'Malware & Command and Control', icon: Bug, badge: 'Threat Intelligence' },
+    { id: 'pgp', title: 'Digital Signature Keys', icon: KeyRound, badge: 'Pretty Good Privacy' }
   ];
 
   const caseItems = [
-    { id: 'investigations', title: 'Active Cases', icon: FolderLockIcon, badge: 'Cases' },
-    { id: 'evidence', title: 'Evidence Vault', icon: FileCheck, badge: 'SHA-256' },
-    { id: 'timeline', title: 'Event Timeline', icon: Clock, badge: 'Time' },
-    { id: 'reports', title: 'Formal Reports', icon: FileText, badge: 'Legal' }
+    { id: 'investigations', title: 'Active Case Files', icon: FolderLockIcon, badge: 'Cases' },
+    { id: 'evidence', title: 'Evidence Vault', icon: FileCheck, badge: 'Cryptographic Hash' },
+    { id: 'timeline', title: 'Event Timeline', icon: Clock, badge: 'Chronology' },
+    { id: 'reports', title: 'Formal Investigation Reports', icon: FileText, badge: 'Legal' }
   ];
 
   function FolderLockIcon(props: any) {

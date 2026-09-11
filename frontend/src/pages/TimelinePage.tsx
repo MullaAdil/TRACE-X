@@ -35,13 +35,13 @@ export const TimelinePage: React.FC<TimelinePageProps> = ({ onSelectEvidence }) 
   const getSourceBadge = (source: string) => {
     switch (source.toUpperCase()) {
       case 'BLOCKCHAIN':
-        return 'Crypto Ledger';
+        return 'Cryptocurrency Ledger';
       case 'CTI':
-        return 'Threat Intel';
+        return 'Cyber Threat Intelligence';
       case 'DARKWEB':
-        return 'Dark Web Post';
+        return 'Dark Web Underground Discussion';
       case 'PGP':
-        return 'Digital Key';
+        return 'Pretty Good Privacy Digital Key';
       default:
         return source;
     }
@@ -53,7 +53,7 @@ export const TimelinePage: React.FC<TimelinePageProps> = ({ onSelectEvidence }) 
       <div className="space-y-1.5">
         <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-xs font-semibold">
           <Clock className="w-3.5 h-3.5" />
-          <span>Unified Cross-Source Timeline</span>
+          <span>Unified Cross-Source Chronological Timeline</span>
         </div>
         <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
           Event Timeline. The full story, arranged in order.
@@ -69,11 +69,11 @@ export const TimelinePage: React.FC<TimelinePageProps> = ({ onSelectEvidence }) 
           <span className="text-xs font-bold text-slate-700">Filter Source:</span>
           <div className="flex flex-wrap gap-1.5">
             {[
-              { id: 'ALL', label: 'All Sources' },
-              { id: 'BLOCKCHAIN', label: 'Crypto Transfers' },
-              { id: 'CTI', label: 'Malware Intel' },
-              { id: 'DARKWEB', label: 'Forum Leaks' },
-              { id: 'PGP', label: 'Digital Keys' }
+              { id: 'ALL', label: 'All Forensic Sources' },
+              { id: 'BLOCKCHAIN', label: 'Cryptocurrency Transfers' },
+              { id: 'CTI', label: 'Cyber Threat Intelligence & Malware' },
+              { id: 'DARKWEB', label: 'Dark Web Underground Discussions' },
+              { id: 'PGP', label: 'Pretty Good Privacy Digital Keys' }
             ].map((s) => (
               <button
                 key={s.id}

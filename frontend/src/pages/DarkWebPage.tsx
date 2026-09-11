@@ -38,7 +38,7 @@ export const DarkWebPage: React.FC<DarkWebPageProps> = ({ onSelectEvidence }) =>
             <div className="lg:col-span-7 space-y-3">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full badge-subtle-pink text-xs font-bold">
                 <Globe2 className="w-3.5 h-3.5 text-pink-600" />
-                <span>STANDALONE MICROSERVICE • DARK WEB ONION CRAWLER</span>
+                <span>STANDALONE MICROSERVICE • DARK WEB THE ONION ROUTER (TOR) UNDERGROUND CRAWLER</span>
               </div>
               <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
                 What the dark web is saying. In plain view.
@@ -58,7 +58,7 @@ export const DarkWebPage: React.FC<DarkWebPageProps> = ({ onSelectEvidence }) =>
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
                   <span className="px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200/80 text-[11px] font-mono text-slate-800 font-bold flex items-center space-x-2 shadow-sm">
                     <span className="w-2 h-2 rounded-full bg-pink-500 animate-ping" />
-                    <span>Tor Circuit Multihop Telemetry Active</span>
+                    <span>The Onion Router (Tor) Circuit Multihop Telemetry Active</span>
                   </span>
                 </div>
               </div>
@@ -198,9 +198,9 @@ export const DarkWebPage: React.FC<DarkWebPageProps> = ({ onSelectEvidence }) =>
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50 text-slate-500 font-mono text-[10px] uppercase border-b border-slate-200">
                 <tr>
-                  <th className="px-6 py-3.5">Thread Ref</th>
+                  <th className="px-6 py-3.5">Thread Reference Identifier</th>
                   <th className="px-6 py-3.5">Discussion Topic</th>
-                  <th className="px-6 py-3.5">Author Handle</th>
+                  <th className="px-6 py-3.5">Author Handle (Privacy Masked)</th>
                   <th className="px-6 py-3.5">Category</th>
                   <th className="px-6 py-3.5 text-right">Action</th>
                 </tr>

@@ -52,54 +52,54 @@ export const Sidebar: React.FC<SidebarProps> = ({
     {
       title: "Core Workbenches",
       items: [
-        { id: 'dashboard', label: 'Overview', icon: LayoutDashboard },
-        { id: 'deanonymization', label: 'De-anonymize', icon: Crosshair, highlight: true }
+        { id: 'dashboard', label: 'Executive Overview', icon: LayoutDashboard },
+        { id: 'deanonymization', label: 'De-anonymization Analysis', icon: Crosshair, highlight: true }
       ]
     },
     {
       title: "Discovery & Map",
       items: [
         { id: 'search', label: 'Universal Search', icon: Search },
-        { id: 'graph', label: 'Interactive Map', icon: Share2 }
+        { id: 'graph', label: 'Interactive Relationship Map', icon: Share2 }
       ]
     },
     {
       title: "Connected Data Feeds",
       items: [
-        { id: 'blockchain', label: 'Crypto Wallets', icon: Coins },
-        { id: 'darkweb', label: 'Dark Web Posts', icon: Globe2 },
-        { id: 'cti', label: 'Malware & C2', icon: Bug },
-        { id: 'pgp', label: 'PGP Keys', icon: KeyRound }
+        { id: 'blockchain', label: 'Cryptocurrency Wallets', icon: Coins },
+        { id: 'darkweb', label: 'Dark Web Discussions', icon: Globe2 },
+        { id: 'cti', label: 'Malware & Command and Control', icon: Bug },
+        { id: 'pgp', label: 'Pretty Good Privacy Digital Keys', icon: KeyRound }
       ]
     },
     {
       title: "Case Management",
       items: [
-        { id: 'investigations', label: 'Active Cases', icon: FolderLock },
-        { id: 'timeline', label: 'Event Timeline', icon: Clock },
-        { id: 'evidence', label: 'Evidence Vault', icon: FileCheck },
-        { id: 'reports', label: 'Formal Reports', icon: FileText }
+        { id: 'investigations', label: 'Active Case Files', icon: FolderLock },
+        { id: 'timeline', label: 'Master Event Timeline', icon: Clock },
+        { id: 'evidence', label: 'Cryptographic Evidence Vault', icon: FileCheck },
+        { id: 'reports', label: 'Formal Investigation Reports', icon: FileText }
       ]
     }
   ];
 
   // 5 Essential Core Actions for the compact dock
   const primaryTabs = [
-    { id: 'dashboard', label: 'Overview', icon: LayoutDashboard },
-    { id: 'deanonymization', label: 'De-anonymize', icon: Crosshair, isHot: true },
+    { id: 'dashboard', label: 'Executive Overview', icon: LayoutDashboard },
+    { id: 'deanonymization', label: 'De-anonymization', icon: Crosshair, isHot: true },
     { id: 'search', label: 'Search', icon: Search },
-    { id: 'graph', label: 'Map', icon: Share2 },
-    { id: 'reports', label: 'Reports', icon: FileText }
+    { id: 'graph', label: 'Relationship Map', icon: Share2 },
+    { id: 'reports', label: 'Investigation Reports', icon: FileText }
   ];
 
   const secondaryTabs = [
-    { id: 'blockchain', label: 'Crypto Wallets', icon: Coins },
-    { id: 'darkweb', label: 'Dark Web Posts', icon: Globe2 },
-    { id: 'cti', label: 'Malware & C2', icon: Bug },
-    { id: 'pgp', label: 'PGP Signatures', icon: KeyRound },
-    { id: 'investigations', label: 'Active Cases', icon: FolderLock },
-    { id: 'timeline', label: 'Event Timeline', icon: Clock },
-    { id: 'evidence', label: 'Evidence Vault', icon: FileCheck }
+    { id: 'blockchain', label: 'Cryptocurrency Wallets', icon: Coins },
+    { id: 'darkweb', label: 'Dark Web Discussions', icon: Globe2 },
+    { id: 'cti', label: 'Malware & Command and Control', icon: Bug },
+    { id: 'pgp', label: 'Pretty Good Privacy Digital Keys', icon: KeyRound },
+    { id: 'investigations', label: 'Active Case Files', icon: FolderLock },
+    { id: 'timeline', label: 'Master Event Timeline', icon: Clock },
+    { id: 'evidence', label: 'Cryptographic Evidence Vault', icon: FileCheck }
   ];
 
   const isSecondaryActive = secondaryTabs.some(t => t.id === activePage);

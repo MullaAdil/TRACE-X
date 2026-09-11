@@ -79,7 +79,7 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                 Follow the money. Track every Ethereum transfer.
               </h1>
               <p className="text-sm text-slate-600 max-w-2xl leading-relaxed font-normal">
-                When funds move across accounts, TRACE-X follows each hop on the public Ethereum ledger. Powered by live Alchemy RPC and on-chain transaction decoders, you get a crystal-clear breakdown of who sent what, who received it, and how wallets connect to known threat campaigns.
+                When funds move across accounts, TRACE-X follows each hop on the public Ethereum ledger. Powered by live Alchemy Remote Procedure Call (RPC) and on-chain transaction decoders, you get a crystal-clear breakdown of who sent what, who received it, and how wallets connect to known threat campaigns.
               </p>
             </div>
 
@@ -143,10 +143,10 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                 </div>
                 <div>
                   <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Total Volume</span>
-                  <span className="text-xs text-slate-600 font-medium">Transferred in ETH</span>
+                  <span className="text-xs text-slate-600 font-medium">Transferred in Ethereum (ETH)</span>
                 </div>
               </div>
-              <span className="text-2xl font-black font-mono text-pink-600">{stats.total_volume_eth} ETH</span>
+              <span className="text-2xl font-black font-mono text-pink-600">{stats.total_volume_eth} Ethereum</span>
             </div>
           </div>
 
@@ -216,12 +216,12 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                 >
                   <span>{w.address.slice(0, 8)}...{w.address.slice(-6)}</span>
                   <span className="text-[10px] px-1.5 py-0.2 bg-blue-100/80 rounded-md font-sans font-semibold">
-                    {w.transaction_count} tx
+                    {w.transaction_count} transactions
                   </span>
                 </button>
               ))}
 
-              {/* Quick Live Mainnet Test Button (Alchemy RPC) */}
+              {/* Quick Live Mainnet Test Button (Alchemy Remote Procedure Call) */}
               <button
                 onClick={() => {
                   const sample = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
@@ -229,19 +229,19 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                   handleWalletSearch(undefined, sample);
                 }}
                 className="px-3 py-1 rounded-xl bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-300 text-emerald-800 hover:border-emerald-500 font-mono font-bold text-xs transition shadow-2xs flex items-center space-x-1.5"
-                title="Test live Alchemy RPC query with Vitalik Buterin's public mainnet address"
+                title="Test live Alchemy Remote Procedure Call query with Vitalik Buterin's public mainnet address"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                 <span>Test Live Mainnet (0xd8dA6...)</span>
                 <span className="text-[9px] uppercase font-sans font-extrabold px-1.5 py-0.2 rounded bg-emerald-200/80 text-emerald-900">
-                  Alchemy
+                  Alchemy RPC
                 </span>
               </button>
             </div>
           )}
         </div>
       </div>
-      {/* Live Ethereum Mainnet Telemetry Strip (Alchemy RPC) with Slide-on-Slide Theme */}
+      {/* Live Ethereum Mainnet Telemetry Strip (Alchemy Remote Procedure Call) with Slide-on-Slide Theme */}
       {liveRpcData && (
         <div className="mr-3 mb-4">
           <div className="card-slide-stack p-6 bg-gradient-to-br from-white to-slate-50 border border-emerald-200/90 shadow-sm space-y-5 animate-in fade-in duration-300">
@@ -250,7 +250,7 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                 <div className="flex items-center space-x-2">
                   <span className="flex items-center space-x-1.5 text-[10px] uppercase font-bold text-emerald-800 bg-emerald-100/80 border border-emerald-300 px-2.5 py-0.5 rounded-full">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-ping" />
-                    <span>Live Mainnet RPC Feed</span>
+                    <span>Live Mainnet Remote Procedure Call Feed</span>
                   </span>
                   <span className="text-xs font-semibold text-slate-500">Powered by Alchemy</span>
                 </div>
@@ -277,13 +277,13 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
               <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs">
                 <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Live On-Chain Balance</span>
                 <span className="text-xl font-black font-mono text-emerald-600 mt-1 block">
-                  {liveRpcData.balance_eth} ETH
+                  {liveRpcData.balance_eth} Ethereum (ETH)
                 </span>
                 <span className="text-[10px] text-slate-400">Current block balance</span>
               </div>
 
               <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs">
-                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">On-Chain Nonce / Txs</span>
+                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">On-Chain Nonce / Total Transactions</span>
                 <span className="text-xl font-black font-mono text-slate-900 mt-1 block">
                   {liveRpcData.onchain_tx_count?.toLocaleString()}
                 </span>
@@ -296,7 +296,7 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                   {liveRpcData.account_type}
                 </span>
                 <span className="text-[10px] text-slate-400">
-                  {liveRpcData.is_smart_contract ? 'Deployed contract bytecode' : 'Private key wallet (EOA)'}
+                  {liveRpcData.is_smart_contract ? 'Deployed smart contract bytecode' : 'Private key wallet (Externally Owned Account - EOA)'}
                 </span>
               </div>
 
@@ -313,14 +313,14 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
             {liveRpcData.recent_transfers && liveRpcData.recent_transfers.length > 0 && (
               <div className="space-y-2 pt-2">
                 <div className="flex items-center justify-between text-xs">
-                  <span className="font-bold text-slate-800">Recent Real-World Transfers (Alchemy Asset API)</span>
+                  <span className="font-bold text-slate-800">Recent Real-World Transfers (Alchemy Asset Application Programming Interface)</span>
                   <span className="text-slate-400 text-[11px]">{liveRpcData.recent_transfers.length} transfers recorded</span>
                 </div>
                 <div className="overflow-x-auto rounded-2xl border border-slate-200 bg-white shadow-2xs">
                   <table className="w-full text-left text-xs">
                     <thead className="bg-slate-50 text-slate-500 font-semibold border-b border-slate-200 text-[11px]">
                       <tr>
-                        <th className="px-4 py-2.5">Tx Hash</th>
+                        <th className="px-4 py-2.5">Transaction Hash</th>
                         <th className="px-4 py-2.5">From</th>
                         <th className="px-4 py-2.5">To</th>
                         <th className="px-4 py-2.5">Asset / Value</th>
@@ -398,11 +398,11 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
               </div>
               <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
                 <span className="text-slate-400 block text-[10px] font-bold uppercase">Sent Funds</span>
-                <span className="text-xl font-black font-mono text-slate-900 mt-1 block">{walletDossier.total_sent_eth} ETH</span>
+                <span className="text-xl font-black font-mono text-slate-900 mt-1 block">{walletDossier.total_sent_eth} Ethereum</span>
               </div>
               <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
                 <span className="text-slate-400 block text-[10px] font-bold uppercase">Received Funds</span>
-                <span className="text-xl font-black font-mono text-blue-600 mt-1 block">{walletDossier.total_received_eth} ETH</span>
+                <span className="text-xl font-black font-mono text-blue-600 mt-1 block">{walletDossier.total_received_eth} Ethereum</span>
               </div>
             </div>
 
@@ -436,12 +436,12 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-50 text-slate-500 font-mono text-[10px] uppercase border-b border-slate-200">
                 <tr>
-                  <th className="px-6 py-3.5">Block</th>
+                  <th className="px-6 py-3.5">Block Number</th>
                   <th className="px-6 py-3.5">Date & Time</th>
-                  <th className="px-6 py-3.5">Transaction ID</th>
-                  <th className="px-6 py-3.5">From (Sender)</th>
-                  <th className="px-6 py-3.5">To (Recipient)</th>
-                  <th className="px-6 py-3.5 text-right">Amount (ETH)</th>
+                  <th className="px-6 py-3.5">Transaction Hash Identifier</th>
+                  <th className="px-6 py-3.5">From (Sender Address)</th>
+                  <th className="px-6 py-3.5">To (Recipient Address)</th>
+                  <th className="px-6 py-3.5 text-right">Amount (Ethereum)</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-100 font-mono text-[11px]">
@@ -487,7 +487,7 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                       </button>
                     </td>
                     <td className="px-6 py-3.5 text-right font-bold text-blue-600">
-                      {tx.value_eth > 0 ? `${tx.value_eth.toFixed(4)} ETH` : '0 ETH'}
+                      {tx.value_eth > 0 ? `${tx.value_eth.toFixed(4)} Ethereum` : '0 Ethereum'}
                     </td>
                   </tr>
                 ))}

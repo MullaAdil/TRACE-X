@@ -94,7 +94,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
       page: 'blockchain'
     },
     {
-      label: 'Malicious Server & C2 Feeds',
+      label: 'Malicious Server & Command and Control Feeds',
       sublabel: 'Packrat threat actor attack infrastructure',
       value: stats.cti_indicators_count,
       icon: Bug,
@@ -253,7 +253,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     <Coins className="w-4 h-4" />
                   </div>
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full badge-subtle-green">
-                    SVC-01: CRYPTO
+                    Service 01: Cryptocurrency Ledger
                   </span>
                 </div>
                 <div className="space-y-1">
@@ -261,12 +261,12 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     Blockchain Ledger Service
                   </h3>
                   <p className="text-xs text-slate-500 line-clamp-2">
-                    Live Alchemy RPC mainnet tracker. Dissects wallet flows, bytecode contracts, and ERC-20 laundering hops.
+                    Live Alchemy Remote Procedure Call mainnet tracker. Dissects wallet flows, bytecode contracts, and ERC-20 token laundering hops.
                   </p>
                 </div>
               </div>
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700">
-                <span className="font-mono">{stats.blockchain_tx_count} Verified Txs</span>
+                <span className="font-mono">{stats.blockchain_tx_count} Verified Transactions</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
             </div>
@@ -288,7 +288,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
                     <span className="px-2 py-0.5 rounded-lg bg-white/90 backdrop-blur-md border border-slate-200/80 text-[10px] font-mono font-bold text-slate-800 flex items-center space-x-1.5 shadow-2xs">
                       <span className="w-1.5 h-1.5 rounded-full bg-pink-500 animate-pulse" />
-                      <span>Tor Onion Feeds</span>
+                      <span>The Onion Router (Tor) Feeds</span>
                     </span>
                   </div>
                 </div>
@@ -298,7 +298,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     <Globe2 className="w-4 h-4" />
                   </div>
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full badge-subtle-pink">
-                    SVC-02: DARKNET
+                    Service 02: Dark Web Underground
                   </span>
                 </div>
                 <div className="space-y-1">
@@ -306,12 +306,12 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     Dark Web Leak Service
                   </h3>
                   <p className="text-xs text-slate-500 line-clamp-2">
-                    Monitors underground Tor forums, paste repositories, database leaks, and masked actor signatures.
+                    Monitors underground onion forums, paste repositories, database leaks, and masked actor signatures.
                   </p>
                 </div>
               </div>
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-pink-700">
-                <span className="font-mono">{stats.darkweb_threads_count} Forum Leaks</span>
+                <span className="font-mono">{stats.darkweb_threads_count} Forum Leak Discussions</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
             </div>
@@ -327,13 +327,13 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 <div className="relative h-28 rounded-2xl overflow-hidden border border-slate-200/80 mb-1 group-hover:shadow-sm bg-slate-100">
                   <img
                     src="/src/assets/visuals/cti_visual.jpg"
-                    alt="Malware & C2 Service Visual"
+                    alt="Malware & Command and Control Service Visual"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
                     <span className="px-2 py-0.5 rounded-lg bg-white/90 backdrop-blur-md border border-slate-200/80 text-[10px] font-mono font-bold text-slate-800 flex items-center space-x-1.5 shadow-2xs">
                       <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                      <span>MISP Indicators</span>
+                      <span>Threat Intelligence Telemetry</span>
                     </span>
                   </div>
                 </div>
@@ -343,20 +343,20 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     <Bug className="w-4 h-4" />
                   </div>
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full badge-subtle-green">
-                    SVC-03: CTI-IOC
+                    Service 03: Cyber Threat Intelligence
                   </span>
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-emerald-700 transition">
-                    Malware & C2 Service
+                    Malware & Command and Control Service
                   </h3>
                   <p className="text-xs text-slate-500 line-clamp-2">
-                    MISP-standard indicators of compromise. Reverse-DNS, C2 IP co-location, and Packrat campaign telemetry.
+                    Malware Information Sharing Platform (MISP) indicators of compromise. Reverse Domain Name System (DNS), Command and Control Server IP co-location, and Packrat campaign telemetry.
                   </p>
                 </div>
               </div>
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700">
-                <span className="font-mono">{stats.cti_indicators_count} Active IOCs</span>
+                <span className="font-mono">{stats.cti_indicators_count} Active Indicators of Compromise</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
             </div>
@@ -372,13 +372,13 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                 <div className="relative h-28 rounded-2xl overflow-hidden border border-slate-200/80 mb-1 group-hover:shadow-sm bg-slate-100">
                   <img
                     src="/src/assets/visuals/pgp_visual.jpg"
-                    alt="PGP Keyring Service Visual"
+                    alt="Pretty Good Privacy Keyring Service Visual"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
                     <span className="px-2 py-0.5 rounded-lg bg-white/90 backdrop-blur-md border border-slate-200/80 text-[10px] font-mono font-bold text-slate-800 flex items-center space-x-1.5 shadow-2xs">
                       <span className="w-1.5 h-1.5 rounded-full bg-blue-500 animate-pulse" />
-                      <span>CIRCL Standard</span>
+                      <span>Luxembourg Reference Standard</span>
                     </span>
                   </div>
                 </div>
@@ -388,20 +388,20 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                     <KeyRound className="w-4 h-4" />
                   </div>
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full badge-subtle-blue">
-                    SVC-04: CRYPTO-ID
+                    Service 04: Pretty Good Privacy Keyring
                   </span>
                 </div>
                 <div className="space-y-1">
                   <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-blue-700 transition">
-                    PGP Keyring Service
+                    Pretty Good Privacy Digital Keyring Service
                   </h3>
                   <p className="text-xs text-slate-500 line-clamp-2">
-                    Digital fingerprint verification. Parses armored RSA/Ed25519 blocks and benchmarks against CIRCL keys.
+                    Digital fingerprint verification. Parses armored RSA/Ed25519 blocks and benchmarks against verified reference keys.
                   </p>
                 </div>
               </div>
               <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-700">
-                <span className="font-mono">OpenPGP Standard</span>
+                <span className="font-mono">Open Pretty Good Privacy Standard</span>
                 <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
             </div>

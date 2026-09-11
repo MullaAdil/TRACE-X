@@ -35,13 +35,13 @@ export const EvidencePage: React.FC<EvidencePageProps> = ({ onSelectEvidence }) 
   const getSourceLabel = (src: string) => {
     switch (src.toUpperCase()) {
       case 'BLOCKCHAIN':
-        return 'Crypto Ledger';
+        return 'Cryptocurrency Ledger';
       case 'CTI':
-        return 'Malware Intel';
+        return 'Cyber Threat Intelligence';
       case 'DARKWEB':
-        return 'Forum Leak';
+        return 'Dark Web Underground Discussion';
       case 'PGP':
-        return 'Digital Key';
+        return 'Pretty Good Privacy Digital Key';
       default:
         return src;
     }
@@ -59,7 +59,7 @@ export const EvidencePage: React.FC<EvidencePageProps> = ({ onSelectEvidence }) 
           Evidence Vault. Every clue, cryptographically sealed.
         </h1>
         <p className="text-sm text-slate-500 max-w-3xl leading-relaxed">
-          Every piece of evidence collected by TRACE-X receives a cryptographic SHA-256 digital fingerprint at the exact moment of discovery. The provenance is permanent, auditable, and court-admissible.
+          Every piece of evidence collected by TRACE-X receives a cryptographic Secure Hash Algorithm (SHA-256) digital fingerprint at the exact moment of discovery. The provenance is permanent, auditable, and court-admissible.
         </p>
       </div>
 
@@ -71,10 +71,10 @@ export const EvidencePage: React.FC<EvidencePageProps> = ({ onSelectEvidence }) 
             <div className="flex flex-wrap gap-1.5">
               {[
                 { id: 'ALL', label: 'All Vault Clues' },
-                { id: 'BLOCKCHAIN', label: 'Crypto Transfers' },
-                { id: 'CTI', label: 'Malware Intel' },
-                { id: 'DARKWEB', label: 'Forum Leaks' },
-                { id: 'PGP', label: 'Digital Keys' }
+                { id: 'BLOCKCHAIN', label: 'Cryptocurrency Transfers' },
+                { id: 'CTI', label: 'Cyber Threat Intelligence & Malware' },
+                { id: 'DARKWEB', label: 'Dark Web Underground Discussions' },
+                { id: 'PGP', label: 'Pretty Good Privacy Digital Keys' }
               ].map((s) => (
                 <button
                   key={s.id}
@@ -131,7 +131,7 @@ export const EvidencePage: React.FC<EvidencePageProps> = ({ onSelectEvidence }) 
               </div>
               <div className="flex items-center space-x-1.5 text-xs text-blue-700 bg-blue-50 border border-blue-200 px-3 py-1 rounded-xl self-start md:self-auto font-bold">
                 <ShieldCheck className="w-3.5 h-3.5" />
-                <span>SHA-256 Chain of Custody</span>
+                <span>Secure Hash Algorithm (SHA-256) Chain of Custody</span>
               </div>
             </div>
 
@@ -139,10 +139,10 @@ export const EvidencePage: React.FC<EvidencePageProps> = ({ onSelectEvidence }) 
               <table className="w-full text-left text-xs">
                 <thead className="bg-slate-50 text-slate-500 font-mono text-[10px] uppercase border-b border-slate-200">
                   <tr>
-                    <th className="px-5 py-3.5">Clue ID</th>
+                    <th className="px-5 py-3.5">Clue Identifier</th>
                     <th className="px-5 py-3.5">Source Feed</th>
                     <th className="px-5 py-3.5">Fingerprinted Value</th>
-                    <th className="px-5 py-3.5">Cryptographic SHA-256 Hash</th>
+                    <th className="px-5 py-3.5">Secure Hash Algorithm (SHA-256) Digest</th>
                     <th className="px-5 py-3.5">Timestamp</th>
                     <th className="px-5 py-3.5 text-right">Verification</th>
                   </tr>

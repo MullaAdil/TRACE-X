@@ -96,7 +96,7 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
       case 'COMPLETED':
         return (
           <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
-            <CheckCircle2 className="w-3 h-3 mr-1 text-emerald-600" /> ATTR COMPLETED
+            <CheckCircle2 className="w-3 h-3 mr-1 text-emerald-600" /> ATTRIBUTION COMPLETED
           </span>
         );
       case 'IN_PROGRESS':
@@ -108,7 +108,7 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
       default:
         return (
           <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-mono font-bold bg-rose-50 text-rose-700 border border-rose-200">
-            <Lock className="w-3 h-3 mr-1 text-rose-600" /> LEGAL SUBPOENA REQ
+            <Lock className="w-3 h-3 mr-1 text-rose-600" /> JUDICIAL LEGAL SUBPOENA REQUIRED
           </span>
         );
     }
@@ -123,7 +123,7 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
             <div className="lg:col-span-7 space-y-3">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full badge-subtle-blue text-xs font-bold mb-2">
                 <span className="inline-block w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
-                <span>NTRO PROBLEM ID: SIH26151</span>
+                <span>NATIONAL TECHNICAL RESEARCH ORGANISATION (NTRO) PROBLEM ID: SIH26151</span>
                 <span>•</span>
                 <span className="text-slate-600">DE-ANONYMIZATION ENGINE</span>
               </div>
@@ -208,7 +208,7 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
               <Crosshair className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
               <input
                 type="text"
-                placeholder="Analyze any wallet (0x...), C2 IP (198.12...), domain, or alias dynamically..."
+                placeholder="Analyze any wallet address (0x...), Command and Control IP (198.12...), domain, or alias dynamically..."
                 onKeyDown={(e) => {
                   if (e.key === 'Enter') {
                     const val = (e.target as HTMLInputElement).value.trim();
@@ -291,7 +291,7 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
                   <div className="text-2xl font-extrabold text-blue-600 font-mono">
                     {pipelineData.opsec_vulnerabilities?.length || 0} Leaks
                   </div>
-                  <div className="text-[11px] text-slate-500">Adversary OPSEC errors</div>
+                  <div className="text-[11px] text-slate-500">Adversary Operations Security (OPSEC) errors</div>
                 </div>
                 <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
                   <AlertTriangle className="w-6 h-6" />
@@ -308,7 +308,7 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
                   <div className="text-sm font-extrabold text-slate-900 mt-1">
                     {pipelineData.target_id === 'demo_persona_omega' ? 'Subpoena Validated' : 'Ready For Subpoena'}
                   </div>
-                  <div className="text-[11px] text-slate-500">Requires judicial KYC warrant</div>
+                  <div className="text-[11px] text-slate-500">Requires judicial Know-Your-Customer (KYC) warrant</div>
                 </div>
                 <div className="w-12 h-12 rounded-2xl bg-blue-50 text-blue-600 flex items-center justify-center font-bold">
                   <Lock className="w-6 h-6" />
@@ -533,9 +533,9 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
                 <span>Attribution Evidentiary Principles</span>
               </div>
               <p className="leading-relaxed">
-                Under NTRO operational guidelines, correlating IP addresses, domains, malware hashes, and crypto wallets forms a{' '}
+                Under National Technical Research Organisation (NTRO) operational guidelines, correlating Internet Protocol (IP) addresses, web domains, malware cryptographic hashes, and cryptocurrency wallets forms a{' '}
                 <strong className="text-blue-800 font-bold">Confirmed Digital Cluster</strong>.
-                Real-world physical identity is never guessed or fabricated; it is confirmed exclusively through authorized judicial KYC orders or cryptographic key escrow anchors.
+                Real-world physical identity is never guessed or fabricated; it is confirmed exclusively through authorized judicial Know-Your-Customer (KYC) orders or cryptographic key escrow anchors.
               </p>
             </div>
           </div>

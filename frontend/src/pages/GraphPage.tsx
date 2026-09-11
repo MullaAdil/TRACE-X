@@ -81,7 +81,7 @@ export const GraphPage: React.FC<GraphPageProps> = ({ onSelectEntity, onSelectEv
               }`}
             >
               <Coins className="w-3.5 h-3.5" />
-              <span>Crypto Trail</span>
+              <span>Cryptocurrency Flow Trail</span>
             </button>
 
             <button
@@ -93,7 +93,7 @@ export const GraphPage: React.FC<GraphPageProps> = ({ onSelectEntity, onSelectEv
               }`}
             >
               <Globe2 className="w-3.5 h-3.5" />
-              <span>Macro Network</span>
+              <span>Comprehensive Macro Network</span>
             </button>
           </div>
 

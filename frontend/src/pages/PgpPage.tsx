@@ -63,13 +63,13 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
             <div className="lg:col-span-7 space-y-4">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full badge-subtle-blue text-xs font-bold">
                 <KeyRound className="w-3.5 h-3.5 text-blue-600" />
-                <span>STANDALONE MICROSERVICE • PGP CRYPTOGRAPHIC ID BENCHMARK</span>
+                <span>STANDALONE MICROSERVICE • PRETTY GOOD PRIVACY (PGP) DIGITAL IDENTITY BENCHMARK</span>
               </div>
               <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
                 Digital Signatures. Cryptographic proof of who is who.
               </h1>
               <p className="text-sm text-slate-600 leading-relaxed font-normal">
-                Public OpenPGP keys serve as unforgeable digital identity seals. TRACE-X validates cryptographic fingerprints and user handles against official European key servers (CIRCL), guaranteeing tamper-proof verification.
+                Public Open Pretty Good Privacy (OpenPGP) keys serve as unforgeable digital identity seals. TRACE-X validates cryptographic fingerprints and user handles against official European key servers from the Computer Incident Response Center Luxembourg (CIRCL), guaranteeing tamper-proof verification.
               </p>
               <div>
                 <button
@@ -77,7 +77,7 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
                   className="btn-liquid px-6 py-2.5 rounded-2xl text-xs font-bold shadow-lg flex items-center space-x-2"
                 >
                   <Plus className="w-4 h-4" />
-                  <span>Import OpenPGP Key</span>
+                  <span>Import Open Pretty Good Privacy (OpenPGP) Key</span>
                 </button>
               </div>
             </div>
@@ -86,13 +86,13 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
               <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-md group bg-slate-100">
                 <img
                   src="/src/assets/visuals/pgp_visual.jpg"
-                  alt="PGP Cryptographic Signature Matrix"
+                  alt="Pretty Good Privacy Cryptographic Signature Matrix"
                   className="w-full h-52 md:h-56 object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                 />
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
                   <span className="px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200/80 text-[11px] font-mono text-slate-800 font-bold flex items-center space-x-2 shadow-sm">
                     <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-                    <span>RSA 4096-bit • Key Escrow Anchor Active</span>
+                    <span>Rivest-Shamir-Adleman (RSA) 4096-bit • Key Escrow Anchor Active</span>
                   </span>
                 </div>
               </div>
@@ -113,7 +113,7 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
                 Verified Public Reference Key
               </span>
               <p className="text-slate-600 leading-relaxed max-w-3xl">
-                The primary CIRCL key (<span className="font-mono font-bold text-blue-700">CA572205C0024E06BA70BE89EAADCFFC22BD4CD5</span>) is a published reference key used by Luxembourg’s incident response team for security bulletins. It serves as an authentic baseline and is not a threat actor.
+                The primary Computer Incident Response Center Luxembourg (CIRCL) key (<span className="font-mono font-bold text-blue-700">CA572205C0024E06BA70BE89EAADCFFC22BD4CD5</span>) is a published reference key used by Luxembourg’s incident response team for security bulletins. It serves as an authentic baseline and is not a threat actor.
               </p>
             </div>
           </div>
@@ -127,7 +127,7 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
       {loading ? (
         <div className="flex items-center justify-center h-64 text-blue-600 text-xs font-mono font-bold">
           <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
-          <span>Checking OpenPGP keyrings...</span>
+          <span>Checking Open Pretty Good Privacy keyrings...</span>
         </div>
       ) : (
         <div className="space-y-4">
@@ -140,14 +140,14 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-3">
                   <div className="flex items-center space-x-2.5">
                     <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                      ID: {k.key_id}
+                      Key Identifier: {k.key_id}
                     </span>
                     <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
                       Cryptographically Validated
                     </span>
                   </div>
                   <span className="text-xs font-mono font-semibold text-slate-500">
-                    {k.algorithm || "RSA 4096-bit"}
+                    {k.algorithm || "Rivest-Shamir-Adleman (RSA) 4096-bit"}
                   </span>
                 </div>
 

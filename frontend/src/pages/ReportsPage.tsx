@@ -62,16 +62,16 @@ ${report.executive_summary}
 ## 3. Observed Digital Identifiers
 ${report.observed_identifiers.map(i => `- **[${i.source}] ${i.type}:** \`${i.value}\` (Evidence ID: ${i.evidence_id})`).join('\n')}
 
-## 4. CTI & Infrastructure Telemetry
+## 4. Cyber Threat Intelligence & Infrastructure Telemetry
 ${report.cti_findings.map(c => `- **${c.type}:** \`${c.indicator}\` (Provenance: ${c.provenance})`).join('\n')}
 
 ## 5. Blockchain Fund Flows
-${report.blockchain_findings.map(b => `- **Wallet/Tx:** \`${b.entity}\` — ${b.role}`).join('\n')}
+${report.blockchain_findings.map(b => `- **Cryptocurrency Wallet / Transaction:** \`${b.entity}\` — ${b.role}`).join('\n')}
 
 ## 6. Dark Web Intelligence
 ${report.darkweb_findings.map(d => `- **Thread:** ${d.thread_reference} (${d.anonymity_status})`).join('\n')}
 
-## 7. OpenPGP Keyring Telemetry
+## 7. Open Pretty Good Privacy Keyring Telemetry
 ${report.pgp_findings.map(p => `- **Fingerprint:** \`${p.fingerprint}\` (${p.role})`).join('\n')}
 
 ## 8. Multi-Source Correlation Findings
@@ -97,13 +97,13 @@ ${report.analyst_signature}
   const getSourceBadge = (source: string) => {
     switch (source.toUpperCase()) {
       case 'BLOCKCHAIN':
-        return 'Crypto Ledger';
+        return 'Cryptocurrency Ledger';
       case 'CTI':
-        return 'Malware Intel';
+        return 'Cyber Threat Intelligence';
       case 'DARKWEB':
-        return 'Dark Web';
+        return 'Dark Web Underground Discussion';
       case 'PGP':
-        return 'Digital Key';
+        return 'Pretty Good Privacy Digital Key';
       default:
         return source;
     }
@@ -160,7 +160,7 @@ ${report.analyst_signature}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
             <div className="flex items-center space-x-2">
               <span className="text-xs font-mono font-extrabold text-blue-700 bg-blue-50 border border-blue-200 px-3 py-1 rounded-xl uppercase tracking-wider">
-                NTRO SIH26151 Official Report
+                National Technical Research Organisation (NTRO) Official Report
               </span>
               <span className="text-xs text-slate-400 font-medium">Chain of Custody Verified</span>
             </div>
@@ -213,7 +213,7 @@ ${report.analyst_signature}
               </div>
               <div>
                 <span className="text-[10px] text-slate-400 font-bold uppercase block">Integrity Status</span>
-                <span className="text-xs font-bold text-blue-600">SHA-256 Validated</span>
+                <span className="text-xs font-bold text-blue-600">Secure Hash Algorithm (SHA-256) Validated</span>
               </div>
             </div>
           </div>
@@ -311,9 +311,9 @@ ${report.analyst_signature}
                   </div>
                   <div>
                     <h4 className="text-sm font-extrabold text-slate-900 tracking-tight">
-                      Malware & Campaign Infrastructure (MISP / CitizenLab)
+                      Malware & Campaign Infrastructure (Malware Information Sharing Platform / CitizenLab)
                     </h4>
-                    <p className="text-xs text-slate-500">Command & control servers, malicious links, and file hashes</p>
+                    <p className="text-xs text-slate-500">Command and Control servers, malicious links, and cryptographic file hashes</p>
                   </div>
                 </div>
                 <span className="text-xs font-mono font-bold text-blue-600">{report.cti_findings.length} Items</span>
@@ -343,7 +343,7 @@ ${report.analyst_signature}
                   </div>
                   <div>
                     <h4 className="text-sm font-extrabold text-slate-900 tracking-tight">
-                      Crypto Fund Flows (Ethereum Public Ledger)
+                      Cryptocurrency Fund Flows (Ethereum Public Ledger)
                     </h4>
                     <p className="text-xs text-slate-500">Tracked wallets, cluster hubs, and value transfers</p>
                   </div>
@@ -487,7 +487,7 @@ ${report.analyst_signature}
             </h3>
           </div>
           <p className="text-xs text-slate-600 leading-relaxed">
-            In accordance with NTRO responsible forensic attribution standards, the system distinguishes between technical indicators and civilian identities:
+            In accordance with National Technical Research Organisation (NTRO) responsible forensic attribution standards, the system distinguishes between technical indicators and civilian identities:
           </p>
           <ul className="space-y-2 text-xs text-slate-700 pt-1">
             {report.uncertainties_and_limitations.map((u, i) => (
