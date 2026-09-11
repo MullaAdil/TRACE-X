@@ -118,14 +118,14 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
     <div className="p-8 space-y-8 max-w-7xl mx-auto">
       {/* Top Problem Statement & De-anonymization Header with Slide-on-Slide Theme */}
       <div className="mr-3 mb-4">
-        <div className="card-slide-stack relative overflow-hidden bg-gradient-to-br from-white via-blue-50/50 to-slate-50 border border-slate-200/90 rounded-3xl p-8 shadow-sm">
+        <div className="card-slide-stack relative overflow-hidden bg-gradient-to-br from-white via-blue-50/40 via-pink-50/20 to-emerald-50/20 border border-blue-200/80 rounded-3xl p-8 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             <div className="lg:col-span-7 space-y-3">
-              <div className="flex items-center space-x-2 text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full badge-subtle-blue text-xs font-bold mb-2">
                 <span className="inline-block w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
                 <span>NTRO PROBLEM ID: SIH26151</span>
                 <span>•</span>
-                <span className="text-slate-500">DE-ANONYMIZATION ENGINE</span>
+                <span className="text-slate-600">DE-ANONYMIZATION ENGINE</span>
               </div>
               <h1 className="text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
                 <div className="p-2 rounded-2xl bg-blue-600 text-white shadow-md shadow-blue-500/20">
@@ -155,15 +155,15 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
             </div>
 
             <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden border border-slate-300 shadow-xl group">
+              <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-md group bg-slate-100">
                 <img
                   src="/src/assets/visuals/deanonymize_visual.jpg"
                   alt="De-anonymization Command Interface"
-                  className="w-full h-44 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-52 md:h-56 object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-3.5">
-                  <span className="text-[11px] font-mono text-cyan-300 font-bold flex items-center space-x-1.5">
-                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                  <span className="px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200/80 text-[11px] font-mono text-slate-800 font-bold flex items-center space-x-2 shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping" />
                     <span>Multimodal Unmasking Matrix Active</span>
                   </span>
                 </div>

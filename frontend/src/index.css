@@ -8,11 +8,13 @@
     font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
     background-color: #F8FAFC;
     background-image: 
-      radial-gradient(at 0% 0%, rgba(37, 99, 235, 0.05) 0px, transparent 45%),
-      radial-gradient(at 100% 0%, rgba(59, 130, 246, 0.04) 0px, transparent 45%),
+      radial-gradient(at 10% 12%, rgba(56, 189, 248, 0.08) 0px, transparent 45%),
+      radial-gradient(at 88% 15%, rgba(244, 114, 182, 0.07) 0px, transparent 42%),
+      radial-gradient(at 50% 85%, rgba(52, 211, 153, 0.06) 0px, transparent 48%),
+      radial-gradient(at 90% 85%, rgba(59, 130, 246, 0.06) 0px, transparent 40%),
       linear-gradient(to right, rgba(226, 232, 240, 0.35) 1px, transparent 1px),
       linear-gradient(to bottom, rgba(226, 232, 240, 0.35) 1px, transparent 1px);
-    background-size: 100% 100%, 100% 100%, 32px 32px, 32px 32px;
+    background-size: 100% 100%, 100% 100%, 100% 100%, 100% 100%, 32px 32px, 32px 32px;
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -23,6 +25,48 @@
     @apply text-slate-900 tracking-tight font-extrabold;
     letter-spacing: -0.025em;
   }
+}
+
+/* Subtle Tricolor Light Glow System (Blue, Green, Pink) */
+.subtle-glow-blue {
+  box-shadow: 0 4px 20px -2px rgba(56, 189, 248, 0.12), 0 0 14px -2px rgba(59, 130, 246, 0.15);
+}
+
+.subtle-glow-green {
+  box-shadow: 0 4px 20px -2px rgba(52, 211, 153, 0.12), 0 0 14px -2px rgba(16, 185, 129, 0.15);
+}
+
+.subtle-glow-pink {
+  box-shadow: 0 4px 20px -2px rgba(244, 114, 182, 0.12), 0 0 14px -2px rgba(236, 72, 153, 0.15);
+}
+
+.subtle-glow-tricolor {
+  box-shadow: 
+    -4px -4px 22px -4px rgba(56, 189, 248, 0.12),
+    4px -4px 22px -4px rgba(244, 114, 182, 0.10),
+    0px 6px 22px -4px rgba(52, 211, 153, 0.10);
+}
+
+/* Subtle theme light badges */
+.badge-subtle-blue {
+  background: rgba(239, 246, 255, 0.85);
+  border: 1px solid rgba(191, 219, 254, 0.8);
+  color: #1D4ED8;
+  backdrop-filter: blur(8px);
+}
+
+.badge-subtle-green {
+  background: rgba(236, 253, 245, 0.85);
+  border: 1px solid rgba(167, 243, 208, 0.8);
+  color: #047857;
+  backdrop-filter: blur(8px);
+}
+
+.badge-subtle-pink {
+  background: rgba(253, 242, 248, 0.85);
+  border: 1px solid rgba(251, 207, 232, 0.8);
+  color: #BE185D;
+  backdrop-filter: blur(8px);
 }
 
 /* Fluid scrollbars */

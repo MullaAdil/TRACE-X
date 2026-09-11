@@ -48,7 +48,17 @@ export function App() {
   };
 
   return (
-    <div className="h-screen max-h-screen flex flex-col overflow-hidden bg-slate-50 bg-[radial-gradient(#e2e8f0_1.2px,transparent_1.2px)] [background-size:28px_28px] text-slate-900">
+    <div className="h-screen max-h-screen flex flex-col overflow-hidden bg-slate-50 bg-[radial-gradient(#e2e8f0_1.2px,transparent_1.2px)] [background-size:28px_28px] text-slate-900 relative">
+      {/* Subtle Atmospheric Ambient Color Effects (Blue, Green, Pink) */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none z-0 select-none">
+        {/* Soft Sky Blue Glow top-left */}
+        <div className="absolute -top-24 -left-20 w-[600px] h-[600px] bg-gradient-to-br from-sky-400/12 via-blue-500/8 to-transparent rounded-full blur-3xl" />
+        {/* Soft Blush Pink Glow top-right */}
+        <div className="absolute top-12 -right-20 w-[550px] h-[550px] bg-gradient-to-bl from-pink-400/10 via-rose-300/6 to-transparent rounded-full blur-3xl" />
+        {/* Soft Mint Green Glow bottom-center */}
+        <div className="absolute -bottom-24 left-1/3 w-[650px] h-[550px] bg-gradient-to-tr from-emerald-400/10 via-teal-300/6 to-transparent rounded-full blur-3xl" />
+      </div>
+
       {/* Top Navbar */}
       <Navbar
         activePage={activePage}

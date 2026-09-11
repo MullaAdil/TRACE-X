@@ -58,17 +58,17 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
     <div className="p-8 space-y-6 max-w-7xl mx-auto">
       {/* Apple-style Hero Header with Dedicated Microservice Banner & Slide-on-Slide Theme */}
       <div className="mr-3 mb-4">
-        <div className="card-slide-stack relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950/80 to-slate-950 border border-blue-900/50 p-8 shadow-xl text-white">
+        <div className="card-slide-stack relative overflow-hidden bg-gradient-to-br from-white via-blue-50/50 to-pink-50/30 border border-blue-200/80 p-8 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             <div className="lg:col-span-7 space-y-4">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold">
-                <KeyRound className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full badge-subtle-blue text-xs font-bold">
+                <KeyRound className="w-3.5 h-3.5 text-blue-600" />
                 <span>STANDALONE MICROSERVICE • PGP CRYPTOGRAPHIC ID BENCHMARK</span>
               </div>
-              <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+              <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
                 Digital Signatures. Cryptographic proof of who is who.
               </h1>
-              <p className="text-sm text-slate-300 leading-relaxed font-normal">
+              <p className="text-sm text-slate-600 leading-relaxed font-normal">
                 Public OpenPGP keys serve as unforgeable digital identity seals. TRACE-X validates cryptographic fingerprints and user handles against official European key servers (CIRCL), guaranteeing tamper-proof verification.
               </p>
               <div>
@@ -83,15 +83,15 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden border border-blue-700/60 shadow-2xl group">
+              <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-md group bg-slate-100">
                 <img
                   src="/src/assets/visuals/pgp_visual.jpg"
                   alt="PGP Cryptographic Signature Matrix"
-                  className="w-full h-44 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-52 md:h-56 object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-3.5">
-                  <span className="text-[11px] font-mono text-blue-300 font-bold flex items-center space-x-1.5">
-                    <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                  <span className="px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200/80 text-[11px] font-mono text-slate-800 font-bold flex items-center space-x-2 shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
                     <span>RSA 4096-bit • Key Escrow Anchor Active</span>
                   </span>
                 </div>

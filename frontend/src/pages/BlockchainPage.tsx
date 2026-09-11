@@ -68,31 +68,31 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
     <div className="p-8 space-y-6 max-w-7xl mx-auto">
       {/* Apple-style Hero Header with AI-Generated Ledger Visual & Slide-on-Slide Theme */}
       <div className="mr-3 mb-4">
-        <div className="card-slide-stack relative overflow-hidden bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 border border-slate-800 p-8 shadow-xl text-white">
+        <div className="card-slide-stack relative overflow-hidden bg-gradient-to-br from-white via-blue-50/50 to-emerald-50/30 border border-blue-200/80 p-8 shadow-sm">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
             <div className="lg:col-span-7 space-y-3">
-              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-bold">
-                <Coins className="w-3.5 h-3.5" />
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full badge-subtle-green text-xs font-bold">
+                <Coins className="w-3.5 h-3.5 text-emerald-600" />
                 <span>STANDALONE MICROSERVICE • BLOCKCHAIN FORENSICS</span>
               </div>
-              <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+              <h1 className="text-2xl md:text-3xl font-extrabold text-slate-900 tracking-tight">
                 Follow the money. Track every Ethereum transfer.
               </h1>
-              <p className="text-sm text-slate-300 max-w-2xl leading-relaxed">
+              <p className="text-sm text-slate-600 max-w-2xl leading-relaxed font-normal">
                 When funds move across accounts, TRACE-X follows each hop on the public Ethereum ledger. Powered by live Alchemy RPC and on-chain transaction decoders, you get a crystal-clear breakdown of who sent what, who received it, and how wallets connect to known threat campaigns.
               </p>
             </div>
 
             <div className="lg:col-span-5">
-              <div className="relative rounded-2xl overflow-hidden border border-slate-700/80 shadow-2xl group">
+              <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-md group bg-slate-100">
                 <img
                   src="/src/assets/visuals/crypto_visual.jpg"
                   alt="Cryptocurrency Forensics Flow"
-                  className="w-full h-44 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                  className="w-full h-52 md:h-56 object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-3.5">
-                  <span className="text-[11px] font-mono text-emerald-400 font-bold flex items-center space-x-1.5">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+                <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+                  <span className="px-3 py-1.5 rounded-xl bg-white/95 backdrop-blur-md border border-slate-200/80 text-[11px] font-mono text-slate-800 font-bold flex items-center space-x-2 shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                     <span>Ethereum Mainnet • Real-Time Decryption Active</span>
                   </span>
                 </div>
@@ -121,9 +121,9 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
           </div>
 
           <div className="mr-2 mb-2">
-            <div className="card-slide-stack-sm p-5 bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex items-center justify-between space-x-4 shadow-2xs h-full">
+            <div className="card-slide-stack-sm p-5 bg-white border border-slate-200 hover:border-emerald-300 hover:shadow-md transition-all flex items-center justify-between space-x-4 shadow-2xs h-full">
               <div className="flex items-center space-x-3.5">
-                <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center shrink-0">
                   <Coins className="w-5 h-5" />
                 </div>
                 <div>
@@ -131,14 +131,14 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                   <span className="text-xs text-slate-600 font-medium">Individual accounts</span>
                 </div>
               </div>
-              <span className="text-2xl font-black font-mono text-blue-600">{stats.unique_wallets}</span>
+              <span className="text-2xl font-black font-mono text-emerald-600">{stats.unique_wallets}</span>
             </div>
           </div>
 
           <div className="mr-2 mb-2">
-            <div className="card-slide-stack-sm p-5 bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex items-center justify-between space-x-4 shadow-2xs h-full">
+            <div className="card-slide-stack-sm p-5 bg-white border border-slate-200 hover:border-pink-300 hover:shadow-md transition-all flex items-center justify-between space-x-4 shadow-2xs h-full">
               <div className="flex items-center space-x-3.5">
-                <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-2xl bg-pink-50 border border-pink-200 text-pink-600 flex items-center justify-center shrink-0">
                   <Database className="w-5 h-5" />
                 </div>
                 <div>
@@ -146,14 +146,14 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                   <span className="text-xs text-slate-600 font-medium">Transferred in ETH</span>
                 </div>
               </div>
-              <span className="text-2xl font-black font-mono text-blue-600">{stats.total_volume_eth} ETH</span>
+              <span className="text-2xl font-black font-mono text-pink-600">{stats.total_volume_eth} ETH</span>
             </div>
           </div>
 
           <div className="mr-2 mb-2">
-            <div className="card-slide-stack-sm p-5 bg-white border border-slate-200 hover:border-blue-300 hover:shadow-md transition-all flex items-center justify-between space-x-4 shadow-2xs h-full">
+            <div className="card-slide-stack-sm p-5 bg-white border border-slate-200 hover:border-sky-300 hover:shadow-md transition-all flex items-center justify-between space-x-4 shadow-2xs h-full">
               <div className="flex items-center space-x-3.5">
-                <div className="w-11 h-11 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shrink-0">
+                <div className="w-11 h-11 rounded-2xl bg-sky-50 border border-sky-200 text-sky-600 flex items-center justify-center shrink-0">
                   <ShieldCheck className="w-5 h-5" />
                 </div>
                 <div>
