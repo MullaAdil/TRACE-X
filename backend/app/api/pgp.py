@@ -65,6 +65,9 @@ def import_pgp_key(req: PgpVerifyRequest, db: Session = Depends(get_db)):
     if existing:
         raise HTTPException(status_code=409, detail="PGP Key with this fingerprint is already present in repository")
 
+    from datetime import datetime, timezone
+    import_ts = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+
     ev_count = db.query(Evidence).filter(Evidence.source == "PGP").count() + 1
     new_ev = Evidence(
         evidence_id=f"EVD-PGP-FP-{ev_count:04d}",
@@ -74,7 +77,7 @@ def import_pgp_key(req: PgpVerifyRequest, db: Session = Depends(get_db)):
         context=f"Investigator imported OpenPGP key for UID '{uid}'",
         provenance="Authorized Investigator Upload",
         source_ref="Local OpenPGP Import",
-        timestamp="2026-09-10",
+        timestamp=import_ts,
         confidence=1.0,
         integrity_hash=PgpAdapter.calculate_hash({"fingerprint": fp, "key_id": kid}),
         raw_data=json.dumps({"key_id": kid, "fingerprint": fp, "uid": uid, "algorithm": result["algorithm"]})
@@ -89,8 +92,8 @@ def import_pgp_key(req: PgpVerifyRequest, db: Session = Depends(get_db)):
         display_name=f"PGP: {kid}",
         source_count=1,
         risk_score=0.3,
-        first_seen="2026-09-10",
-        last_seen="2026-09-10",
+        first_seen=import_ts,
+        last_seen=import_ts,
         is_synthetic=False
     )
     db.add(new_ent)

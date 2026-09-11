@@ -20,7 +20,7 @@ def get_dashboard_stats(db: Session = Depends(get_db)):
     inv_count = db.query(Investigation).count()
     high_conf_count = db.query(Relationship).filter(Relationship.confidence_score >= 0.80).count()
 
-    recent_events = db.query(TimelineEvent).order_by(TimelineEvent.id.desc()).limit(10).all()
+    recent_events = db.query(TimelineEvent).order_by(TimelineEvent.timestamp.desc(), TimelineEvent.id.desc()).limit(10).all()
 
     return DashboardStats(
         total_evidence=total_ev,

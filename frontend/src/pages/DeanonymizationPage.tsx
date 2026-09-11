@@ -201,6 +201,35 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
               </button>
             ))}
           </div>
+
+          {/* Dynamic Target Input Bar */}
+          <div className="mt-4 pt-4 border-t border-slate-100 flex items-center space-x-2">
+            <div className="relative flex-1">
+              <Crosshair className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+              <input
+                type="text"
+                placeholder="Analyze any wallet (0x...), C2 IP (198.12...), domain, or alias dynamically..."
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') {
+                    const val = (e.target as HTMLInputElement).value.trim();
+                    if (val) setSelectedTargetId(val);
+                  }
+                }}
+                className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-xl text-xs text-slate-900 placeholder-slate-400 font-medium focus:outline-none focus:border-blue-500 shadow-2xs"
+              />
+            </div>
+            <button
+              onClick={(e) => {
+                const input = (e.currentTarget.previousElementSibling?.querySelector('input') as HTMLInputElement);
+                if (input && input.value.trim()) {
+                  setSelectedTargetId(input.value.trim());
+                }
+              }}
+              className="btn-liquid px-4 py-2 rounded-xl text-xs font-bold shrink-0"
+            >
+              Analyze Target
+            </button>
+          </div>
         </div>
       </div>
 

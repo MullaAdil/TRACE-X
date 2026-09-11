@@ -103,10 +103,11 @@ class IngestionManager:
         timeline_idx = 1
         for ev in all_evidence:
             ts = ev.get("timestamp")
-            if ts and ts != "Unknown":
+            if ts and ts != "Unknown" and "ago" not in str(ts).lower():
+                ts_clean = str(ts).replace("T", " ").replace("+00:00", "").strip()
                 evt = TimelineEvent(
                     event_id=f"EVT-TL-{timeline_idx:05d}",
-                    timestamp=str(ts),
+                    timestamp=ts_clean,
                     event_type=f"{ev['source']}_{ev['entity_type'].upper()}",
                     title=f"Observed {ev['entity_type']} in {ev['source']}: {ev['entity_value'][:35]}",
                     source=ev["source"],

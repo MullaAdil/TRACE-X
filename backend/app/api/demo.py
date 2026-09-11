@@ -21,7 +21,7 @@ def seed_demo_investigation(db: Session = Depends(get_db)):
     if existing:
         return existing
 
-    now_str = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M:%S")
+    now_str = "2024-04-29 14:00:00"
 
     # Add clearly labeled SYNTHETIC AUTHORIZED EVIDENCE record
     syn_ev_id = "EVD-SYN-AUTH-0001"

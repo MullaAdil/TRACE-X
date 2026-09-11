@@ -87,9 +87,12 @@ export const api = {
 
   // CTI
   getCtiOverview: () => fetchJson<CtiOverview>('/cti/overview'),
-  getCtiIndicators: (type?: string, limit = 100) => {
-    const q = type ? `?indicator_type=${type}&limit=${limit}` : `?limit=${limit}`;
-    return fetchJson<CtiIndicator[]>(`/cti/indicators${q}`);
+  getCtiIndicators: (type?: string, limit = 100, search?: string) => {
+    const params = new URLSearchParams();
+    if (type && type !== 'ALL') params.append('indicator_type', type);
+    if (search && search.trim()) params.append('search', search.trim());
+    params.append('limit', limit.toString());
+    return fetchJson<CtiIndicator[]>(`/cti/indicators?${params.toString()}`);
   },
 
   // Dark Web

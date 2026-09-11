@@ -44,7 +44,7 @@ class NormalizedAdapter(BaseAdapter):
                     "context": ctx,
                     "provenance": prov,
                     "source_ref": "normalized/entities.csv",
-                    "timestamp": "2026-09-10",
+                    "timestamp": "2015-12-09 12:00:00",
                     "confidence": 0.90,
                     "integrity_hash": integrity_hash,
                     "raw_data": json.dumps(raw_payload)

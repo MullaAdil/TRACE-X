@@ -41,9 +41,12 @@ def get_cti_overview(db: Session = Depends(get_db)):
         "primary_tactics": ["Phishing", "Commercial RATs", "Trojanized Apps", "Disinformation Sites"]
     }
 
+from sqlalchemy import or_
+
 @router.get("/indicators")
 def list_cti_indicators(
     indicator_type: str = Query(None, description="Filter by indicator type (domain, ip, hash, url)"),
+    search: str = Query(None, description="Search keyword in indicator value, context, or category"),
     limit: int = Query(100, ge=1, le=500),
     db: Session = Depends(get_db)
 ):
@@ -53,6 +56,15 @@ def list_cti_indicators(
     )
     if indicator_type:
         query = query.filter(Evidence.entity_type == indicator_type)
+    if search and search.strip():
+        term = f"%{search.strip()}%"
+        query = query.filter(
+            or_(
+                Evidence.entity_value.ilike(term),
+                Evidence.context.ilike(term),
+                Evidence.provenance.ilike(term)
+            )
+        )
 
     results = []
     for ev in query.limit(limit).all():

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Bug, ShieldAlert, ExternalLink, Filter, FileCheck, Hash, Globe, Server, Activity, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { Bug, ShieldAlert, ExternalLink, Filter, FileCheck, Hash, Globe, Server, Activity, ShieldCheck, CheckCircle2, Search } from 'lucide-react';
 import { api } from '../services/api';
 import { CtiOverview, CtiIndicator } from '../types';
 
@@ -12,11 +12,17 @@ export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
   const [indicators, setIndicators] = useState<CtiIndicator[]>([]);
   const [loading, setLoading] = useState(true);
   const [typeFilter, setTypeFilter] = useState<string>('ALL');
+  const [searchTerm, setSearchTerm] = useState<string>('');
+
+  const fetchIndicators = (type?: string, search?: string) => {
+    const t = type && type !== 'ALL' ? type : undefined;
+    api.getCtiIndicators(t, 250, search).then(setIndicators).catch(console.error);
+  };
 
   useEffect(() => {
     Promise.all([
       api.getCtiOverview(),
-      api.getCtiIndicators(undefined, 200)
+      api.getCtiIndicators(undefined, 250)
     ]).then(([ov, ind]) => {
       setOverview(ov);
       setIndicators(ind);
@@ -26,8 +32,12 @@ export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
 
   const handleFilterChange = (t: string) => {
     setTypeFilter(t);
-    const param = t === 'ALL' ? undefined : t;
-    api.getCtiIndicators(param, 200).then(setIndicators);
+    fetchIndicators(t, searchTerm);
+  };
+
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    fetchIndicators(typeFilter, searchTerm);
   };
 
   const getIndicatorHumanType = (type: string) => {
@@ -160,6 +170,39 @@ export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
           </div>
         </div>
       )}
+
+      {/* Search Indicators Form */}
+      <div className="mr-3 mb-4">
+        <div className="card-slide-stack p-6 bg-white border border-slate-200 shadow-sm space-y-2">
+          <form onSubmit={handleSearch} className="flex items-center space-x-2">
+            <div className="relative flex-1">
+              <Search className="w-5 h-5 text-slate-400 absolute left-4 top-3.5" />
+              <input
+                type="text"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                placeholder="Search CTI clues by domain, IP, hash, or malware description (e.g. '198.12.150', 'wjwj', 'outlook', 'trojan')..."
+                className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-2xl text-xs text-slate-900 placeholder-slate-400 font-medium focus:outline-none focus:border-blue-500 focus:bg-white shadow-inner transition"
+              />
+            </div>
+            <button
+              type="submit"
+              className="btn-liquid px-6 py-3 rounded-2xl text-xs font-bold shrink-0"
+            >
+              Search Indicators
+            </button>
+            {searchTerm && (
+              <button
+                type="button"
+                onClick={() => { setSearchTerm(''); fetchIndicators(typeFilter, ''); }}
+                className="btn-liquid-secondary px-4 py-3 rounded-2xl text-xs font-bold shrink-0"
+              >
+                Clear
+              </button>
+            )}
+          </form>
+        </div>
+      </div>
 
       {/* Filter and Indicators Table with Slide-on-Slide Theme */}
       <div className="mr-3 mb-4">
