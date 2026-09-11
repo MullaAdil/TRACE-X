@@ -2,14 +2,28 @@ import React, { useEffect, useState } from 'react';
 import { FolderLock, Plus, Search, User, Calendar, ArrowRight, FileText, CheckCircle2, Shield } from 'lucide-react';
 import { api } from '../services/api';
 import { Investigation } from '../types';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 interface InvestigationsPageProps {
   onNavigate: (page: string, params?: any) => void;
 }
 
 export const InvestigationsPage: React.FC<InvestigationsPageProps> = ({ onNavigate }) => {
-  const [cases, setCases] = useState<Investigation[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [cases, setCases] = useState<Investigation[]>(() => {
+    try {
+      const cached = sessionStorage.getItem('tracex_cases');
+      return cached ? JSON.parse(cached) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem('tracex_cases');
+    } catch {
+      return true;
+    }
+  });
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState('');
   const [target, setTarget] = useState('');
@@ -18,9 +32,11 @@ export const InvestigationsPage: React.FC<InvestigationsPageProps> = ({ onNaviga
   const [saving, setSaving] = useState(false);
 
   const loadCases = () => {
-    setLoading(true);
     api.getInvestigations()
-      .then(setCases)
+      .then(res => {
+        setCases(res);
+        try { sessionStorage.setItem('tracex_cases', JSON.stringify(res)); } catch {}
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   };
@@ -80,10 +96,7 @@ export const InvestigationsPage: React.FC<InvestigationsPageProps> = ({ onNaviga
 
       {/* Cases List as Wide Horizontal Cards */}
       {loading ? (
-        <div className="flex items-center justify-center h-64 text-blue-600 text-xs font-mono font-bold">
-          <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
-          <span>Opening case files...</span>
-        </div>
+        <LoadingSpinner message="Opening case files..." />
       ) : cases.length === 0 ? (
         <div className="p-12 text-center bg-white border border-slate-200 rounded-3xl space-y-3 shadow-sm">
           <FolderLock className="w-10 h-10 text-slate-400 mx-auto" />

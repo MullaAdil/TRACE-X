@@ -4,6 +4,7 @@ import { api } from '../services/api';
 import { GraphData, GraphNode, GraphEdge } from '../types';
 import { GraphViewer } from '../components/graph/GraphViewer';
 import { EdgeRationaleModal } from '../components/common/EdgeRationaleModal';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 interface GraphPageProps {
   onSelectEntity: (entityId: number) => void;
@@ -11,16 +12,33 @@ interface GraphPageProps {
 }
 
 export const GraphPage: React.FC<GraphPageProps> = ({ onSelectEntity, onSelectEvidence }) => {
-  const [graphData, setGraphData] = useState<GraphData>({ nodes: [], edges: [] });
-  const [loading, setLoading] = useState(true);
+  const [graphData, setGraphData] = useState<GraphData>(() => {
+    try {
+      const cached = sessionStorage.getItem('tracex_graph_packrat');
+      return cached ? JSON.parse(cached) : { nodes: [], edges: [] };
+    } catch {
+      return { nodes: [], edges: [] };
+    }
+  });
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem('tracex_graph_packrat');
+    } catch {
+      return true;
+    }
+  });
   const [selectedEdge, setSelectedEdge] = useState<GraphEdge | null>(null);
   const [viewPreset, setViewPreset] = useState<'packrat' | 'wallets' | 'all'>('packrat');
 
   const loadGraph = (preset = viewPreset) => {
-    setLoading(true);
     const limit = preset === 'packrat' ? 45 : preset === 'wallets' ? 35 : 180;
     api.getGraphData(limit)
-      .then(setGraphData)
+      .then(res => {
+        setGraphData(res);
+        if (preset === 'packrat') {
+          try { sessionStorage.setItem('tracex_graph_packrat', JSON.stringify(res)); } catch {}
+        }
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   };
@@ -117,10 +135,7 @@ export const GraphPage: React.FC<GraphPageProps> = ({ onSelectEntity, onSelectEv
       {/* Graph Visualizer Canvas */}
       <div className="flex-1 min-h-0 card-slide-stack mr-3 mb-4 overflow-hidden">
         {loading ? (
-          <div className="w-full h-full flex items-center justify-center text-blue-600 text-xs font-mono font-bold">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
-            <span>Synthesizing relationship network...</span>
-          </div>
+          <LoadingSpinner message="Synthesizing relationship network..." className="w-full h-full" />
         ) : (
           <GraphViewer
             data={graphData}

@@ -89,22 +89,23 @@
   border: 1px solid #E2E8F0;
   box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.04);
   border-radius: 1rem;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .clean-card:hover {
-  border-color: #3B82F6;
-  box-shadow: 0 10px 30px -5px rgba(37, 99, 235, 0.08);
+  transform: translateY(-2px);
+  border-color: #93C5FD;
+  box-shadow: 0 12px 28px -4px rgba(37, 99, 235, 0.09);
 }
 
-/* Slide-on-Slide Multi-Layer Stacked Card Theme */
+/* Slide-on-Slide Multi-Layer Stacked Card Theme - Smooth & Non-Jittery */
 .card-slide-stack {
   position: relative;
   background: #FFFFFF;
   border: 1px solid #CBD5E1;
   border-radius: 1.75rem;
   isolation: isolate;
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
 }
 
@@ -119,7 +120,7 @@
   z-index: -1;
   pointer-events: none;
   box-shadow: 0 3px 10px -2px rgba(15, 23, 42, 0.04);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-slide-stack::after {
@@ -133,15 +134,23 @@
   z-index: -2;
   pointer-events: none;
   box-shadow: 0 3px 10px -2px rgba(15, 23, 42, 0.04);
-  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-slide-stack:hover {
+  transform: translateY(-2px);
+  border-color: #93C5FD;
+  box-shadow: 0 14px 32px -4px rgba(15, 23, 42, 0.08), 0 2px 8px -2px rgba(37, 99, 235, 0.06);
 }
 
 .card-slide-stack:hover::before {
-  transform: translate(11px, 11px);
+  transform: translate(8px, 10px);
+  border-color: #BFDBFE;
 }
 
 .card-slide-stack:hover::after {
-  transform: translate(21px, 21px);
+  transform: translate(16px, 19px);
+  border-color: #DBEAFE;
 }
 
 /* Compact version for smaller cards */
@@ -151,7 +160,7 @@
   border: 1px solid #CBD5E1;
   border-radius: 1.25rem;
   isolation: isolate;
-  transition: all 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
   box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.04);
 }
 
@@ -166,7 +175,7 @@
   z-index: -1;
   pointer-events: none;
   box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.03);
-  transition: transform 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-slide-stack-sm::after {
@@ -180,15 +189,68 @@
   z-index: -2;
   pointer-events: none;
   box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.03);
-  transition: transform 0.2s ease;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-slide-stack-sm:hover {
+  transform: translateY(-2px);
+  border-color: #93C5FD;
+  box-shadow: 0 10px 24px -3px rgba(15, 23, 42, 0.07);
 }
 
 .card-slide-stack-sm:hover::before {
-  transform: translate(7px, 7px);
+  transform: translate(5px, 7px);
+  border-color: #BFDBFE;
 }
 
 .card-slide-stack-sm:hover::after {
-  transform: translate(14px, 14px);
+  transform: translate(10px, 13px);
+  border-color: #DBEAFE;
+}
+
+/* Buttery Smooth Page Enter Animation */
+@keyframes pageEnter {
+  0% {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.page-enter {
+  animation: pageEnter 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: opacity, transform;
+}
+
+/* Modern Non-Flicker Skeleton Shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton-shimmer {
+  background: linear-gradient(
+    90deg,
+    #E2E8F0 0%,
+    #F8FAFC 50%,
+    #E2E8F0 100%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+/* Silky smooth interactive element transitions */
+button, a, input, select, textarea {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+  transition-duration: 180ms;
 }
 
 /* Fluid animated connections */

@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { api } from '../services/api';
 import { EntityDetail } from '../types';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 interface EntityProfilePageProps {
   entityId: number;
@@ -31,24 +32,36 @@ export const EntityProfilePage: React.FC<EntityProfilePageProps> = ({
   onSelectEvidence,
   onInspectEdge
 }) => {
-  const [profile, setProfile] = useState<EntityDetail | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [profile, setProfile] = useState<EntityDetail | null>(() => {
+    try {
+      const cached = sessionStorage.getItem(`tracex_entity_${entityId}`);
+      return cached ? JSON.parse(cached) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem(`tracex_entity_${entityId}`);
+    } catch {
+      return true;
+    }
+  });
   const [activeTab, setActiveTab] = useState<'relationships' | 'evidence' | 'timeline'>('relationships');
 
   useEffect(() => {
-    setLoading(true);
     api.getEntityProfile(entityId)
-      .then(setProfile)
+      .then(res => {
+        setProfile(res);
+        try { sessionStorage.setItem(`tracex_entity_${entityId}`, JSON.stringify(res)); } catch {}
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [entityId]);
 
   if (loading || !profile) {
     return (
-      <div className="flex items-center justify-center h-96 text-blue-600 text-xs font-mono font-bold">
-        <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
-        <span>Assembling 360° entity dossier...</span>
-      </div>
+      <LoadingSpinner message="Assembling 360° entity dossier..." className="h-96" />
     );
   }
 

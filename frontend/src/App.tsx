@@ -3,7 +3,6 @@ import { Navbar } from './components/common/Navbar';
 import { Sidebar } from './components/common/Sidebar';
 import { AssistantDrawer } from './components/common/AssistantDrawer';
 import { EvidenceDrawer } from './components/common/EvidenceDrawer';
-import { DemoWalkthroughModal } from './components/common/DemoWalkthroughModal';
 
 import { DashboardPage } from './pages/DashboardPage';
 import { InvestigationsPage } from './pages/InvestigationsPage';
@@ -27,7 +26,6 @@ export function App() {
   const [searchInitialQuery, setSearchInitialQuery] = useState<string>('');
 
   const [isAssistantOpen, setIsAssistantOpen] = useState(false);
-  const [isDemoOpen, setIsDemoOpen] = useState(false);
   const [isSidebarDockedDown, setIsSidebarDockedDown] = useState(false);
 
   const handleNavigate = (page: string, params?: any) => {
@@ -49,14 +47,11 @@ export function App() {
 
   return (
     <div className="h-screen max-h-screen flex flex-col overflow-hidden bg-slate-100/70 text-slate-900 relative antialiased">
-
-
       {/* Top Navbar */}
       <Navbar
         activePage={activePage}
         onNavigate={handleNavigate}
         onOpenAssistant={() => setIsAssistantOpen(true)}
-        onOpenDemo={() => setIsDemoOpen(true)}
       />
 
       {/* Main Layout Area */}
@@ -71,79 +66,81 @@ export function App() {
 
         {/* Dynamic Page Workspace */}
         <main className={`flex-1 min-h-0 h-full overflow-y-auto ${isSidebarDockedDown ? 'pb-20' : 'pb-16 md:pb-6'}`}>
-          {activePage === 'dashboard' && (
-            <DashboardPage
-              onNavigate={handleNavigate}
-              onSelectEvidence={handleSelectEvidence}
-            />
-          )}
+          <div key={activePage} className="page-enter min-h-full">
+            {activePage === 'dashboard' && (
+              <DashboardPage
+                onNavigate={handleNavigate}
+                onSelectEvidence={handleSelectEvidence}
+              />
+            )}
 
-          {activePage === 'deanonymization' && (
-            <DeanonymizationPage
-              onNavigateToGraph={() => handleNavigate('graph')}
-              onNavigateToEvidence={handleSelectEvidence}
-              onNavigateToReports={() => handleNavigate('reports')}
-            />
-          )}
+            {activePage === 'deanonymization' && (
+              <DeanonymizationPage
+                onNavigateToGraph={() => handleNavigate('graph')}
+                onNavigateToEvidence={handleSelectEvidence}
+                onNavigateToReports={() => handleNavigate('reports')}
+              />
+            )}
 
-          {activePage === 'investigations' && (
-            <InvestigationsPage onNavigate={handleNavigate} />
-          )}
+            {activePage === 'investigations' && (
+              <InvestigationsPage onNavigate={handleNavigate} />
+            )}
 
-          {activePage === 'search' && (
-            <SearchPage
-              initialQuery={searchInitialQuery}
-              onSelectEntity={handleSelectEntity}
-              onSelectEvidence={handleSelectEvidence}
-            />
-          )}
+            {activePage === 'search' && (
+              <SearchPage
+                initialQuery={searchInitialQuery}
+                onSelectEntity={handleSelectEntity}
+                onSelectEvidence={handleSelectEvidence}
+              />
+            )}
 
-          {activePage === 'entity' && selectedEntityId && (
-            <EntityProfilePage
-              entityId={selectedEntityId}
-              onBack={() => setActivePage('dashboard')}
-              onSelectEntity={handleSelectEntity}
-              onSelectEvidence={handleSelectEvidence}
-            />
-          )}
+            {activePage === 'entity' && selectedEntityId && (
+              <EntityProfilePage
+                entityId={selectedEntityId}
+                onBack={() => setActivePage('dashboard')}
+                onSelectEntity={handleSelectEntity}
+                onSelectEvidence={handleSelectEvidence}
+              />
+            )}
 
-          {activePage === 'graph' && (
-            <GraphPage
-              onSelectEntity={handleSelectEntity}
-              onSelectEvidence={handleSelectEvidence}
-            />
-          )}
+            {activePage === 'graph' && (
+              <GraphPage
+                onSelectEntity={handleSelectEntity}
+                onSelectEvidence={handleSelectEvidence}
+              />
+            )}
 
-          {activePage === 'blockchain' && (
-            <BlockchainPage onSelectEntity={handleSelectEntity} />
-          )}
+            {activePage === 'blockchain' && (
+              <BlockchainPage onSelectEntity={handleSelectEntity} />
+            )}
 
-          {activePage === 'cti' && (
-            <CtiPage onSelectEvidence={handleSelectEvidence} />
-          )}
+            {activePage === 'cti' && (
+              <CtiPage onSelectEvidence={handleSelectEvidence} />
+            )}
 
-          {activePage === 'darkweb' && (
-            <DarkWebPage onSelectEvidence={handleSelectEvidence} />
-          )}
+            {activePage === 'darkweb' && (
+              <DarkWebPage onSelectEvidence={handleSelectEvidence} />
+            )}
 
-          {activePage === 'pgp' && (
-            <PgpPage onSelectEvidence={handleSelectEvidence} />
-          )}
+            {activePage === 'pgp' && (
+              <PgpPage onSelectEvidence={handleSelectEvidence} />
+            )}
 
-          {activePage === 'timeline' && (
-            <TimelinePage onSelectEvidence={handleSelectEvidence} />
-          )}
+            {activePage === 'timeline' && (
+              <TimelinePage onSelectEvidence={handleSelectEvidence} />
+            )}
 
-          {activePage === 'evidence' && (
-            <EvidencePage onSelectEvidence={handleSelectEvidence} />
-          )}
+            {activePage === 'evidence' && (
+              <EvidencePage onSelectEvidence={handleSelectEvidence} />
+            )}
 
-          {activePage === 'reports' && (
-            <ReportsPage
-              caseId={selectedCaseId}
-              onSelectEvidence={handleSelectEvidence}
-            />
-          )}
+            {activePage === 'reports' && (
+              <ReportsPage
+                caseId={selectedCaseId}
+                onSelectEvidence={handleSelectEvidence}
+              />
+            )}
+          </div>
         </main>
       </div>
 
@@ -159,13 +156,6 @@ export function App() {
         evidenceId={selectedEvidenceId}
         onClose={() => setSelectedEvidenceId(null)}
         onSelectEntity={handleSelectEntity}
-      />
-
-      {/* Evaluator Guided Demo Modal */}
-      <DemoWalkthroughModal
-        isOpen={isDemoOpen}
-        onClose={() => setIsDemoOpen(false)}
-        onNavigate={handleNavigate}
       />
     </div>
   );

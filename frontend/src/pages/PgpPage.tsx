@@ -3,23 +3,39 @@ import { KeyRound, ShieldCheck, CheckCircle2, AlertCircle, Plus, Upload, Lock, E
 import { api } from '../services/api';
 import { PgpKey } from '../types';
 import pgpVisual from '../assets/visuals/pgp_visual.jpg';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 interface PgpPageProps {
   onSelectEvidence?: (evidenceId: string) => void;
 }
 
 export const PgpPage: React.FC<PgpPageProps> = () => {
-  const [keys, setKeys] = useState<PgpKey[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [keys, setKeys] = useState<PgpKey[]>(() => {
+    try {
+      const cached = sessionStorage.getItem('tracex_pgp_keys');
+      return cached ? JSON.parse(cached) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem('tracex_pgp_keys');
+    } catch {
+      return true;
+    }
+  });
   const [showImport, setShowImport] = useState(false);
   const [rawKeyInput, setRawKeyInput] = useState('');
   const [verifyResult, setVerifyResult] = useState<any>(null);
   const [importing, setImporting] = useState(false);
 
   const loadKeys = () => {
-    setLoading(true);
     api.getPgpKeys()
-      .then(setKeys)
+      .then(res => {
+        setKeys(res);
+        try { sessionStorage.setItem('tracex_pgp_keys', JSON.stringify(res)); } catch {}
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   };
@@ -128,10 +144,7 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
 
       {/* Wide Horizontal Key Cards with Slide-on-Slide Theme */}
       {loading ? (
-        <div className="flex items-center justify-center h-64 text-blue-600 text-xs font-mono font-bold">
-          <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
-          <span>Checking Open Pretty Good Privacy keyrings...</span>
-        </div>
+        <LoadingSpinner message="Checking Open Pretty Good Privacy keyrings..." />
       ) : (
         <div className="space-y-4">
           {keys.map((k, idx) => (

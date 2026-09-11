@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { api } from '../services/api';
 import { InvestigationReport } from '../types';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 interface ReportsPageProps {
   caseId?: string;
@@ -27,13 +28,28 @@ interface ReportsPageProps {
 }
 
 export const ReportsPage: React.FC<ReportsPageProps> = ({ caseId = 'CASE-TRACEX-01', onSelectEvidence }) => {
-  const [report, setReport] = useState<InvestigationReport | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [report, setReport] = useState<InvestigationReport | null>(() => {
+    try {
+      const cached = sessionStorage.getItem(`tracex_report_${caseId}`);
+      return cached ? JSON.parse(cached) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem(`tracex_report_${caseId}`);
+    } catch {
+      return true;
+    }
+  });
 
   useEffect(() => {
-    setLoading(true);
     api.generateReport(caseId)
-      .then(setReport)
+      .then(res => {
+        setReport(res);
+        try { sessionStorage.setItem(`tracex_report_${caseId}`, JSON.stringify(res)); } catch {}
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, [caseId]);
@@ -111,10 +127,7 @@ ${report.analyst_signature}
 
   if (loading || !report) {
     return (
-      <div className="flex items-center justify-center h-96 text-blue-600 text-xs font-mono font-bold">
-        <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
-        <span>Compiling forensic attribution report...</span>
-      </div>
+      <LoadingSpinner message="Compiling forensic attribution report..." className="h-96" />
     );
   }
 

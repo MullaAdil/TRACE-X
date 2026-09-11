@@ -9,9 +9,29 @@ interface CtiPageProps {
 }
 
 export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
-  const [overview, setOverview] = useState<CtiOverview | null>(null);
-  const [indicators, setIndicators] = useState<CtiIndicator[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [overview, setOverview] = useState<CtiOverview | null>(() => {
+    try {
+      const c = sessionStorage.getItem('tracex_cti_overview');
+      return c ? JSON.parse(c) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [indicators, setIndicators] = useState<CtiIndicator[]>(() => {
+    try {
+      const c = sessionStorage.getItem('tracex_cti_indicators');
+      return c ? JSON.parse(c) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem('tracex_cti_overview');
+    } catch {
+      return true;
+    }
+  });
   const [typeFilter, setTypeFilter] = useState<string>('ALL');
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -27,6 +47,10 @@ export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
     ]).then(([ov, ind]) => {
       setOverview(ov);
       setIndicators(ind);
+      try {
+        sessionStorage.setItem('tracex_cti_overview', JSON.stringify(ov));
+        sessionStorage.setItem('tracex_cti_indicators', JSON.stringify(ind));
+      } catch {}
     }).catch(console.error)
       .finally(() => setLoading(false));
   }, []);

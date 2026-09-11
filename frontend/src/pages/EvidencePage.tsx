@@ -2,23 +2,41 @@ import React, { useEffect, useState } from 'react';
 import { FileCheck, Search, Filter, Hash, ExternalLink, ShieldCheck, ArrowRight, Lock } from 'lucide-react';
 import { api } from '../services/api';
 import { Evidence } from '../types';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 interface EvidencePageProps {
   onSelectEvidence: (evidenceId: string) => void;
 }
 
 export const EvidencePage: React.FC<EvidencePageProps> = ({ onSelectEvidence }) => {
-  const [evidenceList, setEvidenceList] = useState<Evidence[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [evidenceList, setEvidenceList] = useState<Evidence[]>(() => {
+    try {
+      const cached = sessionStorage.getItem('tracex_evidence_ALL');
+      return cached ? JSON.parse(cached) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem('tracex_evidence_ALL');
+    } catch {
+      return true;
+    }
+  });
   const [sourceFilter, setSourceFilter] = useState<string>('ALL');
   const [searchQuery, setSearchQuery] = useState('');
 
   const loadEvidence = () => {
-    setLoading(true);
     const src = sourceFilter === 'ALL' ? undefined : sourceFilter;
     const q = searchQuery.trim() || undefined;
     api.getEvidenceList(src, undefined, q, 100)
-      .then(setEvidenceList)
+      .then(res => {
+        setEvidenceList(res);
+        if (sourceFilter === 'ALL' && !q) {
+          try { sessionStorage.setItem('tracex_evidence_ALL', JSON.stringify(res)); } catch {}
+        }
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   };
@@ -111,10 +129,7 @@ export const EvidencePage: React.FC<EvidencePageProps> = ({ onSelectEvidence }) 
 
       {/* Evidence Table with Slide-on-Slide Theme */}
       {loading ? (
-        <div className="flex items-center justify-center h-64 text-blue-600 text-xs font-mono font-bold">
-          <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
-          <span>Validating cryptographic vault seals...</span>
-        </div>
+        <LoadingSpinner message="Validating cryptographic vault seals..." />
       ) : evidenceList.length === 0 ? (
         <div className="p-12 text-center bg-white border border-slate-200 rounded-3xl text-xs text-slate-500 shadow-sm">
           No evidence records found matching your search.

@@ -16,6 +16,7 @@ import {
 import { api } from '../services/api';
 import { SearchResultItem } from '../types';
 import { ThreatEnrichmentCard } from '../components/common/ThreatEnrichmentCard';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 interface SearchPageProps {
   initialQuery?: string;
@@ -189,10 +190,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
 
       {/* Results Section */}
       {loading ? (
-        <div className="flex items-center justify-center h-64 text-blue-600 text-xs font-mono font-bold">
-          <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
-          <span>Running threat intelligence & cross-dataset lookup...</span>
-        </div>
+        <LoadingSpinner message="Running threat intelligence & cross-dataset lookup..." />
       ) : searched && results.length === 0 ? (
         <div className="space-y-4">
           {/* Live Threat Enrichment Card (Even when 0 local records exist!) */}

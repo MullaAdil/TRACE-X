@@ -9,9 +9,29 @@ interface DarkWebPageProps {
 }
 
 export const DarkWebPage: React.FC<DarkWebPageProps> = ({ onSelectEvidence }) => {
-  const [stats, setStats] = useState<DarkWebStats | null>(null);
-  const [threads, setThreads] = useState<DarkWebThread[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState<DarkWebStats | null>(() => {
+    try {
+      const c = sessionStorage.getItem('tracex_darkweb_stats');
+      return c ? JSON.parse(c) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [threads, setThreads] = useState<DarkWebThread[]>(() => {
+    try {
+      const c = sessionStorage.getItem('tracex_darkweb_threads');
+      return c ? JSON.parse(c) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem('tracex_darkweb_stats');
+    } catch {
+      return true;
+    }
+  });
   const [searchTerm, setSearchTerm] = useState('');
 
   useEffect(() => {
@@ -21,6 +41,10 @@ export const DarkWebPage: React.FC<DarkWebPageProps> = ({ onSelectEvidence }) =>
     ]).then(([st, th]) => {
       setStats(st);
       setThreads(th);
+      try {
+        sessionStorage.setItem('tracex_darkweb_stats', JSON.stringify(st));
+        sessionStorage.setItem('tracex_darkweb_threads', JSON.stringify(th));
+      } catch {}
     }).catch(console.error)
       .finally(() => setLoading(false));
   }, []);

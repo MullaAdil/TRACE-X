@@ -9,9 +9,29 @@ interface BlockchainPageProps {
 }
 
 export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
-  const [stats, setStats] = useState<BlockchainStats | null>(null);
-  const [transactions, setTransactions] = useState<BlockchainTx[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState<BlockchainStats | null>(() => {
+    try {
+      const c = sessionStorage.getItem('tracex_blockchain_stats');
+      return c ? JSON.parse(c) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [transactions, setTransactions] = useState<BlockchainTx[]>(() => {
+    try {
+      const c = sessionStorage.getItem('tracex_blockchain_txs');
+      return c ? JSON.parse(c) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem('tracex_blockchain_stats');
+    } catch {
+      return true;
+    }
+  });
   const [walletFilter, setWalletFilter] = useState('');
   const [walletDossier, setWalletDossier] = useState<any>(null);
   const [liveRpcData, setLiveRpcData] = useState<any>(null);
@@ -24,6 +44,10 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
     ]).then(([st, txs]) => {
       setStats(st);
       setTransactions(txs);
+      try {
+        sessionStorage.setItem('tracex_blockchain_stats', JSON.stringify(st));
+        sessionStorage.setItem('tracex_blockchain_txs', JSON.stringify(txs));
+      } catch {}
     }).catch(console.error)
       .finally(() => setLoading(false));
   }, []);

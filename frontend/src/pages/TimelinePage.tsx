@@ -2,23 +2,41 @@ import React, { useEffect, useState } from 'react';
 import { Clock, Filter, Search, Calendar, FileCheck, ArrowUpRight, CheckCircle2 } from 'lucide-react';
 import { api } from '../services/api';
 import { TimelineEvent } from '../types';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 interface TimelinePageProps {
   onSelectEvidence: (evidenceId: string) => void;
 }
 
 export const TimelinePage: React.FC<TimelinePageProps> = ({ onSelectEvidence }) => {
-  const [events, setEvents] = useState<TimelineEvent[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [events, setEvents] = useState<TimelineEvent[]>(() => {
+    try {
+      const cached = sessionStorage.getItem('tracex_timeline_ALL');
+      return cached ? JSON.parse(cached) : [];
+    } catch {
+      return [];
+    }
+  });
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem('tracex_timeline_ALL');
+    } catch {
+      return true;
+    }
+  });
   const [sourceFilter, setSourceFilter] = useState<string>('ALL');
   const [entityFilter, setEntityFilter] = useState<string>('');
 
   const loadTimeline = () => {
-    setLoading(true);
     const src = sourceFilter === 'ALL' ? undefined : sourceFilter;
     const ent = entityFilter.trim() ? entityFilter.trim() : undefined;
     api.getTimeline(src, ent, 150)
-      .then(setEvents)
+      .then(res => {
+        setEvents(res);
+        if (sourceFilter === 'ALL' && !ent) {
+          try { sessionStorage.setItem('tracex_timeline_ALL', JSON.stringify(res)); } catch {}
+        }
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   };
@@ -109,10 +127,7 @@ export const TimelinePage: React.FC<TimelinePageProps> = ({ onSelectEvidence }) 
 
       {/* Timeline Stream with Wide Horizontal Event Cards */}
       {loading ? (
-        <div className="flex items-center justify-center h-64 text-blue-600 text-xs font-mono font-bold">
-          <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
-          <span>Aligning timestamps chronologically...</span>
-        </div>
+        <LoadingSpinner message="Aligning timestamps chronologically..." />
       ) : events.length === 0 ? (
         <div className="card-slide-stack mr-3 mb-4 p-12 text-center text-xs text-slate-500">
           No timeline events match the selected criteria.

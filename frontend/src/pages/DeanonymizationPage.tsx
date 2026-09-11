@@ -19,6 +19,7 @@ import {
 } from 'lucide-react';
 import { api } from '../services/api';
 import deanonymizeVisual from '../assets/visuals/deanonymize_visual.jpg';
+import { LoadingSpinner } from '../components/common/LoadingSpinner';
 
 interface DeanonymizationPageProps {
   onNavigateToGraph: (entityVal?: string) => void;
@@ -30,36 +31,54 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
   onNavigateToGraph,
   onNavigateToReports
 }) => {
-  const [targets, setTargets] = useState<any[]>([]);
+  const [targets, setTargets] = useState<any[]>(() => {
+    try {
+      const cached = sessionStorage.getItem('tracex_deanon_targets');
+      return cached ? JSON.parse(cached) : [];
+    } catch {
+      return [];
+    }
+  });
   const [selectedTargetId, setSelectedTargetId] = useState<string>('packrat');
-  const [pipelineData, setPipelineData] = useState<any | null>(null);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [pipelineData, setPipelineData] = useState<any | null>(() => {
+    try {
+      const cached = sessionStorage.getItem('tracex_deanon_packrat');
+      return cached ? JSON.parse(cached) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [loading, setLoading] = useState<boolean>(() => {
+    try {
+      return !sessionStorage.getItem('tracex_deanon_packrat');
+    } catch {
+      return true;
+    }
+  });
   const [error, setError] = useState<string | null>(null);
   const [activeStageIndex, setActiveStageIndex] = useState<number>(0);
 
   const loadTargets = async () => {
     try {
-      setLoading(true);
       const data = await api.getDeanonymizationTargets();
       setTargets(data);
+      try { sessionStorage.setItem('tracex_deanon_targets', JSON.stringify(data)); } catch {}
       if (data.length > 0 && !selectedTargetId) {
         setSelectedTargetId(data[0].id);
       }
     } catch (err: any) {
-      setError(err.message || 'Failed to load targets');
-    } finally {
-      setLoading(false);
+      if (!targets.length) setError(err.message || 'Failed to load targets');
     }
   };
 
   const loadPipeline = async (targetId: string) => {
     try {
-      setLoading(true);
       setError(null);
       const data = await api.getDeanonymizationTarget(targetId);
       setPipelineData(data);
+      try { sessionStorage.setItem(`tracex_deanon_${targetId}`, JSON.stringify(data)); } catch {}
     } catch (err: any) {
-      setError(err.message || 'Failed to load de-anonymization pipeline');
+      if (!pipelineData) setError(err.message || 'Failed to load de-anonymization pipeline');
     } finally {
       setLoading(false);
     }
@@ -237,12 +256,7 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
       </div>
 
       {loading && !pipelineData ? (
-        <div className="flex flex-col items-center justify-center h-64 space-y-3">
-          <div className="w-8 h-8 border-3 border-blue-600 border-t-transparent rounded-full animate-spin"></div>
-          <p className="text-sm font-bold text-slate-500">
-            Reconstructing the de-anonymization chain...
-          </p>
-        </div>
+        <LoadingSpinner message="Reconstructing the de-anonymization chain..." />
       ) : error ? (
         <div className="p-6 bg-rose-50 border border-rose-200 rounded-2xl text-rose-700 text-sm font-medium">
           {error}
