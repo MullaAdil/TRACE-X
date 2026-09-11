@@ -56,53 +56,57 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
 
   return (
     <div className="p-8 space-y-6 max-w-7xl mx-auto">
-      {/* Apple-style Hero Header with Dedicated Microservice Banner */}
-      <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-slate-900 via-blue-950/80 to-slate-950 border border-blue-900/50 p-8 shadow-xl text-white">
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div className="space-y-3 max-w-3xl">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold">
-              <KeyRound className="w-3.5 h-3.5" />
-              <span>STANDALONE MICROSERVICE • PGP CRYPTOGRAPHIC ID BENCHMARK</span>
+      {/* Apple-style Hero Header with Dedicated Microservice Banner & Slide-on-Slide Theme */}
+      <div className="mr-3 mb-4">
+        <div className="card-slide-stack relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950/80 to-slate-950 border border-blue-900/50 p-8 shadow-xl text-white">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+            <div className="space-y-3 max-w-3xl">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold">
+                <KeyRound className="w-3.5 h-3.5" />
+                <span>STANDALONE MICROSERVICE • PGP CRYPTOGRAPHIC ID BENCHMARK</span>
+              </div>
+              <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                Digital Signatures. Cryptographic proof of who is who.
+              </h1>
+              <p className="text-sm text-slate-300 leading-relaxed font-normal">
+                Public OpenPGP keys serve as unforgeable digital identity seals. TRACE-X validates cryptographic fingerprints and user handles against official European key servers (CIRCL), guaranteeing tamper-proof verification.
+              </p>
             </div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
-              Digital Signatures. Cryptographic proof of who is who.
-            </h1>
-            <p className="text-sm text-slate-300 leading-relaxed font-normal">
-              Public OpenPGP keys serve as unforgeable digital identity seals. TRACE-X validates cryptographic fingerprints and user handles against official European key servers (CIRCL), guaranteeing tamper-proof verification.
-            </p>
-          </div>
 
-          <button
-            onClick={() => setShowImport(true)}
-            className="btn-liquid px-6 py-3 rounded-2xl text-xs font-bold shrink-0 self-start md:self-auto shadow-lg flex items-center space-x-2"
-          >
-            <Plus className="w-4 h-4" />
-            <span>Import OpenPGP Key</span>
-          </button>
+            <button
+              onClick={() => setShowImport(true)}
+              className="btn-liquid px-6 py-3 rounded-2xl text-xs font-bold shrink-0 self-start md:self-auto shadow-lg flex items-center space-x-2"
+            >
+              <Plus className="w-4 h-4" />
+              <span>Import OpenPGP Key</span>
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Verified Reference Benchmark Notice (Horizontal card) */}
-      <div className="p-5 rounded-3xl bg-blue-50/80 border border-blue-200 text-xs text-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-2xs">
-        <div className="flex items-start space-x-3.5">
-          <div className="w-10 h-10 rounded-2xl bg-blue-600 text-white flex items-center justify-center shrink-0">
-            <ShieldCheck className="w-5 h-5" />
+      {/* Verified Reference Benchmark Notice with Slide-on-Slide Theme */}
+      <div className="mr-3 mb-4">
+        <div className="card-slide-stack p-5 bg-blue-50/80 border border-blue-200 text-xs text-slate-700 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-2xs">
+          <div className="flex items-start space-x-3.5">
+            <div className="w-10 h-10 rounded-2xl bg-blue-600 text-white flex items-center justify-center shrink-0">
+              <ShieldCheck className="w-5 h-5" />
+            </div>
+            <div className="space-y-0.5">
+              <span className="font-extrabold text-blue-950 tracking-tight text-sm block">
+                Verified Public Reference Key
+              </span>
+              <p className="text-slate-600 leading-relaxed max-w-3xl">
+                The primary CIRCL key (<span className="font-mono font-bold text-blue-700">CA572205C0024E06BA70BE89EAADCFFC22BD4CD5</span>) is a published reference key used by Luxembourg’s incident response team for security bulletins. It serves as an authentic baseline and is not a threat actor.
+              </p>
+            </div>
           </div>
-          <div className="space-y-0.5">
-            <span className="font-extrabold text-blue-950 tracking-tight text-sm block">
-              Verified Public Reference Key
-            </span>
-            <p className="text-slate-600 leading-relaxed max-w-3xl">
-              The primary CIRCL key (<span className="font-mono font-bold text-blue-700">CA572205C0024E06BA70BE89EAADCFFC22BD4CD5</span>) is a published reference key used by Luxembourg’s incident response team for security bulletins. It serves as an authentic baseline and is not a threat actor.
-            </p>
+          <div className="shrink-0 px-3.5 py-1.5 rounded-full bg-white border border-blue-200 text-blue-700 font-bold text-xs">
+            Authentic Reference
           </div>
-        </div>
-        <div className="shrink-0 px-3.5 py-1.5 rounded-full bg-white border border-blue-200 text-blue-700 font-bold text-xs">
-          Authentic Reference
         </div>
       </div>
 
-      {/* Wide Horizontal Key Cards */}
+      {/* Wide Horizontal Key Cards with Slide-on-Slide Theme */}
       {loading ? (
         <div className="flex items-center justify-center h-64 text-blue-600 text-xs font-mono font-bold">
           <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
@@ -111,52 +115,53 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
       ) : (
         <div className="space-y-4">
           {keys.map((k, idx) => (
-            <div
-              key={idx}
-              className="p-6 rounded-3xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all shadow-2xs space-y-4"
-            >
-              {/* Top Row */}
-              <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-3">
-                <div className="flex items-center space-x-2.5">
-                  <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                    ID: {k.key_id}
-                  </span>
-                  <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
-                    Cryptographically Validated
+            <div key={idx} className="mr-3 mb-4">
+              <div
+                className="card-slide-stack p-6 bg-white border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all shadow-2xs space-y-4"
+              >
+                {/* Top Row */}
+                <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                  <div className="flex items-center space-x-2.5">
+                    <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                      ID: {k.key_id}
+                    </span>
+                    <span className="text-[10px] uppercase font-bold tracking-wider px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 border border-blue-200">
+                      Cryptographically Validated
+                    </span>
+                  </div>
+                  <span className="text-xs font-mono font-semibold text-slate-500">
+                    {k.algorithm || "RSA 4096-bit"}
                   </span>
                 </div>
-                <span className="text-xs font-mono font-semibold text-slate-500">
-                  {k.algorithm || "RSA 4096-bit"}
-                </span>
-              </div>
 
-              {/* Horizontal Breakdown */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
-                {/* Fingerprint block */}
-                <div className="space-y-1 md:col-span-2">
-                  <span className="text-[10px] uppercase font-bold text-slate-400 block">Cryptographic Fingerprint</span>
-                  <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 font-mono text-xs text-blue-700 break-all select-all font-bold">
-                    {k.fingerprint}
+                {/* Horizontal Breakdown */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
+                  {/* Fingerprint block */}
+                  <div className="space-y-1 md:col-span-2">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 block">Cryptographic Fingerprint</span>
+                    <div className="p-3 bg-slate-50 rounded-2xl border border-slate-200 font-mono text-xs text-blue-700 break-all select-all font-bold">
+                      {k.fingerprint}
+                    </div>
                   </div>
-                </div>
 
-                {/* Identity & Source */}
-                <div className="space-y-2 text-xs">
-                  <div>
-                    <span className="text-slate-400 font-medium block text-[10px] uppercase">Owner Identity</span>
-                    <span className="font-bold text-slate-900 block mt-0.5">{k.uid}</span>
-                  </div>
-                  <div>
-                    <span className="text-slate-400 font-medium block text-[10px] uppercase">Public Source</span>
-                    <a
-                      href={k.source}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-600 font-semibold hover:underline flex items-center space-x-1 mt-0.5"
-                    >
-                      <span className="truncate max-w-[200px]">{k.source}</span>
-                      <ExternalLink className="w-3 h-3 shrink-0" />
-                    </a>
+                  {/* Identity & Source */}
+                  <div className="space-y-2 text-xs">
+                    <div>
+                      <span className="text-slate-400 font-medium block text-[10px] uppercase">Owner Identity</span>
+                      <span className="font-bold text-slate-900 block mt-0.5">{k.uid}</span>
+                    </div>
+                    <div>
+                      <span className="text-slate-400 font-medium block text-[10px] uppercase">Public Source</span>
+                      <a
+                        href={k.source}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 font-semibold hover:underline flex items-center space-x-1 mt-0.5"
+                      >
+                        <span className="truncate max-w-[200px]">{k.source}</span>
+                        <ExternalLink className="w-3 h-3 shrink-0" />
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>

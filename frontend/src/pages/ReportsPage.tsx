@@ -154,7 +154,7 @@ ${report.analyst_signature}
       </div>
 
       {/* Main Forensic Report Container (Expansive Horizontal Layout) */}
-      <div className="p-8 md:p-12 rounded-3xl bg-white border border-slate-200 shadow-sm space-y-8 print:border-none print:shadow-none print:p-0">
+      <div className="card-slide-stack mr-3 mb-4 p-8 md:p-12 space-y-8 print:border-none print:shadow-none print:p-0">
         {/* Document Header & Metadata Horizontal Strip */}
         <div className="space-y-6 border-b border-slate-100 pb-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
@@ -175,7 +175,7 @@ ${report.analyst_signature}
 
           {/* 4-Item Horizontal Metadata Bar */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center space-x-3.5">
+            <div className="card-slide-stack-sm mr-2 mb-2 p-4 flex items-center space-x-3.5">
               <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shrink-0">
                 <FileText className="w-5 h-5" />
               </div>
@@ -185,7 +185,7 @@ ${report.analyst_signature}
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center space-x-3.5">
+            <div className="card-slide-stack-sm mr-2 mb-2 p-4 flex items-center space-x-3.5">
               <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shrink-0">
                 <User className="w-5 h-5" />
               </div>
@@ -195,7 +195,7 @@ ${report.analyst_signature}
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center space-x-3.5">
+            <div className="card-slide-stack-sm mr-2 mb-2 p-4 flex items-center space-x-3.5">
               <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shrink-0">
                 <Target className="w-5 h-5" />
               </div>
@@ -207,7 +207,7 @@ ${report.analyst_signature}
               </div>
             </div>
 
-            <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center space-x-3.5">
+            <div className="card-slide-stack-sm mr-2 mb-2 p-4 flex items-center space-x-3.5">
               <div className="w-10 h-10 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center shrink-0">
                 <ShieldCheck className="w-5 h-5" />
               </div>
@@ -220,7 +220,7 @@ ${report.analyst_signature}
         </div>
 
         {/* Attribution Verdict Banner (Wide Horizontal) */}
-        <div className="p-6 rounded-3xl bg-blue-50/90 border border-blue-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 shadow-2xs">
+        <div className="card-slide-stack-sm mr-2 mb-2 p-6 bg-blue-50/90 border-blue-200 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
           <div className="flex items-start space-x-4">
             <div className="w-11 h-11 rounded-2xl bg-blue-600 text-white flex items-center justify-center shrink-0 shadow-sm">
               <ShieldCheck className="w-6 h-6" />
@@ -303,7 +303,7 @@ ${report.analyst_signature}
 
           <div className="space-y-4">
             {/* CTI Findings Horizontal Card */}
-            <div className="p-6 rounded-3xl bg-white border border-slate-200 space-y-3 shadow-2xs">
+            <div className="card-slide-stack-sm mr-2 mb-2 p-6 space-y-3">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center space-x-2.5">
                   <div className="p-2 rounded-xl bg-blue-50 border border-blue-200 text-blue-600">
@@ -335,7 +335,7 @@ ${report.analyst_signature}
             </div>
 
             {/* Blockchain Findings Horizontal Card */}
-            <div className="p-6 rounded-3xl bg-white border border-slate-200 space-y-3 shadow-2xs">
+            <div className="card-slide-stack-sm mr-2 mb-2 p-6 space-y-3">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center space-x-2.5">
                   <div className="p-2 rounded-xl bg-blue-50 border border-blue-200 text-blue-600">
@@ -367,7 +367,7 @@ ${report.analyst_signature}
             </div>
 
             {/* Dark Web Findings Horizontal Card */}
-            <div className="p-6 rounded-3xl bg-white border border-slate-200 space-y-3 shadow-2xs">
+            <div className="card-slide-stack-sm mr-2 mb-2 p-6 space-y-3">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center space-x-2.5">
                   <div className="p-2 rounded-xl bg-blue-50 border border-blue-200 text-blue-600">
@@ -399,7 +399,7 @@ ${report.analyst_signature}
             </div>
 
             {/* OpenPGP Findings Horizontal Card */}
-            <div className="p-6 rounded-3xl bg-white border border-slate-200 space-y-3 shadow-2xs">
+            <div className="card-slide-stack-sm mr-2 mb-2 p-6 space-y-3">
               <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                 <div className="flex items-center space-x-2.5">
                   <div className="p-2 rounded-xl bg-blue-50 border border-blue-200 text-blue-600">
@@ -445,7 +445,7 @@ ${report.analyst_signature}
             {report.correlation_findings.map((rel, i) => (
               <div
                 key={i}
-                className="p-5 rounded-3xl bg-slate-50 border border-slate-200 hover:border-blue-300 transition text-xs flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-2xs"
+                className="card-slide-stack-sm mr-2 mb-2 p-5 text-xs flex flex-col md:flex-row md:items-center justify-between gap-4"
               >
                 <div className="space-y-1 flex-1">
                   <div className="flex items-center space-x-2">

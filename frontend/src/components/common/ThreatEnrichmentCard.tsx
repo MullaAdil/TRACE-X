@@ -62,7 +62,7 @@ export const ThreatEnrichmentCard: React.FC<ThreatEnrichmentCardProps> = ({ data
   };
 
   return (
-    <div className="p-6 rounded-3xl bg-white border border-blue-200 shadow-md shadow-blue-500/5 space-y-4 animate-in fade-in zoom-in-95 duration-200">
+    <div className="card-slide-stack mr-3 mb-4 p-6 space-y-4 animate-in fade-in zoom-in-95 duration-200">
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-100 pb-4">
         <div className="flex items-center space-x-3">

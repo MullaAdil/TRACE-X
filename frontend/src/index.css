@@ -67,6 +67,7 @@
   border-radius: 1.75rem;
   isolation: isolate;
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px -2px rgba(15, 23, 42, 0.05);
 }
 
 .card-slide-stack::before {
@@ -79,6 +80,7 @@
   transform: translate(8px, 8px);
   z-index: -1;
   pointer-events: none;
+  box-shadow: 0 3px 10px -2px rgba(15, 23, 42, 0.04);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -92,15 +94,16 @@
   transform: translate(16px, 16px);
   z-index: -2;
   pointer-events: none;
+  box-shadow: 0 3px 10px -2px rgba(15, 23, 42, 0.04);
   transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .card-slide-stack:hover::before {
-  transform: translate(10px, 10px);
+  transform: translate(11px, 11px);
 }
 
 .card-slide-stack:hover::after {
-  transform: translate(19px, 19px);
+  transform: translate(21px, 21px);
 }
 
 /* Compact version for smaller cards */
@@ -111,6 +114,7 @@
   border-radius: 1.25rem;
   isolation: isolate;
   transition: all 0.2s ease;
+  box-shadow: 0 2px 8px -2px rgba(15, 23, 42, 0.04);
 }
 
 .card-slide-stack-sm::before {
@@ -123,6 +127,7 @@
   transform: translate(5px, 5px);
   z-index: -1;
   pointer-events: none;
+  box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.03);
   transition: transform 0.2s ease;
 }
 
@@ -136,6 +141,7 @@
   transform: translate(10px, 10px);
   z-index: -2;
   pointer-events: none;
+  box-shadow: 0 2px 6px -1px rgba(15, 23, 42, 0.03);
   transition: transform 0.2s ease;
 }
 
@@ -144,7 +150,7 @@
 }
 
 .card-slide-stack-sm:hover::after {
-  transform: translate(13px, 13px);
+  transform: translate(14px, 14px);
 }
 
 /* Fluid animated connections */

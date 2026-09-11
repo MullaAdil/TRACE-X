@@ -64,7 +64,7 @@ export const TimelinePage: React.FC<TimelinePageProps> = ({ onSelectEvidence }) 
       </div>
 
       {/* Filter controls (Wide Horizontal Bar) */}
-      <div className="p-6 rounded-3xl bg-white border border-slate-200 flex flex-col md:flex-row md:items-center justify-between gap-4 shadow-sm">
+      <div className="card-slide-stack mr-3 mb-4 p-6 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-bold text-slate-700">Filter Source:</span>
           <div className="flex flex-wrap gap-1.5">
@@ -114,7 +114,7 @@ export const TimelinePage: React.FC<TimelinePageProps> = ({ onSelectEvidence }) 
           <span>Aligning timestamps chronologically...</span>
         </div>
       ) : events.length === 0 ? (
-        <div className="p-12 text-center bg-white border border-slate-200 rounded-3xl text-xs text-slate-500 shadow-sm">
+        <div className="card-slide-stack mr-3 mb-4 p-12 text-center text-xs text-slate-500">
           No timeline events match the selected criteria.
         </div>
       ) : (
@@ -127,7 +127,7 @@ export const TimelinePage: React.FC<TimelinePageProps> = ({ onSelectEvidence }) 
               </div>
 
               {/* Wide Horizontal Event Card */}
-              <div className="p-5 rounded-3xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-md transition space-y-2 shadow-2xs">
+              <div className="card-slide-stack mr-3 mb-4 p-5 space-y-2">
                 <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-slate-100 pb-2.5">
                   <div className="flex items-center space-x-2.5">
                     <span className="px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase bg-blue-50 text-blue-700 border border-blue-200">

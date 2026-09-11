@@ -48,7 +48,7 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-slate-50 bg-[radial-gradient(#e2e8f0_1.2px,transparent_1.2px)] [background-size:28px_28px] text-slate-900">
+    <div className="h-screen max-h-screen flex flex-col overflow-hidden bg-slate-50 bg-[radial-gradient(#e2e8f0_1.2px,transparent_1.2px)] [background-size:28px_28px] text-slate-900">
       {/* Top Navbar */}
       <Navbar
         activePage={activePage}
@@ -58,7 +58,7 @@ export function App() {
       />
 
       {/* Main Layout Area */}
-      <div className="flex-1 flex overflow-hidden relative">
+      <div className="flex-1 min-h-0 flex overflow-hidden relative">
         {/* Sidebar (with 1-click Dock Down & Undock) */}
         <Sidebar
           activePage={activePage}
@@ -68,7 +68,7 @@ export function App() {
         />
 
         {/* Dynamic Page Workspace */}
-        <main className={`flex-1 overflow-y-auto bg-slate-50 ${isSidebarDockedDown ? 'pb-20' : 'pb-16 md:pb-6'}`}>
+        <main className={`flex-1 min-h-0 h-full overflow-y-auto ${isSidebarDockedDown ? 'pb-20' : 'pb-16 md:pb-6'}`}>
           {activePage === 'dashboard' && (
             <DashboardPage
               onNavigate={handleNavigate}

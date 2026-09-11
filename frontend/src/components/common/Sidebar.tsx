@@ -109,7 +109,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {/* 1. Desktop Left Sidebar (Active when NOT docked down) */}
       {!isDockedDown && (
         <aside
-          className={`hidden md:flex flex-col justify-between border-r border-slate-200/90 bg-white/95 backdrop-blur-xl transition-all duration-300 shrink-0 shadow-2xs overflow-y-auto ${
+          className={`hidden md:flex flex-col justify-between border-r border-slate-200/90 bg-white/95 backdrop-blur-xl transition-all duration-300 shrink-0 shadow-2xs overflow-y-auto h-full min-h-full self-stretch ${
             isCollapsed ? 'w-16 p-2' : 'w-64 p-4'
           }`}
         >

@@ -147,7 +147,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
       </div>
 
       {/* Main Search Input */}
-      <div className="bg-white border border-slate-200 p-6 rounded-3xl space-y-4 shadow-sm">
+      <div className="card-slide-stack mr-3 mb-4 p-6 space-y-4">
         <form onSubmit={handleSubmit} className="flex items-center space-x-2">
           <div className="relative flex-1">
             <Search className="w-5 h-5 text-slate-400 absolute left-4 top-3.5" />
@@ -204,7 +204,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
           )}
 
           {/* Empty Search Result with Ingest Prompt */}
-          <div className="p-8 text-center bg-white border border-slate-200 rounded-3xl space-y-3 shadow-sm">
+          <div className="card-slide-stack mr-3 mb-4 p-8 text-center space-y-3">
             <div className="w-10 h-10 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center mx-auto border border-blue-200">
               <AlertCircle className="w-5 h-5" />
             </div>
@@ -249,7 +249,7 @@ export const SearchPage: React.FC<SearchPageProps> = ({
 
               <div
                 key={item.entity_id}
-                className="p-5 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-400 hover:shadow-md transition-all duration-200 flex flex-col md:flex-row md:items-center md:justify-between gap-4 shadow-2xs"
+                className="card-slide-stack mr-3 mb-4 p-5 flex flex-col md:flex-row md:items-center md:justify-between gap-4"
               >
                 <div className="space-y-1.5 flex-1">
                   <div className="flex items-center space-x-2.5">

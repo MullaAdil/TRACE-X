@@ -59,7 +59,7 @@ export const GraphPage: React.FC<GraphPageProps> = ({ onSelectEntity, onSelectEv
 
         {/* Investigation Focus Presets */}
         <div className="flex flex-wrap items-center gap-2 self-start lg:self-auto">
-          <div className="flex items-center bg-white p-1 rounded-2xl border border-slate-200 shadow-sm text-xs font-bold">
+          <div className="card-slide-stack-sm mr-2 mb-2 flex items-center p-1 text-xs font-bold">
             <button
               onClick={() => setViewPreset('packrat')}
               className={`px-3.5 py-2 rounded-xl transition-all flex items-center space-x-1.5 ${
@@ -97,7 +97,7 @@ export const GraphPage: React.FC<GraphPageProps> = ({ onSelectEntity, onSelectEv
             </button>
           </div>
 
-          <div className="text-xs font-mono text-slate-600 bg-white px-3.5 py-2 rounded-2xl border border-slate-200 shadow-sm flex items-center space-x-2">
+          <div className="card-slide-stack-sm mr-2 mb-2 text-xs font-mono text-slate-600 px-3.5 py-2 flex items-center space-x-2">
             <span className="w-2 h-2 rounded-full bg-blue-600"></span>
             <span><strong className="text-blue-700 font-bold">{graphData.nodes.length}</strong> clues</span>
             <span className="text-slate-300">•</span>
@@ -115,9 +115,9 @@ export const GraphPage: React.FC<GraphPageProps> = ({ onSelectEntity, onSelectEv
       </div>
 
       {/* Graph Visualizer Canvas */}
-      <div className="flex-1 min-h-0">
+      <div className="flex-1 min-h-0 card-slide-stack mr-3 mb-4 overflow-hidden">
         {loading ? (
-          <div className="w-full h-full flex items-center justify-center bg-white border border-slate-200 rounded-3xl text-blue-600 text-xs font-mono font-bold shadow-sm">
+          <div className="w-full h-full flex items-center justify-center text-blue-600 text-xs font-mono font-bold">
             <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
             <span>Synthesizing relationship network...</span>
           </div>

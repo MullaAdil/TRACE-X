@@ -226,120 +226,128 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {/* Service 1: Blockchain Intelligence */}
-          <div
-            onClick={() => onNavigate('blockchain')}
-            className="p-5 rounded-3xl bg-white border border-slate-200/90 hover:border-emerald-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center font-bold">
-                  <Coins className="w-5 h-5" />
+          <div className="mr-2 mb-2">
+            <div
+              onClick={() => onNavigate('blockchain')}
+              className="card-slide-stack-sm p-5 hover:border-emerald-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4 h-full"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center font-bold">
+                    <Coins className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700">
+                    SVC-01: CRYPTO
+                  </span>
                 </div>
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700">
-                  SVC-01: CRYPTO
-                </span>
+                <div className="space-y-1">
+                  <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-emerald-700 transition">
+                    Blockchain Ledger Service
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-2">
+                    Live Alchemy RPC mainnet tracker. Dissects wallet flows, bytecode contracts, and ERC-20 laundering hops.
+                  </p>
+                </div>
               </div>
-              <div className="space-y-1">
-                <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-emerald-700 transition">
-                  Blockchain Ledger Service
-                </h3>
-                <p className="text-xs text-slate-500 line-clamp-2">
-                  Live Alchemy RPC mainnet tracker. Dissects wallet flows, bytecode contracts, and ERC-20 laundering hops.
-                </p>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700">
+                <span className="font-mono">{stats.blockchain_tx_count} Verified Txs</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
-            </div>
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-emerald-700">
-              <span className="font-mono">{stats.blockchain_tx_count} Verified Txs</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </div>
           </div>
 
           {/* Service 2: Dark Web Crawler Service */}
-          <div
-            onClick={() => onNavigate('darkweb')}
-            className="p-5 rounded-3xl bg-white border border-slate-200/90 hover:border-purple-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="w-10 h-10 rounded-2xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center font-bold">
-                  <Globe2 className="w-5 h-5" />
+          <div className="mr-2 mb-2">
+            <div
+              onClick={() => onNavigate('darkweb')}
+              className="card-slide-stack-sm p-5 hover:border-purple-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4 h-full"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-2xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center font-bold">
+                    <Globe2 className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700">
+                    SVC-02: DARKNET
+                  </span>
                 </div>
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700">
-                  SVC-02: DARKNET
-                </span>
+                <div className="space-y-1">
+                  <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-purple-700 transition">
+                    Dark Web Leak Service
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-2">
+                    Monitors underground Tor forums, paste repositories, database leaks, and masked actor signatures.
+                  </p>
+                </div>
               </div>
-              <div className="space-y-1">
-                <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-purple-700 transition">
-                  Dark Web Leak Service
-                </h3>
-                <p className="text-xs text-slate-500 line-clamp-2">
-                  Monitors underground Tor forums, paste repositories, database leaks, and masked actor signatures.
-                </p>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-purple-700">
+                <span className="font-mono">{stats.darkweb_threads_count} Forum Leaks</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
-            </div>
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-purple-700">
-              <span className="font-mono">{stats.darkweb_threads_count} Forum Leaks</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </div>
           </div>
 
           {/* Service 3: Threat Intelligence CTI Service */}
-          <div
-            onClick={() => onNavigate('cti')}
-            className="p-5 rounded-3xl bg-white border border-slate-200/90 hover:border-amber-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold">
-                  <Bug className="w-5 h-5" />
+          <div className="mr-2 mb-2">
+            <div
+              onClick={() => onNavigate('cti')}
+              className="card-slide-stack-sm p-5 hover:border-amber-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4 h-full"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold">
+                    <Bug className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700">
+                    SVC-03: CTI-IOC
+                  </span>
                 </div>
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700">
-                  SVC-03: CTI-IOC
-                </span>
+                <div className="space-y-1">
+                  <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-amber-700 transition">
+                    Malware & C2 Service
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-2">
+                    MISP-standard indicators of compromise. Reverse-DNS, C2 IP co-location, and Packrat campaign telemetry.
+                  </p>
+                </div>
               </div>
-              <div className="space-y-1">
-                <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-amber-700 transition">
-                  Malware & C2 Service
-                </h3>
-                <p className="text-xs text-slate-500 line-clamp-2">
-                  MISP-standard indicators of compromise. Reverse-DNS, C2 IP co-location, and Packrat campaign telemetry.
-                </p>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-700">
+                <span className="font-mono">{stats.cti_indicators_count} Active IOCs</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
-            </div>
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-amber-700">
-              <span className="font-mono">{stats.cti_indicators_count} Active IOCs</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </div>
           </div>
 
           {/* Service 4: PGP Cryptographic Identity Service */}
-          <div
-            onClick={() => onNavigate('pgp')}
-            className="p-5 rounded-3xl bg-white border border-slate-200/90 hover:border-blue-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4"
-          >
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <div className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center font-bold">
-                  <KeyRound className="w-5 h-5" />
+          <div className="mr-2 mb-2">
+            <div
+              onClick={() => onNavigate('pgp')}
+              className="card-slide-stack-sm p-5 hover:border-blue-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4 h-full"
+            >
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center font-bold">
+                    <KeyRound className="w-5 h-5" />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700">
+                    SVC-04: CRYPTO-ID
+                  </span>
                 </div>
-                <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700">
-                  SVC-04: CRYPTO-ID
-                </span>
+                <div className="space-y-1">
+                  <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-blue-700 transition">
+                    PGP Keyring Service
+                  </h3>
+                  <p className="text-xs text-slate-500 line-clamp-2">
+                    Digital fingerprint verification. Parses armored RSA/Ed25519 blocks and benchmarks against CIRCL keys.
+                  </p>
+                </div>
               </div>
-              <div className="space-y-1">
-                <h3 className="text-sm font-extrabold text-slate-900 group-hover:text-blue-700 transition">
-                  PGP Keyring Service
-                </h3>
-                <p className="text-xs text-slate-500 line-clamp-2">
-                  Digital fingerprint verification. Parses armored RSA/Ed25519 blocks and benchmarks against CIRCL keys.
-                </p>
+              <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-700">
+                <span className="font-mono">OpenPGP Standard</span>
+                <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
               </div>
-            </div>
-            <div className="pt-3 border-t border-slate-100 flex items-center justify-between text-xs font-bold text-blue-700">
-              <span className="font-mono">OpenPGP Standard</span>
-              <ArrowUpRight className="w-4 h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </div>
           </div>
         </div>
@@ -361,7 +369,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               <div
                 key={i}
                 onClick={() => onNavigate(m.page)}
-                className="flex items-center justify-between p-4 rounded-2xl bg-white border border-slate-200/90 hover:border-blue-400 hover:shadow-md transition-all duration-200 cursor-pointer shadow-2xs group"
+                className="card-slide-stack-sm mr-2 mb-2 flex items-center justify-between p-4 cursor-pointer group"
               >
                 <div className="flex items-center space-x-3.5 min-w-0">
                   <div className="p-2.5 rounded-xl bg-blue-50 text-blue-600 border border-blue-100 shrink-0 group-hover:scale-105 transition">

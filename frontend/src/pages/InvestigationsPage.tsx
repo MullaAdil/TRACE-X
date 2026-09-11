@@ -95,67 +95,68 @@ export const InvestigationsPage: React.FC<InvestigationsPageProps> = ({ onNaviga
       ) : (
         <div className="space-y-4">
           {cases.map((c) => (
-            <div
-              key={c.id}
-              className="p-6 rounded-3xl bg-white border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-6"
-            >
-              {/* Left & Middle Info */}
-              <div className="space-y-3 flex-1">
-                <div className="flex flex-wrap items-center gap-2">
-                  <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700">
-                    {c.case_id}
-                  </span>
-                  <span className="text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200">
-                    {c.status}
-                  </span>
-                  <span className="text-xs font-mono text-slate-400 flex items-center space-x-1">
-                    <Calendar className="w-3.5 h-3.5" />
-                    <span>{c.created_at?.split('T')[0] || c.created_at}</span>
-                  </span>
-                </div>
-
-                <div>
-                  <h3 className="text-lg font-black text-slate-900 tracking-tight">{c.name}</h3>
-                  <p className="text-xs text-slate-600 mt-1 leading-relaxed max-w-2xl">
-                    {c.description || "Active cross-source investigation targeting digital threat infrastructure."}
-                  </p>
-                </div>
-
-                <div className="flex flex-wrap items-center gap-4 text-xs pt-1 border-t border-slate-100">
-                  <div className="flex items-center space-x-1.5 text-slate-500">
-                    <Search className="w-3.5 h-3.5 text-blue-600" />
-                    <span className="font-semibold text-slate-700">Target Focus:</span>
-                    <span className="font-mono font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
-                      {c.target_entity || "Multiple Indicators"}
+            <div key={c.id} className="mr-3 mb-4">
+              <div
+                className="card-slide-stack p-6 bg-white border border-slate-200 hover:border-blue-400 hover:shadow-md transition-all shadow-2xs flex flex-col lg:flex-row lg:items-center justify-between gap-6"
+              >
+                {/* Left & Middle Info */}
+                <div className="space-y-3 flex-1">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-mono font-bold px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-blue-700">
+                      {c.case_id}
+                    </span>
+                    <span className="text-[10px] px-2.5 py-0.5 rounded-full font-bold uppercase tracking-wider bg-blue-50 text-blue-700 border border-blue-200">
+                      {c.status}
+                    </span>
+                    <span className="text-xs font-mono text-slate-400 flex items-center space-x-1">
+                      <Calendar className="w-3.5 h-3.5" />
+                      <span>{c.created_at?.split('T')[0] || c.created_at}</span>
                     </span>
                   </div>
 
-                  <div className="flex items-center space-x-1.5 text-slate-500">
-                    <User className="w-3.5 h-3.5 text-slate-400" />
-                    <span className="font-semibold text-slate-700">Lead:</span>
-                    <span className="text-slate-800 font-medium">{c.analyst}</span>
+                  <div>
+                    <h3 className="text-lg font-black text-slate-900 tracking-tight">{c.name}</h3>
+                    <p className="text-xs text-slate-600 mt-1 leading-relaxed max-w-2xl">
+                      {c.description || "Active cross-source investigation targeting digital threat infrastructure."}
+                    </p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-4 text-xs pt-1 border-t border-slate-100">
+                    <div className="flex items-center space-x-1.5 text-slate-500">
+                      <Search className="w-3.5 h-3.5 text-blue-600" />
+                      <span className="font-semibold text-slate-700">Target Focus:</span>
+                      <span className="font-mono font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-200">
+                        {c.target_entity || "Multiple Indicators"}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center space-x-1.5 text-slate-500">
+                      <User className="w-3.5 h-3.5 text-slate-400" />
+                      <span className="font-semibold text-slate-700">Lead:</span>
+                      <span className="text-slate-800 font-medium">{c.analyst}</span>
+                    </div>
                   </div>
                 </div>
-              </div>
 
-              {/* Right: Actions */}
-              <div className="flex sm:flex-row lg:flex-col items-stretch gap-2 shrink-0 border-t lg:border-t-0 lg:border-l border-slate-100 pt-4 lg:pt-0 lg:pl-6">
-                <button
-                  onClick={() => onNavigate('reports', { caseId: c.case_id })}
-                  className="btn-liquid px-5 py-2.5 rounded-2xl text-xs font-bold space-x-2 text-center flex items-center justify-center"
-                >
-                  <FileText className="w-4 h-4" />
-                  <span>Generate Report</span>
-                </button>
-                {c.target_entity && (
+                {/* Right: Actions */}
+                <div className="flex sm:flex-row lg:flex-col items-stretch gap-2 shrink-0 border-t lg:border-t-0 lg:border-l border-slate-100 pt-4 lg:pt-0 lg:pl-6">
                   <button
-                    onClick={() => onNavigate('search', { q: c.target_entity })}
-                    className="btn-liquid-secondary px-4 py-2 rounded-xl text-xs font-bold space-x-1.5 text-center flex items-center justify-center"
+                    onClick={() => onNavigate('reports', { caseId: c.case_id })}
+                    className="btn-liquid px-5 py-2.5 rounded-2xl text-xs font-bold space-x-2 text-center flex items-center justify-center"
                   >
-                    <Search className="w-3.5 h-3.5" />
-                    <span>Search Target</span>
+                    <FileText className="w-4 h-4" />
+                    <span>Generate Report</span>
                   </button>
-                )}
+                  {c.target_entity && (
+                    <button
+                      onClick={() => onNavigate('search', { q: c.target_entity })}
+                      className="btn-liquid-secondary px-4 py-2 rounded-xl text-xs font-bold space-x-1.5 text-center flex items-center justify-center"
+                    >
+                      <Search className="w-3.5 h-3.5" />
+                      <span>Search Target</span>
+                    </button>
+                  )}
+                </div>
               </div>
             </div>
           ))}

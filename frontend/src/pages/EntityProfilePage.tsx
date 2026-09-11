@@ -66,7 +66,7 @@ export const EntityProfilePage: React.FC<EntityProfilePageProps> = ({
       </button>
 
       {/* Entity Dossier Header Card */}
-      <div className="p-8 rounded-3xl bg-white border border-slate-200 space-y-4 shadow-sm">
+      <div className="card-slide-stack mr-3 mb-4 p-8 space-y-4">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="space-y-1.5 flex-1">
             <div className="flex items-center space-x-2">
@@ -158,7 +158,7 @@ export const EntityProfilePage: React.FC<EntityProfilePageProps> = ({
       {activeTab === 'relationships' && (
         <div className="space-y-3">
           {relationships.length === 0 ? (
-            <div className="p-8 text-center bg-white border border-slate-200 rounded-2xl text-xs text-slate-500 shadow-sm">
+            <div className="card-slide-stack mr-3 mb-4 p-8 text-center text-xs text-slate-500">
               No direct correlated relationships recorded yet.
             </div>
           ) : (
@@ -172,7 +172,7 @@ export const EntityProfilePage: React.FC<EntityProfilePageProps> = ({
               return (
                 <div
                   key={rel.id}
-                  className="p-5 rounded-2xl bg-white border border-slate-200 space-y-3 hover:border-blue-400 hover:shadow-md transition shadow-2xs"
+                  className="card-slide-stack mr-3 mb-4 p-5 space-y-3"
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
@@ -232,7 +232,7 @@ export const EntityProfilePage: React.FC<EntityProfilePageProps> = ({
           {evidence.map((ev) => (
             <div
               key={ev.id}
-              className="p-5 rounded-2xl bg-white border border-slate-200 flex items-start justify-between gap-4 shadow-2xs"
+              className="card-slide-stack mr-3 mb-4 p-5 flex items-start justify-between gap-4"
             >
               <div className="space-y-1.5 flex-1">
                 <div className="flex items-center space-x-2">
@@ -263,7 +263,7 @@ export const EntityProfilePage: React.FC<EntityProfilePageProps> = ({
 
       {/* Tab 3: Timeline */}
       {activeTab === 'timeline' && (
-        <div className="p-6 rounded-3xl bg-white border border-slate-200 divide-y divide-slate-100 shadow-sm">
+        <div className="card-slide-stack mr-3 mb-4 p-6 divide-y divide-slate-100">
           {timeline.map((evt) => (
             <div key={evt.id} className="py-3.5 flex items-start justify-between space-x-4">
               <div className="space-y-1">
