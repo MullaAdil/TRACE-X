@@ -22,6 +22,7 @@
 
 ## 📑 Table of Contents
 
+- [📘 Downloadable Team Guide & Handbook (`TRACE_X_TEAM_GUIDE.html`)](TRACE_X_TEAM_GUIDE.html)
 - [1. Executive Summary & Forensic Boundary Principle](#1-executive-summary--forensic-boundary-principle)
 - [2. Ingested Evidence Sources & Provenance](#2-ingested-evidence-sources--provenance)
 - [3. System Architecture](#3-system-architecture)
@@ -140,6 +141,7 @@ Choose your operating system or preferred deployment environment:
 | **Docker (Local)** | Docker Compose | `docker compose up --build` | `http://localhost:80` |
 | **GitHub Actions** | Automated CI | Push to `main` (auto tests & container build) | [Actions Tab](../../actions) |
 | **AWS Cloud** | EC2 Free Tier | `bash deploy_aws_ec2.sh` | `http://<EC2_PUBLIC_IP>` |
+| **Team Handbook** | Standalone HTML | Open [`TRACE_X_TEAM_GUIDE.html`](TRACE_X_TEAM_GUIDE.html) | Local Browser / PDF |
 
 ---
 

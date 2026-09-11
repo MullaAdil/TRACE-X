@@ -115,6 +115,14 @@ def reindex_data():
     finally:
         db.close()
 
+@app.get("/team-guide")
+@app.get("/api/team-guide")
+def get_team_guide():
+    guide_path = Path(__file__).resolve().parent.parent.parent / "TRACE_X_TEAM_GUIDE.html"
+    if guide_path.exists():
+        return FileResponse(guide_path, media_type="text/html")
+    return {"error": "Team guide not found on server"}
+
 # Mount frontend/dist if built (for seamless single-port AWS deployment)
 from pathlib import Path
 from fastapi.staticfiles import StaticFiles

@@ -12,7 +12,8 @@ import {
   ChevronDown,
   ArrowRight,
   Sparkles,
-  Play
+  Play,
+  BookOpen
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -301,6 +302,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             <span>Alchemy Live</span>
           </div>
+
+          {/* Team Guide Handbook */}
+          <a
+            href="/team-guide"
+            target="_blank"
+            rel="noreferrer"
+            title="Open Team Guide & Handbook (Printable/PDF)"
+            className="hidden sm:flex items-center space-x-1.5 px-3 py-1.5 rounded-full text-xs font-semibold text-blue-700 bg-blue-50/80 hover:bg-blue-100/90 border border-blue-200 transition"
+          >
+            <BookOpen className="w-3.5 h-3.5 text-blue-600" />
+            <span>Team Guide</span>
+          </a>
 
           {/* Guided Tour Link */}
           <button

@@ -122,3 +122,9 @@ def test_threat_enrichment(client):
     assert d3["intel"]["has_subnet_match"] is True
     assert "198.12.150.249" in d3["intel"]["colocated_case_ips"]
 
+def test_team_guide_endpoint(client):
+    resp = client.get("/team-guide")
+    assert resp.status_code == 200
+    assert "TRACE-X" in resp.text
+    assert "Team Guide" in resp.text
+
