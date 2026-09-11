@@ -10,6 +10,7 @@ APP_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 cd "$APP_DIR"
 
 echo "[1/4] Pulling latest code from GitHub..."
+git checkout -- frontend/package-lock.json 2>/dev/null || true
 git pull origin main
 
 echo "[2/4] Updating Python dependencies..."
