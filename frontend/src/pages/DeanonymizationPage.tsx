@@ -124,9 +124,9 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
             <div className="lg:col-span-7 space-y-3">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full badge-subtle-blue text-xs font-bold mb-2">
                 <span className="inline-block w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
-                <span>NATIONAL TECHNICAL RESEARCH ORGANISATION (NTRO) PROBLEM ID: SIH26151</span>
+                <span>CYBER THREAT INTELLIGENCE DIRECTIVE</span>
                 <span>•</span>
-                <span className="text-slate-600">DE-ANONYMIZATION ENGINE</span>
+                <span className="text-slate-600">ATTRIBUTION & DE-ANONYMIZATION MATRIX</span>
               </div>
               <h1 className="text-2xl lg:text-3xl font-extrabold text-slate-900 tracking-tight flex items-center gap-3">
                 <div className="p-2 rounded-2xl bg-blue-600 text-white shadow-md shadow-blue-500/20">
@@ -536,9 +536,9 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
                 <span>Attribution Evidentiary Principles</span>
               </div>
               <p className="leading-relaxed">
-                Under National Technical Research Organisation (NTRO) operational guidelines, correlating Internet Protocol (IP) addresses, web domains, malware cryptographic hashes, and cryptocurrency wallets forms a{' '}
+                Under responsible forensic intelligence guidelines, correlating Internet Protocol (IP) addresses, web domains, malware cryptographic hashes, and cryptocurrency wallets forms a{' '}
                 <strong className="text-blue-800 font-bold">Confirmed Digital Cluster</strong>.
-                Real-world physical identity is never guessed or fabricated; it is confirmed exclusively through authorized judicial Know-Your-Customer (KYC) orders or cryptographic key escrow anchors.
+                Real-world physical identity is verified exclusively through cryptographic signatures, authorized forensic records, or authenticated key escrow anchors.
               </p>
             </div>
           </div>

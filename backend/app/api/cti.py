@@ -7,8 +7,14 @@ from ..models.entities import Evidence, Entity
 
 router = APIRouter(prefix="/cti", tags=["CTI"])
 
+from ..cache import cache
+
 @router.get("/overview")
 def get_cti_overview(db: Session = Depends(get_db)):
+    cached = cache.get("cti_overview")
+    if cached:
+        return cached
+
     actor_ev = db.query(Evidence).filter(
         Evidence.source == "CTI",
         Evidence.entity_type == "threat_actor"
@@ -22,7 +28,7 @@ def get_cti_overview(db: Session = Depends(get_db)):
     for ev in all_cti:
         type_counts[ev.entity_type] = type_counts.get(ev.entity_type, 0) + 1
 
-    return {
+    res = {
         "threat_actor": "Packrat",
         "campaign": "Seven Years of a South American Threat Actor",
         "first_observed": "2008",
@@ -40,6 +46,8 @@ def get_cti_overview(db: Session = Depends(get_db)):
         "targeted_regions": ["Ecuador", "Argentina", "Venezuela", "Brazil"],
         "primary_tactics": ["Phishing", "Commercial RATs", "Trojanized Apps", "Disinformation Sites"]
     }
+    cache.set("cti_overview", res, ttl_seconds=60)
+    return res
 
 from sqlalchemy import or_
 

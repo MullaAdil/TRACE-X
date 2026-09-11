@@ -139,7 +139,7 @@ export const DemoWalkthroughModal: React.FC<DemoWalkthroughModalProps> = ({ isOp
       desc: "Generate an official forensic summary report complete with executive findings, confidence scores, and legal attribution disclaimers ready to print or export.",
       actionLabel: "View Final Report",
       action: () => {
-        onNavigate('reports', { caseId: 'CASE-SIH-26151' });
+        onNavigate('reports', { caseId: 'CASE-TRACEX-01' });
         onClose();
       }
     }
@@ -186,7 +186,7 @@ export const DemoWalkthroughModal: React.FC<DemoWalkthroughModalProps> = ({ isOp
             <div className="p-4 rounded-2xl bg-blue-50/80 border border-blue-200 text-xs text-slate-700 space-y-1">
               <div className="flex items-center space-x-2 text-blue-700 font-bold">
                 <CheckCircle2 className="w-4 h-4" />
-                <span>{seeded ? "Scenario Initialized (Case CASE-SIH-26151 Active)" : "Ready to initialize demonstration"}</span>
+                <span>{seeded ? "Scenario Initialized (Case CASE-TRACEX-01 Active)" : "Ready to initialize demonstration"}</span>
               </div>
               <p className="text-[11px] text-slate-500">
                 Prepares the case dossier, connects evidence links, and demonstrates responsible attribution boundaries.

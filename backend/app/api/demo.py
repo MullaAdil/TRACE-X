@@ -16,7 +16,7 @@ def seed_demo_investigation(db: Session = Depends(get_db)):
     with clearly distinguished real public OSINT and a clearly labeled
     'SYNTHETIC AUTHORIZED EVIDENCE' record.
     """
-    case_id = "CASE-SIH-26151"
+    case_id = "CASE-TRACEX-01"
     existing = db.query(Investigation).filter(Investigation.case_id == case_id).first()
     if existing:
         return existing
@@ -32,8 +32,8 @@ def seed_demo_investigation(db: Session = Depends(get_db)):
             entity_type="authorized_identity_dossier",
             entity_value="SIMULATED_PERSONA_OMEGA (FOR DEMO PURPOSE ONLY)",
             context="[SYNTHETIC AUTHORIZED EVIDENCE] Simulated judicial subpoena response showing potential correlation hypothesis. NOT a real civilian identity.",
-            provenance="NTRO SIH26151 Simulated Test Harness (Clearly Labeled Synthetic)",
-            source_ref="Simulated Judicial Order #SIH-2026-DEMO",
+            provenance="TRACE-X Simulation Test Harness (Clearly Labeled Synthetic)",
+            source_ref="Simulated Judicial Order #TX-2026-INTEL",
             timestamp=now_str,
             confidence=0.99,
             integrity_hash="e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
@@ -52,7 +52,7 @@ def seed_demo_investigation(db: Session = Depends(get_db)):
             first_seen=now_str,
             last_seen=now_str,
             is_synthetic=True,
-            notes="SYNTHETIC AUTHORIZED RECORD for SIH26151 Demonstration."
+            notes="SYNTHETIC AUTHORIZED RECORD for Threat Actor Attribution Demonstration."
         )
         db.add(syn_ent)
         db.commit()
@@ -82,7 +82,7 @@ def seed_demo_investigation(db: Session = Depends(get_db)):
             "and Ethereum fund flow tracking. Incorporates labeled synthetic authorized evidence for attribution demonstration."
         ),
         target_entity="Packrat / 198.12.150.249",
-        analyst="NTRO SIH Lead Evaluator",
+        analyst="Senior Forensic Intelligence Analyst",
         status="ACTIVE",
         created_at=now_str,
         updated_at=now_str,

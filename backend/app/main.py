@@ -100,7 +100,7 @@ def health_check():
         "status": "healthy",
         "app": APP_NAME,
         "version": VERSION,
-        "mode": "PROTOTYPE_INVESTIGATOR_SUPPORT"
+        "mode": "ENTERPRISE_ATTRIBUTION_PLATFORM"
     }
 
 @app.post("/api/reindex")

@@ -35,13 +35,29 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
   onNavigate,
   onSelectEvidence
 }) => {
-  const [stats, setStats] = useState<DashboardStats | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [stats, setStats] = useState<DashboardStats | null>(() => {
+    try {
+      const cached = sessionStorage.getItem('tracex_dashboard_stats');
+      return cached ? JSON.parse(cached) : null;
+    } catch {
+      return null;
+    }
+  });
+  const [loading, setLoading] = useState(() => {
+    try {
+      return !sessionStorage.getItem('tracex_dashboard_stats');
+    } catch {
+      return true;
+    }
+  });
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     api.getDashboardStats()
-      .then(setStats)
+      .then(res => {
+        setStats(res);
+        try { sessionStorage.setItem('tracex_dashboard_stats', JSON.stringify(res)); } catch {}
+      })
       .catch(console.error)
       .finally(() => setLoading(false));
   }, []);
@@ -53,14 +69,27 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
     }
   };
 
-  if (loading || !stats) {
+  if (loading && !stats) {
     return (
-      <div className="flex items-center justify-center h-96 text-blue-600 text-xs font-mono font-bold">
-        <span className="w-2.5 h-2.5 rounded-full bg-blue-600 animate-ping mr-2.5"></span>
-        <span>Loading TRACE-X Intelligence Overview...</span>
+      <div className="p-6 md:p-8 space-y-6 animate-pulse">
+        <div className="h-40 bg-slate-200/70 rounded-3xl" />
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div className="h-28 bg-slate-200/70 rounded-2xl" />
+          <div className="h-28 bg-slate-200/70 rounded-2xl" />
+          <div className="h-28 bg-slate-200/70 rounded-2xl" />
+          <div className="h-28 bg-slate-200/70 rounded-2xl" />
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="h-44 bg-slate-200/70 rounded-2xl" />
+          <div className="h-44 bg-slate-200/70 rounded-2xl" />
+          <div className="h-44 bg-slate-200/70 rounded-2xl" />
+          <div className="h-44 bg-slate-200/70 rounded-2xl" />
+        </div>
       </div>
     );
   }
+
+  if (!stats) return null;
 
   const metricCards = [
     {

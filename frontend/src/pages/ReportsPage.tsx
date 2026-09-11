@@ -26,7 +26,7 @@ interface ReportsPageProps {
   onSelectEvidence: (evidenceId: string) => void;
 }
 
-export const ReportsPage: React.FC<ReportsPageProps> = ({ caseId = 'CASE-SIH-26151', onSelectEvidence }) => {
+export const ReportsPage: React.FC<ReportsPageProps> = ({ caseId = 'CASE-TRACEX-01', onSelectEvidence }) => {
   const [report, setReport] = useState<InvestigationReport | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -160,7 +160,7 @@ ${report.analyst_signature}
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
             <div className="flex items-center space-x-2">
               <span className="text-xs font-mono font-extrabold text-blue-700 bg-blue-50 border border-blue-200 px-3 py-1 rounded-xl uppercase tracking-wider">
-                National Technical Research Organisation (NTRO) Official Report
+                TRACE-X Forensic Intelligence & Threat Attribution Report
               </span>
               <span className="text-xs text-slate-400 font-medium">Chain of Custody Verified</span>
             </div>
@@ -487,7 +487,7 @@ ${report.analyst_signature}
             </h3>
           </div>
           <p className="text-xs text-slate-600 leading-relaxed">
-            In accordance with National Technical Research Organisation (NTRO) responsible forensic attribution standards, the system distinguishes between technical indicators and civilian identities:
+            In accordance with international forensic attribution standards, the system distinguishes between technical indicators and civilian identities:
           </p>
           <ul className="space-y-2 text-xs text-slate-700 pt-1">
             {report.uncertainties_and_limitations.map((u, i) => (

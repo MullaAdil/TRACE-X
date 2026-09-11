@@ -3,11 +3,16 @@ from sqlalchemy.orm import Session
 from ..database import get_db
 from ..models.entities import Evidence, Entity, Relationship, Investigation, TimelineEvent
 from ..schemas.schemas import DashboardStats, TimelineEventSchema
+from ..cache import cache
 
 router = APIRouter(prefix="/dashboard", tags=["Dashboard"])
 
 @router.get("/stats", response_model=DashboardStats)
 def get_dashboard_stats(db: Session = Depends(get_db)):
+    cached = cache.get("dashboard_stats")
+    if cached:
+        return cached
+
     total_ev = db.query(Evidence).count()
     total_ent = db.query(Entity).count()
     total_rel = db.query(Relationship).count()
@@ -22,7 +27,7 @@ def get_dashboard_stats(db: Session = Depends(get_db)):
 
     recent_events = db.query(TimelineEvent).order_by(TimelineEvent.timestamp.desc(), TimelineEvent.id.desc()).limit(10).all()
 
-    return DashboardStats(
+    res = DashboardStats(
         total_evidence=total_ev,
         total_entities=total_ent,
         total_relationships=total_rel,
@@ -35,3 +40,5 @@ def get_dashboard_stats(db: Session = Depends(get_db)):
         high_confidence_correlations_count=high_conf_count,
         recent_activity=[TimelineEventSchema.model_validate(e) for e in recent_events]
     )
+    cache.set("dashboard_stats", res, ttl_seconds=30)
+    return res

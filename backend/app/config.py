@@ -17,7 +17,7 @@ ALCHEMY_ETH_RPC_URL = os.getenv(
 )
 
 APP_NAME = "TRACE-X"
-APP_DESCRIPTION = "Threat Actor Correlation & Attribution Engine (SIH26151)"
+APP_DESCRIPTION = "Autonomous Threat Actor Correlation & Forensic Attribution Platform"
 VERSION = "1.0.0"
 
 # Scoring weights (Explainable Confidence Formulation)

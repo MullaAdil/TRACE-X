@@ -7,8 +7,14 @@ from ..models.entities import Evidence, Entity
 
 router = APIRouter(prefix="/darkweb", tags=["Dark Web"])
 
+from ..cache import cache
+
 @router.get("/stats")
 def get_darkweb_stats(db: Session = Depends(get_db)):
+    cached = cache.get("darkweb_stats")
+    if cached:
+        return cached
+
     thread_ev = db.query(Evidence).filter(
         Evidence.source == "DARKWEB",
         Evidence.entity_type == "darkweb_thread"
@@ -42,7 +48,7 @@ def get_darkweb_stats(db: Session = Depends(get_db)):
         Evidence.entity_type == "domain"
     ).count()
 
-    return {
+    res = {
         "total_threads": len(thread_ev),
         "corpus_name": "Zenodo DarkForums Safe Corpus (Privacy-Preserving)",
         "author_status": "Author information unavailable/anonymized in source dataset",
@@ -52,6 +58,8 @@ def get_darkweb_stats(db: Session = Depends(get_db)):
         "extracted_target_domains_count": extracted_domains,
         "disclaimer": "CRITICAL: The underlying dataset completely anonymizes post authors ([AUTHOR] / unknown). TRACE-X models digital indicators and target leak mentions, and does not claim author identity attribution."
     }
+    cache.set("darkweb_stats", res, ttl_seconds=60)
+    return res
 
 @router.get("/threads")
 def list_darkweb_threads(

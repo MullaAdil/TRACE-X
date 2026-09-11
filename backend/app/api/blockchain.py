@@ -7,11 +7,16 @@ from typing import List, Dict, Any
 from ..database import get_db
 from ..models.entities import Evidence, Entity, Relationship
 from ..schemas.schemas import BlockchainStats, BlockchainTxSchema
+from ..cache import cache
 
 router = APIRouter(prefix="/blockchain", tags=["Blockchain"])
 
 @router.get("/stats", response_model=BlockchainStats)
 def get_blockchain_overview(db: Session = Depends(get_db)):
+    cached = cache.get("blockchain_stats")
+    if cached:
+        return cached
+
     tx_evidence = db.query(Evidence).filter(
         Evidence.source == "BLOCKCHAIN",
         Evidence.entity_type == "transaction"
@@ -48,7 +53,7 @@ def get_blockchain_overview(db: Session = Depends(get_db)):
     sorted_wallets = sorted(wallet_activity.items(), key=lambda x: x[1], reverse=True)[:10]
     top_wallets = [{"address": addr, "transaction_count": count} for addr, count in sorted_wallets]
 
-    return BlockchainStats(
+    res = BlockchainStats(
         total_transactions=len(tx_evidence),
         unique_wallets=len(wallets),
         total_volume_eth=round(total_volume_eth, 4),
@@ -56,6 +61,8 @@ def get_blockchain_overview(db: Session = Depends(get_db)):
         last_block_time=last_time,
         top_wallets=top_wallets
     )
+    cache.set("blockchain_stats", res, ttl_seconds=60)
+    return res
 
 @router.get("/transactions", response_model=List[BlockchainTxSchema])
 def list_transactions(
