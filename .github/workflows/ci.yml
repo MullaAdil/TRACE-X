@@ -1,0 +1,145 @@
+name: CI & Docker Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # 1. Backend Automated Unit & Integration Tests
+  # ---------------------------------------------------------------------------
+  test-backend:
+    name: Test Backend (Python 3.11)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r backend/requirements.txt
+
+      - name: Run Backend Pytest Suite
+        run: |
+          PYTHONPATH=. pytest backend/tests -v
+
+  # ---------------------------------------------------------------------------
+  # 2. Frontend Typecheck & Production Build
+  # ---------------------------------------------------------------------------
+  build-frontend:
+    name: Build Frontend (Node.js 20)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install Frontend Dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build React SPA
+        working-directory: frontend
+        run: npm run build
+
+  # ---------------------------------------------------------------------------
+  # 3. Docker Container Build & Integration Test
+  # ---------------------------------------------------------------------------
+  docker-build-and-test:
+    name: Build & Test Docker Container
+    runs-on: ubuntu-latest
+    needs: [test-backend, build-frontend]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Image
+        run: |
+          docker build -t trace-x:local-test .
+
+      - name: Run Container for Sanity Check
+        run: |
+          docker run -d -p 8000:8000 --name tracex-test-container trace-x:local-test
+          echo "Waiting 5 seconds for services to initialize..."
+          sleep 5
+
+      - name: Test REST API Health Endpoint
+        run: |
+          curl --retry 5 --retry-delay 2 --retry-connrefused -f http://localhost:8000/api/health
+
+      - name: Test Dashboard Telemetry Stats
+        run: |
+          curl -f http://localhost:8000/api/dashboard/stats
+
+      - name: Test Frontend Web Serving
+        run: |
+          curl -f http://localhost:8000/ | grep -i "TRACE-X"
+
+      - name: Container Cleanup
+        if: always()
+        run: |
+          docker stop tracex-test-container || true
+          docker rm tracex-test-container || true
+
+  # ---------------------------------------------------------------------------
+  # 4. Publish Docker Image to GitHub Container Registry (GHCR)
+  # ---------------------------------------------------------------------------
+  docker-publish:
+    name: Publish Image to GHCR
+    runs-on: ubuntu-latest
+    needs: [docker-build-and-test]
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/master')
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest
+            type=sha,format=short
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build and Push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
