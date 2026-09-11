@@ -154,24 +154,70 @@ def get_wallet_dossier(address: str, db: Session = Depends(get_db)):
         "attribution_warning": "No real-world person attribution should be inferred solely from public blockchain data without corroborating authorized evidence."
     }
 
-@router.get("/live/{address}")
-async def get_live_blockchain_telemetry(address: str):
-    """Queries live Ethereum Mainnet telemetry via Alchemy RPC."""
+@router.get("/live/{identifier}")
+async def get_live_blockchain_telemetry(identifier: str):
+    """Queries live Ethereum Mainnet telemetry for any Wallet Address or Transaction Hash via Alchemy RPC."""
     import httpx
     from ..config import ALCHEMY_ETH_RPC_URL
 
-    addr = address.strip()
-    if not re.match(r"^0x[a-fA-F0-9]{40}$", addr):
-        raise HTTPException(status_code=400, detail="Invalid Ethereum address format")
+    target = identifier.strip()
+    is_address = bool(re.match(r"^0x[a-fA-F0-9]{40}$", target))
+    is_tx_hash = bool(re.match(r"^0x[a-fA-F0-9]{64}$", target))
+
+    if not is_address and not is_tx_hash:
+        raise HTTPException(
+            status_code=400,
+            detail="Invalid Ethereum identifier format. Expected a 42-character address (0x...) or a 66-character transaction hash (0x...)"
+        )
 
     try:
         async with httpx.AsyncClient(timeout=8.0) as client:
-            # 1. Batch query blockNumber, balance, tx count, and code
+            # Case 1: Transaction Hash Query
+            if is_tx_hash:
+                batch_payload = [
+                    {"jsonrpc": "2.0", "id": 1, "method": "eth_blockNumber", "params": []},
+                    {"jsonrpc": "2.0", "id": 2, "method": "eth_getTransactionByHash", "params": [target]},
+                    {"jsonrpc": "2.0", "id": 3, "method": "eth_getTransactionReceipt", "params": [target]},
+                ]
+                resp = await client.post(ALCHEMY_ETH_RPC_URL, json=batch_payload)
+                results = resp.json()
+                res_map = {item["id"]: item.get("result") for item in results if isinstance(item, dict)}
+
+                tx_data = res_map.get(2)
+                if not tx_data:
+                    raise HTTPException(status_code=404, detail="Transaction not found on Ethereum Mainnet")
+
+                receipt_data = res_map.get(3) or {}
+                block_num = int(res_map.get(1, "0x0"), 16)
+                tx_block = int(tx_data.get("blockNumber", "0x0"), 16) if tx_data.get("blockNumber") else None
+                val_wei = int(tx_data.get("value", "0x0"), 16)
+                val_eth = val_wei / 1e18
+                gas_used = int(receipt_data.get("gasUsed", "0x0"), 16) if receipt_data.get("gasUsed") else None
+                status_code = receipt_data.get("status")
+                status = "Confirmed (Success)" if status_code == "0x1" else "Failed / Reverted" if status_code == "0x0" else "Pending / Unconfirmed"
+
+                return {
+                    "type": "TRANSACTION",
+                    "hash": target,
+                    "network": "Ethereum Mainnet",
+                    "rpc_provider": "Alchemy Enhanced Remote Procedure Call",
+                    "status": status,
+                    "block_number": tx_block,
+                    "confirmations": max(0, block_num - tx_block) if tx_block else 0,
+                    "from_address": tx_data.get("from"),
+                    "to_address": tx_data.get("to"),
+                    "value_eth": round(val_eth, 6),
+                    "value_wei": str(val_wei),
+                    "gas_used": gas_used,
+                    "etherscan_url": f"https://etherscan.io/tx/{target}"
+                }
+
+            # Case 2: Address Query (Wallet or Smart Contract)
             batch_payload = [
                 {"jsonrpc": "2.0", "id": 1, "method": "eth_blockNumber", "params": []},
-                {"jsonrpc": "2.0", "id": 2, "method": "eth_getBalance", "params": [addr, "latest"]},
-                {"jsonrpc": "2.0", "id": 3, "method": "eth_getTransactionCount", "params": [addr, "latest"]},
-                {"jsonrpc": "2.0", "id": 4, "method": "eth_getCode", "params": [addr, "latest"]},
+                {"jsonrpc": "2.0", "id": 2, "method": "eth_getBalance", "params": [target, "latest"]},
+                {"jsonrpc": "2.0", "id": 3, "method": "eth_getTransactionCount", "params": [target, "latest"]},
+                {"jsonrpc": "2.0", "id": 4, "method": "eth_getCode", "params": [target, "latest"]},
             ]
             resp = await client.post(ALCHEMY_ETH_RPC_URL, json=batch_payload)
             results = resp.json()
@@ -185,7 +231,7 @@ async def get_live_blockchain_telemetry(address: str):
             code = res_map.get(4, "0x")
             is_contract = code is not None and code != "0x" and len(code) > 2
 
-            # 2. Query recent asset transfers via Alchemy Enhanced API
+            # Query recent asset transfers via Alchemy Enhanced API
             transfers_payload = {
                 "jsonrpc": "2.0",
                 "id": 5,
@@ -194,7 +240,7 @@ async def get_live_blockchain_telemetry(address: str):
                     {
                         "fromBlock": "0x0",
                         "toBlock": "latest",
-                        "toAddress": addr,
+                        "toAddress": target,
                         "category": ["external", "erc20"],
                         "maxCount": "0xa",
                         "order": "desc"
@@ -217,9 +263,10 @@ async def get_live_blockchain_telemetry(address: str):
                 })
 
             return {
-                "address": addr,
+                "type": "ADDRESS",
+                "address": target,
                 "network": "Ethereum Mainnet",
-                "rpc_provider": "Alchemy Enhanced RPC",
+                "rpc_provider": "Alchemy Enhanced Remote Procedure Call",
                 "is_smart_contract": is_contract,
                 "account_type": "Smart Contract" if is_contract else "Externally Owned Account (EOA)",
                 "live_block_height": block_num,
@@ -227,8 +274,10 @@ async def get_live_blockchain_telemetry(address: str):
                 "balance_wei": str(bal_wei),
                 "onchain_tx_count": nonce,
                 "recent_transfers": recent_txs,
-                "etherscan_url": f"https://etherscan.io/address/{addr}"
+                "etherscan_url": f"https://etherscan.io/address/{target}"
             }
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=502, detail=f"Failed querying Alchemy RPC: {str(e)}")
 

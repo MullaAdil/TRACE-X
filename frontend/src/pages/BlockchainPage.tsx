@@ -42,8 +42,11 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
     setSearchingWallet(true);
     setLiveRpcData(null);
 
-    // 1. Fetch live Alchemy RPC data if address looks like ETH (0x...)
-    if (/^0x[a-fA-F0-9]{40}$/.test(queryAddr)) {
+    // 1. Fetch live Alchemy RPC data if address (40 hex) or transaction hash (64 hex)
+    const isAddress = /^0x[a-fA-F0-9]{40}$/.test(queryAddr);
+    const isTxHash = /^0x[a-fA-F0-9]{64}$/.test(queryAddr);
+
+    if (isAddress || isTxHash) {
       api.getLiveBlockchainTelemetry(queryAddr)
         .then(data => setLiveRpcData(data))
         .catch(err => console.warn('Alchemy RPC query error:', err));
@@ -169,16 +172,16 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
         </div>
       )}
 
-      {/* Wallet Search Bar with Slide-on-Slide Theme */}
+      {/* Wallet / Transaction Search Bar with Slide-on-Slide Theme */}
       <div className="mr-3 mb-4">
         <div className="card-slide-stack p-6 bg-white border border-slate-200 space-y-4 shadow-sm">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-2">
             <div>
-              <h2 className="text-sm font-extrabold text-slate-900 tracking-tight">Inspect Any Ethereum Address</h2>
-              <p className="text-xs text-slate-500">Paste any public wallet address to view its total transaction history, counterparties, and connected cases.</p>
+              <h2 className="text-sm font-extrabold text-slate-900 tracking-tight">Inspect Any Ethereum Address or Transaction ID</h2>
+              <p className="text-xs text-slate-500">Paste any public Ethereum wallet address (0x...) or transaction hash ID (0x...) to fetch live on-chain telemetry directly via Alchemy Remote Procedure Call.</p>
             </div>
             <span className="text-xs font-mono font-semibold text-blue-600 bg-blue-50 border border-blue-200 px-3 py-1 rounded-xl shrink-0">
-              Public Ethereum Ledger
+              Live Ethereum Mainnet Node
             </span>
           </div>
 
@@ -189,7 +192,7 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                 type="text"
                 value={walletFilter}
                 onChange={(e) => setWalletFilter(e.target.value)}
-                placeholder="Paste wallet address (e.g., 0x51c72848c68a965f66fa7a88855f9f7784502a7f)..."
+                placeholder="Paste any Ethereum wallet address or transaction hash ID (e.g., 0xd8dA6... or 0x5c504...)..."
                 className="w-full pl-12 pr-4 py-3 bg-slate-50 border border-slate-300 rounded-2xl text-xs text-slate-900 placeholder-slate-400 font-mono font-medium focus:outline-none focus:border-blue-500 focus:bg-white shadow-inner transition"
               />
             </div>
@@ -198,14 +201,14 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
               disabled={searchingWallet}
               className="btn-liquid px-6 py-3 rounded-2xl text-xs font-bold shrink-0 disabled:opacity-50"
             >
-              {searchingWallet ? "Searching..." : "Inspect Address"}
+              {searchingWallet ? "Searching..." : "Inspect Live Data"}
             </button>
           </form>
 
           {stats && stats.top_wallets.length > 0 && !walletDossier && (
             <div className="flex flex-wrap items-center gap-2 pt-1 text-xs text-slate-500">
               <span className="font-semibold text-slate-700">Frequently Tracked Accounts:</span>
-              {stats.top_wallets.slice(0, 3).map((w, i) => (
+              {stats.top_wallets.slice(0, 2).map((w, i) => (
                 <button
                   key={i}
                   onClick={() => {
@@ -221,7 +224,7 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                 </button>
               ))}
 
-              {/* Quick Live Mainnet Test Button (Alchemy Remote Procedure Call) */}
+              {/* Quick Live Mainnet Address Test Button (Alchemy Remote Procedure Call) */}
               <button
                 onClick={() => {
                   const sample = "0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045";
@@ -232,17 +235,135 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
                 title="Test live Alchemy Remote Procedure Call query with Vitalik Buterin's public mainnet address"
               >
                 <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span>Test Live Mainnet (0xd8dA6...)</span>
+                <span>Test Live Wallet (Vitalik 0xd8dA6...)</span>
                 <span className="text-[9px] uppercase font-sans font-extrabold px-1.5 py-0.2 rounded bg-emerald-200/80 text-emerald-900">
-                  Alchemy RPC
+                  Live RPC
+                </span>
+              </button>
+
+              {/* Quick Live Mainnet Transaction ID Test Button (Alchemy Remote Procedure Call) */}
+              <button
+                onClick={() => {
+                  const sampleTx = "0x5c504ed432cb51138bcf09aa5e8a410dd4a1e204ef84bfed1be16dfba1b22060";
+                  setWalletFilter(sampleTx);
+                  handleWalletSearch(undefined, sampleTx);
+                }}
+                className="px-3 py-1 rounded-xl bg-gradient-to-r from-blue-50 to-sky-50 border border-blue-300 text-blue-800 hover:border-blue-500 font-mono font-bold text-xs transition shadow-2xs flex items-center space-x-1.5"
+                title="Test live Alchemy Remote Procedure Call query with a real Ethereum transaction hash ID"
+              >
+                <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
+                <span>Test Live Transaction ID (0x5c504...)</span>
+                <span className="text-[9px] uppercase font-sans font-extrabold px-1.5 py-0.2 rounded bg-blue-200/80 text-blue-900">
+                  Tx Hash
                 </span>
               </button>
             </div>
           )}
         </div>
       </div>
+
       {/* Live Ethereum Mainnet Telemetry Strip (Alchemy Remote Procedure Call) with Slide-on-Slide Theme */}
-      {liveRpcData && (
+      {liveRpcData && liveRpcData.type === 'TRANSACTION' ? (
+        <div className="mr-3 mb-4">
+          <div className="card-slide-stack p-6 bg-gradient-to-br from-white to-blue-50/50 border border-blue-200/90 shadow-sm space-y-5 animate-in fade-in duration-300">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-blue-100 pb-4">
+              <div className="space-y-1">
+                <div className="flex items-center space-x-2">
+                  <span className="flex items-center space-x-1.5 text-[10px] uppercase font-bold text-blue-800 bg-blue-100/80 border border-blue-300 px-2.5 py-0.5 rounded-full">
+                    <span className="w-1.5 h-1.5 rounded-full bg-blue-600 animate-ping" />
+                    <span>Live Mainnet Transaction Telemetry</span>
+                  </span>
+                  <span className="text-xs font-semibold text-slate-500">Powered by Alchemy Remote Procedure Call</span>
+                </div>
+                <h3 className="text-sm md:text-base font-extrabold text-slate-900 font-mono select-all break-all">
+                  {liveRpcData.hash}
+                </h3>
+              </div>
+
+              <div className="flex items-center space-x-2">
+                <a
+                  href={liveRpcData.etherscan_url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn-liquid px-3.5 py-1.5 rounded-xl text-xs font-bold inline-flex items-center space-x-1.5"
+                >
+                  <span>View on Etherscan</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+              </div>
+            </div>
+
+            {/* Live Transaction Metrics Grid */}
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs">
+              <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs">
+                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Transaction Status</span>
+                <span className="text-base font-black text-emerald-600 mt-1 block truncate flex items-center space-x-1">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 inline shrink-0" />
+                  <span>{liveRpcData.status}</span>
+                </span>
+                <span className="text-[10px] text-slate-400">{liveRpcData.confirmations?.toLocaleString()} confirmations</span>
+              </div>
+
+              <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs">
+                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Transferred Value</span>
+                <span className="text-xl font-black font-mono text-blue-600 mt-1 block">
+                  {liveRpcData.value_eth} Ethereum
+                </span>
+                <span className="text-[10px] text-slate-400">{liveRpcData.value_wei} Wei</span>
+              </div>
+
+              <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs">
+                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Block Number</span>
+                <span className="text-xl font-black font-mono text-slate-900 mt-1 block">
+                  #{liveRpcData.block_number?.toLocaleString()}
+                </span>
+                <span className="text-[10px] text-slate-400">On-chain inclusion</span>
+              </div>
+
+              <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-2xs">
+                <span className="text-slate-400 block text-[10px] font-bold uppercase tracking-wider">Gas Consumption</span>
+                <span className="text-base font-bold font-mono text-slate-900 mt-1 block">
+                  {liveRpcData.gas_used ? `${liveRpcData.gas_used.toLocaleString()} gas` : 'Standard'}
+                </span>
+                <span className="text-[10px] text-emerald-600 font-semibold">Executed successfully</span>
+              </div>
+            </div>
+
+            {/* Sender and Recipient Address Strip */}
+            <div className="p-4 rounded-2xl bg-white border border-blue-200 text-xs flex flex-col md:flex-row items-start md:items-center justify-between gap-3">
+              <div className="space-y-1 flex-1">
+                <span className="text-[10px] text-slate-400 uppercase font-bold block">Sender (From Address)</span>
+                <button
+                  onClick={() => {
+                    setWalletFilter(liveRpcData.from_address);
+                    handleWalletSearch(undefined, liveRpcData.from_address);
+                  }}
+                  className="font-mono font-bold text-blue-700 hover:underline break-all text-left"
+                  title="Inspect sender wallet live"
+                >
+                  {liveRpcData.from_address}
+                </button>
+              </div>
+
+              <div className="hidden md:block text-slate-300 font-bold">→</div>
+
+              <div className="space-y-1 flex-1">
+                <span className="text-[10px] text-slate-400 uppercase font-bold block">Recipient (To Address)</span>
+                <button
+                  onClick={() => {
+                    setWalletFilter(liveRpcData.to_address);
+                    handleWalletSearch(undefined, liveRpcData.to_address);
+                  }}
+                  className="font-mono font-bold text-blue-700 hover:underline break-all text-left"
+                  title="Inspect recipient wallet live"
+                >
+                  {liveRpcData.to_address || 'Contract Deployment'}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : liveRpcData ? (
         <div className="mr-3 mb-4">
           <div className="card-slide-stack p-6 bg-gradient-to-br from-white to-slate-50 border border-emerald-200/90 shadow-sm space-y-5 animate-in fade-in duration-300">
             <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-emerald-100 pb-4">
@@ -356,7 +477,7 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
             )}
           </div>
         </div>
-      )}
+      ) : null}
 
       {/* Wallet Dossier with Slide-on-Slide Theme */}
       {walletDossier && (

@@ -36,6 +36,10 @@ def test_blockchain_endpoints(client):
     assert txs.status_code == 200
     assert len(txs.json()) > 0
 
+    # Test invalid format returns 400 validation error
+    bad_resp = client.get("/api/blockchain/live/invalid_eth_identifier")
+    assert bad_resp.status_code == 400
+
 def test_cti_overview(client):
     resp = client.get("/api/cti/overview")
     assert resp.status_code == 200
