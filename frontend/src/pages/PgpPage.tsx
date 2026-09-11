@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { KeyRound, ShieldCheck, CheckCircle2, AlertCircle, Plus, Upload, Lock, ExternalLink, Shield } from 'lucide-react';
 import { api } from '../services/api';
 import { PgpKey } from '../types';
+import pgpVisual from '../assets/visuals/pgp_visual.jpg';
 
 interface PgpPageProps {
   onSelectEvidence?: (evidenceId: string) => void;
@@ -85,7 +86,7 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-md group bg-slate-100">
                 <img
-                  src="/src/assets/visuals/pgp_visual.jpg"
+                  src={pgpVisual}
                   alt="Pretty Good Privacy Cryptographic Signature Matrix"
                   className="w-full h-52 md:h-56 object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                 />

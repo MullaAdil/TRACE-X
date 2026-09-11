@@ -20,6 +20,11 @@ import {
 } from 'lucide-react';
 import { api } from '../services/api';
 import { DashboardStats } from '../types';
+import networkIntelHero from '../assets/visuals/network_intel_hero.jpg';
+import cryptoVisual from '../assets/visuals/crypto_visual.jpg';
+import darkwebVisual from '../assets/visuals/darkweb_visual.jpg';
+import ctiVisual from '../assets/visuals/cti_visual.jpg';
+import pgpVisual from '../assets/visuals/pgp_visual.jpg';
 
 interface DashboardPageProps {
   onNavigate: (page: string, params?: any) => void;
@@ -189,7 +194,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
         <div className="mt-6 pt-6 border-t border-slate-200/80">
           <div className="relative rounded-2xl overflow-hidden border border-slate-200/80 shadow-md group">
             <img
-              src="/src/assets/visuals/network_intel_hero.jpg"
+              src={networkIntelHero}
               alt="Cyber Threat Intelligence Command Center"
               className="w-full h-48 md:h-64 object-cover object-center transform group-hover:scale-[1.01] transition-transform duration-500"
             />
@@ -236,7 +241,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               <div className="space-y-3">
                 <div className="relative h-28 rounded-2xl overflow-hidden border border-slate-200/80 mb-1 group-hover:shadow-sm bg-slate-100">
                   <img
-                    src="/src/assets/visuals/crypto_visual.jpg"
+                    src={cryptoVisual}
                     alt="Blockchain Ledger Service Visual"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -281,7 +286,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               <div className="space-y-3">
                 <div className="relative h-28 rounded-2xl overflow-hidden border border-slate-200/80 mb-1 group-hover:shadow-sm bg-slate-100">
                   <img
-                    src="/src/assets/visuals/darkweb_visual.jpg"
+                    src={darkwebVisual}
                     alt="Dark Web Leak Service Visual"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -326,7 +331,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               <div className="space-y-3">
                 <div className="relative h-28 rounded-2xl overflow-hidden border border-slate-200/80 mb-1 group-hover:shadow-sm bg-slate-100">
                   <img
-                    src="/src/assets/visuals/cti_visual.jpg"
+                    src={ctiVisual}
                     alt="Malware & Command and Control Service Visual"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
@@ -371,7 +376,7 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               <div className="space-y-3">
                 <div className="relative h-28 rounded-2xl overflow-hidden border border-slate-200/80 mb-1 group-hover:shadow-sm bg-slate-100">
                   <img
-                    src="/src/assets/visuals/pgp_visual.jpg"
+                    src={pgpVisual}
                     alt="Pretty Good Privacy Keyring Service Visual"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />

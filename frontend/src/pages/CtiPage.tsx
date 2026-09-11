@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Bug, ShieldAlert, ExternalLink, Filter, FileCheck, Hash, Globe, Server, Activity, ShieldCheck, CheckCircle2, Search } from 'lucide-react';
 import { api } from '../services/api';
 import { CtiOverview, CtiIndicator } from '../types';
+import ctiVisual from '../assets/visuals/cti_visual.jpg';
 
 interface CtiPageProps {
   onSelectEvidence: (evidenceId: string) => void;
@@ -77,7 +78,7 @@ export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-md group bg-slate-100">
                 <img
-                  src="/src/assets/visuals/cti_visual.jpg"
+                  src={ctiVisual}
                   alt="Malware Analysis & Command and Control Infrastructure Visual"
                   className="w-full h-52 md:h-56 object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                 />

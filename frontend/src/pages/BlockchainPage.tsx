@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Coins, Search, ArrowUpRight, ArrowDownLeft, ArrowRight, UserX, ExternalLink, ShieldCheck, Activity, Database, CheckCircle2 } from 'lucide-react';
 import { api } from '../services/api';
 import { BlockchainStats, BlockchainTx } from '../types';
+import cryptoVisual from '../assets/visuals/crypto_visual.jpg';
 
 interface BlockchainPageProps {
   onSelectEntity?: (entityId: number) => void;
@@ -89,7 +90,7 @@ export const BlockchainPage: React.FC<BlockchainPageProps> = () => {
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-md group bg-slate-100">
                 <img
-                  src="/src/assets/visuals/crypto_visual.jpg"
+                  src={cryptoVisual}
                   alt="Cryptocurrency Forensics Flow"
                   className="w-full h-52 md:h-56 object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                 />

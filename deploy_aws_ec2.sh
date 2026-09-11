@@ -158,18 +158,19 @@ NGINX_CONF="server {
     }
 }"
 
-if [ -d "/etc/nginx/conf.d" ]; then
+if [ -d "/etc/nginx/sites-available" ]; then
+    # Ubuntu / Debian
+    sudo rm -f /etc/nginx/sites-enabled/default
+    sudo rm -f /etc/nginx/conf.d/tracex.conf
+    echo "$NGINX_CONF" | sudo tee /etc/nginx/sites-available/tracex > /dev/null
+    sudo ln -sf /etc/nginx/sites-available/tracex /etc/nginx/sites-enabled/
+else
     # Amazon Linux / RHEL / CentOS
     echo "$NGINX_CONF" | sudo tee /etc/nginx/conf.d/tracex.conf > /dev/null
-    # Remove default server conflicts if present in main nginx.conf
     sudo sed -i 's/listen       80 default_server;/listen       8080;/g' /etc/nginx/nginx.conf 2>/dev/null || true
     sudo sed -i 's/listen       \[::\]:80 default_server;/listen       \[::\]:8080;/g' /etc/nginx/nginx.conf 2>/dev/null || true
-else
-    # Ubuntu / Debian
-    echo "$NGINX_CONF" | sudo tee /etc/nginx/sites-available/tracex > /dev/null
-    sudo rm -f /etc/nginx/sites-enabled/default
-    sudo ln -sf /etc/nginx/sites-available/tracex /etc/nginx/sites-enabled/
 fi
+sudo rm -f /etc/nginx/sites-enabled/default 2>/dev/null || true
 
 sudo nginx -t
 sudo systemctl enable nginx

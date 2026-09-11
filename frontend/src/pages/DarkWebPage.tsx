@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Globe2, ShieldAlert, Search, Filter, Hash, Database, FileText, UserX, MessageSquare, ShieldCheck } from 'lucide-react';
 import { api } from '../services/api';
 import { DarkWebStats, DarkWebThread } from '../types';
+import darkwebVisual from '../assets/visuals/darkweb_visual.jpg';
 
 interface DarkWebPageProps {
   onSelectEvidence: (evidenceId: string) => void;
@@ -51,7 +52,7 @@ export const DarkWebPage: React.FC<DarkWebPageProps> = ({ onSelectEvidence }) =>
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-md group bg-slate-100">
                 <img
-                  src="/src/assets/visuals/darkweb_visual.jpg"
+                  src={darkwebVisual}
                   alt="Dark Web Onion Layer De-anonymization"
                   className="w-full h-52 md:h-56 object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                 />

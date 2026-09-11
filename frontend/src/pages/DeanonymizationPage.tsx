@@ -18,6 +18,7 @@ import {
   Zap
 } from 'lucide-react';
 import { api } from '../services/api';
+import deanonymizeVisual from '../assets/visuals/deanonymize_visual.jpg';
 
 interface DeanonymizationPageProps {
   onNavigateToGraph: (entityVal?: string) => void;
@@ -157,7 +158,7 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
             <div className="lg:col-span-5">
               <div className="relative rounded-2xl overflow-hidden border border-slate-200/90 shadow-md group bg-slate-100">
                 <img
-                  src="/src/assets/visuals/deanonymize_visual.jpg"
+                  src={deanonymizeVisual}
                   alt="De-anonymization Command Interface"
                   className="w-full h-52 md:h-56 object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                 />
