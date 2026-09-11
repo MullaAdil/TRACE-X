@@ -160,6 +160,8 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
                 <img
                   src={deanonymizeVisual}
                   alt="De-anonymization Command Interface"
+                  loading="lazy"
+                  decoding="async"
                   className="w-full h-52 md:h-56 object-cover object-center transform group-hover:scale-[1.02] transition-transform duration-500"
                 />
                 <div className="absolute bottom-3 left-3 right-3 flex items-center justify-between pointer-events-none">

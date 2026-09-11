@@ -196,6 +196,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
             <img
               src={networkIntelHero}
               alt="Cyber Threat Intelligence Command Center"
+              loading="lazy"
+              decoding="async"
               className="w-full h-48 md:h-64 object-cover object-center transform group-hover:scale-[1.01] transition-transform duration-500"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-slate-950/20 to-transparent flex items-end p-6">
@@ -243,6 +245,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   <img
                     src={cryptoVisual}
                     alt="Blockchain Ledger Service Visual"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
@@ -288,6 +292,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   <img
                     src={darkwebVisual}
                     alt="Dark Web Leak Service Visual"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
@@ -333,6 +339,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   <img
                     src={ctiVisual}
                     alt="Malware & Command and Control Service Visual"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">
@@ -378,6 +386,8 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
                   <img
                     src={pgpVisual}
                     alt="Pretty Good Privacy Keyring Service Visual"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
                   <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none">

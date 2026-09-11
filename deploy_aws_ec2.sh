@@ -125,9 +125,20 @@ NGINX_CONF="server {
     root $APP_DIR/frontend/dist;
     index index.html;
 
-    # Gzip Compression
+    # High-Performance Gzip Compression
     gzip on;
-    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript;
+    gzip_vary on;
+    gzip_proxied any;
+    gzip_comp_level 6;
+    gzip_min_length 256;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml application/xml+rss text/javascript image/svg+xml;
+
+    # Aggressive 30-Day Browser Caching for Production Assets
+    location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|webp|woff|woff2)$ {
+        expires 30d;
+        add_header Cache-Control "public, max-age=2592000, immutable";
+        try_files \$uri =404;
+    }
 
     # Frontend Single Page App Routing
     location / {
@@ -138,6 +149,9 @@ NGINX_CONF="server {
     location /api/ {
         proxy_pass http://127.0.0.1:8000/api/;
         proxy_http_version 1.1;
+        proxy_buffering on;
+        proxy_buffers 8 64k;
+        proxy_buffer_size 128k;
         proxy_set_header Upgrade \$http_upgrade;
         proxy_set_header Connection 'upgrade';
         proxy_set_header Host \$host;
