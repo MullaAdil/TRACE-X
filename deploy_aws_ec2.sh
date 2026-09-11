@@ -27,16 +27,27 @@ else
     echo "Swap file already exists."
 fi
 
-# 2. Update packages and install prerequisites
-echo "[2/7] Installing System Packages (Python, Git, Nginx, Curl)..."
-sudo apt-get update -y
-sudo apt-get install -y python3-pip python3-venv python3-dev build-essential git curl nginx
-
-# Install Node.js 20.x LTS if not present
-if ! command -v node &> /dev/null; then
-    echo "Installing Node.js 20.x LTS via NodeSource..."
-    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
-    sudo apt-get install -y nodejs
+# 2. Detect OS & Install System Packages (Amazon Linux vs Ubuntu)
+echo "[2/7] Detecting OS and Installing System Packages..."
+if command -v dnf &> /dev/null; then
+    echo "Detected Amazon Linux 2023 / Fedora (dnf package manager)"
+    sudo dnf update -y
+    sudo dnf install -y python3 python3-pip git nginx nodejs npm gcc python3-devel tar
+elif command -v yum &> /dev/null; then
+    echo "Detected Amazon Linux 2 (yum package manager)"
+    sudo yum update -y
+    sudo yum install -y python3 python3-pip git nginx nodejs npm gcc python3-devel tar
+elif command -v apt-get &> /dev/null; then
+    echo "Detected Ubuntu / Debian (apt package manager)"
+    sudo apt-get update -y
+    sudo apt-get install -y python3-pip python3-venv python3-dev build-essential git curl nginx
+    if ! command -v node &> /dev/null; then
+        echo "Installing Node.js 20.x LTS via NodeSource..."
+        curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+        sudo apt-get install -y nodejs
+    fi
+else
+    echo "Unsupported package manager. Please install Python 3, Node.js, and Nginx manually."
 fi
 echo "Node: $(node -v), NPM: $(npm -v), Python: $(python3 --version)"
 
@@ -54,6 +65,10 @@ cd "$APP_DIR/frontend"
 npm install
 npm run build
 cd "$APP_DIR"
+
+# Ensure web server can read frontend/dist (prevents 403 on Amazon Linux / Ubuntu)
+chmod 755 /home/$(whoami) 2>/dev/null || true
+chmod -R 755 "$APP_DIR/frontend/dist" 2>/dev/null || true
 
 # 5. Initialize Database & Correlation Index
 echo "[5/7] Initializing SQLite Database & Forensic Models..."
@@ -102,10 +117,9 @@ sudo systemctl restart tracex
 
 # 7. Configure Nginx Web Server (Reverse Proxy + Static Frontend)
 echo "[7/7] Configuring Nginx..."
-sudo bash -c "cat <<EOF > /etc/nginx/sites-available/tracex
-server {
-    listen 80 default_server;
-    listen [::]:80 default_server;
+
+NGINX_CONF="server {
+    listen 80;
     server_name _;
 
     root $APP_DIR/frontend/dist;
@@ -142,12 +156,23 @@ server {
         proxy_pass http://127.0.0.1:8000/openapi.json;
         proxy_set_header Host \$host;
     }
-}
-EOF"
+}"
 
-sudo rm -f /etc/nginx/sites-enabled/default
-sudo ln -sf /etc/nginx/sites-available/tracex /etc/nginx/sites-enabled/
+if [ -d "/etc/nginx/conf.d" ]; then
+    # Amazon Linux / RHEL / CentOS
+    echo "$NGINX_CONF" | sudo tee /etc/nginx/conf.d/tracex.conf > /dev/null
+    # Remove default server conflicts if present in main nginx.conf
+    sudo sed -i 's/listen       80 default_server;/listen       8080;/g' /etc/nginx/nginx.conf 2>/dev/null || true
+    sudo sed -i 's/listen       \[::\]:80 default_server;/listen       \[::\]:8080;/g' /etc/nginx/nginx.conf 2>/dev/null || true
+else
+    # Ubuntu / Debian
+    echo "$NGINX_CONF" | sudo tee /etc/nginx/sites-available/tracex > /dev/null
+    sudo rm -f /etc/nginx/sites-enabled/default
+    sudo ln -sf /etc/nginx/sites-available/tracex /etc/nginx/sites-enabled/
+fi
+
 sudo nginx -t
+sudo systemctl enable nginx
 sudo systemctl restart nginx
 
 # Retrieve Public IP
