@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TRACE-X — Comprehensive Team Guide & Architecture Handbook</title>
+  <title>TRACE-X — Team Guide: Complete Working Flow & Concepts Handbook</title>
   <style>
     :root {
       --primary: #2563eb;
@@ -22,8 +22,6 @@
       --border: #e2e8f0;
       --bg: #f8fafc;
       --card-bg: #ffffff;
-      --code-bg: #1e293b;
-      --code-text: #e2e8f0;
     }
 
     * {
@@ -34,7 +32,7 @@
 
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
-      line-height: 1.65;
+      line-height: 1.7;
       color: var(--text);
       background-color: var(--bg);
       padding: 0;
@@ -43,40 +41,39 @@
     /* Print styling */
     @media print {
       body {
-        background: #fff;
-        color: #000;
+        background: #ffffff !important;
+        color: #000000 !important;
       }
       .no-print {
         display: none !important;
       }
-      .page-break {
-        page-break-before: always;
-      }
       .card {
-        border: 1px solid #ccc !important;
+        border: 1px solid #cbd5e1 !important;
         box-shadow: none !important;
+        break-inside: avoid;
+        margin-bottom: 1.5rem !important;
       }
-      header {
-        background: none !important;
-        color: #000 !important;
-        border-bottom: 2px solid #000;
+      .header-banner {
+        background: #0f172a !important;
+        color: #ffffff !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
       }
-      header h1, header p {
-        color: #000 !important;
+      .copy-btn {
+        display: none !important;
       }
     }
 
-    /* Layout */
+    /* Hero Banner */
     .header-banner {
       background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
       color: #ffffff;
       padding: 3rem 2rem;
-      position: relative;
       border-bottom: 4px solid var(--primary);
     }
 
     .container {
-      max-width: 1200px;
+      max-width: 1150px;
       margin: 0 auto;
       padding: 2rem 1.5rem;
     }
@@ -108,14 +105,14 @@
       border-color: rgba(196, 181, 253, 0.3);
     }
 
-    .badge-warning {
+    .badge-amber {
       background: rgba(245, 158, 11, 0.2);
       color: #fcd34d;
       border-color: rgba(252, 211, 77, 0.3);
     }
 
     h1 {
-      font-size: 2.5rem;
+      font-size: 2.3rem;
       font-weight: 800;
       margin-bottom: 0.5rem;
       color: #ffffff;
@@ -123,13 +120,13 @@
     }
 
     .subtitle {
-      font-size: 1.15rem;
+      font-size: 1.1rem;
       color: #94a3b8;
       max-width: 850px;
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.25rem;
     }
 
-    /* Sticky Action Bar */
+    /* Top Sticky Bar */
     .action-bar {
       position: sticky;
       top: 0;
@@ -149,8 +146,8 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.6rem 1.25rem;
-      font-size: 0.875rem;
+      padding: 0.55rem 1.25rem;
+      font-size: 0.85rem;
       font-weight: 600;
       border-radius: 0.5rem;
       cursor: pointer;
@@ -179,46 +176,97 @@
       border-color: #cbd5e1;
     }
 
+    /* Navigation Pills */
+    .nav-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0;
+    }
+
+    .nav-pill {
+      text-decoration: none;
+      padding: 0.35rem 0.8rem;
+      background: #f1f5f9;
+      color: var(--text-dark);
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      transition: all 0.15s ease;
+    }
+
+    .nav-pill:hover {
+      background: var(--primary);
+      color: #ffffff;
+    }
+
     /* Cards */
     .card {
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 1rem;
-      padding: 1.75rem;
+      padding: 2rem;
       margin-bottom: 2rem;
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      transition: box-shadow 0.2s ease;
-    }
-
-    .card:hover {
-      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
     }
 
     .card-title {
-      font-size: 1.4rem;
-      font-weight: 700;
+      font-size: 1.35rem;
+      font-weight: 800;
       color: var(--text-dark);
-      margin-bottom: 1rem;
+      margin-bottom: 1.25rem;
       display: flex;
       align-items: center;
       gap: 0.75rem;
       border-bottom: 2px solid var(--primary-light);
-      padding-bottom: 0.5rem;
+      padding-bottom: 0.6rem;
     }
 
     .card-title-icon {
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 0.5rem;
+      width: 2.2rem;
+      height: 2.2rem;
+      border-radius: 0.6rem;
       background: var(--primary-light);
       color: var(--primary);
-      font-size: 1rem;
+      font-weight: 800;
+      font-size: 1.1rem;
     }
 
-    /* Grid systems */
+    /* Callouts */
+    .callout {
+      border-left: 4px solid var(--primary);
+      background-color: var(--primary-light);
+      padding: 1.1rem 1.35rem;
+      border-radius: 0 0.75rem 0.75rem 0;
+      margin: 1.25rem 0;
+    }
+
+    .callout-warning {
+      border-left-color: var(--warning);
+      background-color: #fffbeb;
+    }
+
+    .callout-success {
+      border-left-color: var(--success);
+      background-color: #ecfdf5;
+    }
+
+    .callout-purple {
+      border-left-color: var(--purple);
+      background-color: #f5f3ff;
+    }
+
+    .callout h4 {
+      margin-bottom: 0.35rem;
+      font-size: 1rem;
+      color: var(--text-dark);
+      font-weight: 700;
+    }
+
+    /* Grids */
     .grid-2 {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -241,7 +289,7 @@
     }
 
     /* Step boxes */
-    .step-box {
+    .feature-box {
       background: #f8fafc;
       border: 1px solid #e2e8f0;
       border-radius: 0.75rem;
@@ -249,46 +297,28 @@
       position: relative;
     }
 
-    .step-num {
-      position: absolute;
-      top: -0.75rem;
-      left: 1rem;
-      background: var(--primary);
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 0.15rem 0.6rem;
-      border-radius: 9999px;
-    }
-
-    /* Callouts */
-    .callout {
-      border-left: 4px solid var(--primary);
-      background-color: var(--primary-light);
-      padding: 1rem 1.25rem;
-      border-radius: 0 0.75rem 0.75rem 0;
-      margin: 1.25rem 0;
-    }
-
-    .callout-warning {
-      border-left-color: var(--warning);
-      background-color: #fffbeb;
-    }
-
-    .callout-success {
-      border-left-color: var(--success);
-      background-color: #ecfdf5;
-    }
-
-    .callout-danger {
-      border-left-color: var(--danger);
-      background-color: #fef2f2;
-    }
-
-    .callout h4 {
-      margin-bottom: 0.35rem;
-      font-size: 1rem;
+    .feature-box h4 {
       color: var(--text-dark);
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* Diagram visual block */
+    .diagram-box {
+      background: #0f172a;
+      color: #38bdf8;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+      padding: 1.5rem;
+      border-radius: 0.75rem;
+      overflow-x: auto;
+      white-space: pre;
+      line-height: 1.5;
+      font-size: 0.85rem;
+      margin: 1.5rem 0;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.5);
     }
 
     /* Tables */
@@ -301,7 +331,7 @@
 
     th, td {
       text-align: left;
-      padding: 0.75rem 1rem;
+      padding: 0.8rem 1rem;
       border-bottom: 1px solid var(--border);
     }
 
@@ -315,17 +345,39 @@
       background-color: #f8fafc;
     }
 
-    /* Code blocks */
-    pre {
-      background-color: var(--code-bg);
-      color: var(--code-text);
-      padding: 1rem;
-      border-radius: 0.5rem;
-      overflow-x: auto;
-      font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
-      font-size: 0.85rem;
-      margin: 0.75rem 0;
-      position: relative;
+    /* Copyable Key Boxes */
+    .key-box {
+      background: #0f172a;
+      color: #38bdf8;
+      border-left: 4px solid var(--accent);
+      padding: 0.85rem 1rem;
+      font-family: monospace;
+      font-size: 0.875rem;
+      border-radius: 0 0.5rem 0.5rem 0;
+      margin: 0.6rem 0;
+      word-break: break-all;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .copy-btn {
+      background: rgba(255,255,255,0.15);
+      color: #ffffff;
+      border: 1px solid rgba(255,255,255,0.25);
+      padding: 0.35rem 0.75rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border-radius: 0.35rem;
+      cursor: pointer;
+      flex-shrink: 0;
+      transition: all 0.15s ease;
+    }
+
+    .copy-btn:hover {
+      background: var(--primary);
+      border-color: var(--primary);
     }
 
     code {
@@ -333,229 +385,129 @@
       font-size: 0.85em;
       background: #e2e8f0;
       color: #0f172a;
-      padding: 0.15rem 0.35rem;
+      padding: 0.15rem 0.4rem;
       border-radius: 0.25rem;
     }
 
-    pre code {
-      background: transparent;
-      color: inherit;
-      padding: 0;
-    }
-
-    .copy-btn {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      background: rgba(255,255,255,0.15);
-      color: #fff;
-      border: none;
-      padding: 0.25rem 0.5rem;
-      font-size: 0.75rem;
-      border-radius: 0.25rem;
-      cursor: pointer;
-    }
-
-    .copy-btn:hover {
-      background: rgba(255,255,255,0.3);
-    }
-
-    /* Flowchart diagrams */
-    .diagram-box {
-      background: #0f172a;
-      color: #38bdf8;
-      font-family: monospace;
-      padding: 1.25rem;
+    .analogy-card {
+      background: linear-gradient(to right, #eff6ff, #f8fafc);
+      border: 1px solid #bfdbfe;
       border-radius: 0.75rem;
-      overflow-x: auto;
-      white-space: pre;
-      line-height: 1.4;
-      font-size: 0.85rem;
-      margin: 1.25rem 0;
-    }
-
-    /* Quick jump pills */
-    .nav-pills {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
+      padding: 1.25rem;
       margin: 1rem 0;
     }
 
-    .nav-pill {
-      text-decoration: none;
-      padding: 0.4rem 0.85rem;
-      background: #f1f5f9;
-      color: var(--text-dark);
-      font-size: 0.825rem;
-      font-weight: 600;
-      border-radius: 9999px;
-      transition: all 0.15s ease;
-    }
-
-    .nav-pill:hover {
-      background: var(--primary);
-      color: #ffffff;
-    }
-
-    .key-box {
-      background: #1e293b;
-      color: #38bdf8;
-      border-left: 4px solid var(--accent);
-      padding: 0.75rem 1rem;
-      font-family: monospace;
-      font-size: 0.85rem;
-      border-radius: 0 0.5rem 0.5rem 0;
-      margin: 0.5rem 0;
-      word-break: break-all;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .key-box button {
-      background: rgba(255,255,255,0.2);
-      border: none;
-      color: #fff;
-      padding: 0.25rem 0.5rem;
-      border-radius: 0.25rem;
-      cursor: pointer;
-      font-size: 0.75rem;
-      margin-left: 0.5rem;
-      flex-shrink: 0;
+    .analogy-title {
+      font-weight: 800;
+      color: #1d4ed8;
+      font-size: 0.95rem;
+      margin-bottom: 0.4rem;
     }
   </style>
 </head>
 <body>
 
-  <!-- HEADER HERO -->
+  <!-- TOP HEADER -->
   <header class="header-banner">
     <div class="container" style="padding-top:0; padding-bottom:0;">
       <div>
         <span class="badge">SIH26151</span>
         <span class="badge badge-purple">National Technical Research Organisation (NTRO)</span>
-        <span class="badge badge-green">Team Architecture Handbook</span>
+        <span class="badge badge-green">Team Architecture & Working Flow Handbook</span>
       </div>
-      <h1>TRACE-X — Threat Actor Correlation & Attribution Engine</h1>
+      <h1>TRACE-X: How It Works & Core Concepts</h1>
       <p class="subtitle">
-        A complete, beginner-friendly operational guide for teammates. Explains the entire forensic workflow, concepts, datasets, working API keys, correlation algorithms, and presentation demo flow.
+        A clear, visual handbook for teammates and beginners. Explains the big picture, the 4 real datasets, the correlation algorithm, live working keys, and what each screen does—without confusing setup jargon.
       </p>
-      <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-        <span class="badge">Python 3.11 + FastAPI</span>
-        <span class="badge">React 18 + TypeScript + Vite</span>
-        <span class="badge">Cytoscape Graph Intelligence</span>
-        <span class="badge">Ethereum RPC + MISP CTI + Safe Dark Web</span>
-      </div>
     </div>
   </header>
 
   <!-- STICKY ACTION BAR -->
   <div class="action-bar no-print">
-    <div style="font-weight: 700; color: var(--text-dark); font-size: 0.95rem;">
-      🔍 TRACE-X Team Documentation
+    <div style="font-weight: 800; color: var(--text-dark); font-size: 0.95rem;">
+      🔍 TRACE-X Working Flow & Concepts
     </div>
-    <div style="display: flex; gap: 0.75rem; align-items: center;">
+    <div style="display: flex; gap: 0.75rem;">
       <button class="btn btn-outline" onclick="window.print()">
         🖨️ Print / Save as PDF
       </button>
-      <a href="#quick-launch" class="btn btn-primary">
-        🚀 Quick Launch (Windows / Mac)
+      <a href="#test-keys" class="btn btn-primary">
+        🔑 Copy Working Keys & Inputs
       </a>
     </div>
   </div>
 
-  <!-- MAIN CONTENT CONTAINER -->
   <main class="container">
 
-    <!-- QUICK JUMP PILLS -->
+    <!-- QUICK JUMP NAVIGATION -->
     <div class="card no-print" style="margin-bottom: 1.5rem; padding: 1rem 1.5rem;">
-      <div style="font-size: 0.85rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem;">
-        ⚡ QUICK JUMP TO CHAPTER:
+      <div style="font-size: 0.8rem; font-weight: 800; color: var(--text-muted); margin-bottom: 0.4rem;">
+        ⚡ QUICK JUMP TO SECTION:
       </div>
       <div class="nav-pills">
-        <a href="#big-picture" class="nav-pill">1. The Big Picture</a>
-        <a href="#forensic-boundary" class="nav-pill">2. The 4 Levels of Evidence</a>
-        <a href="#data-sources" class="nav-pill">3. The 4 Ingested Datasets</a>
-        <a href="#working-keys" class="nav-pill">4. Working Keys & Test Inputs</a>
-        <a href="#architecture-flow" class="nav-pill">5. Step-by-Step Architecture Flow</a>
-        <a href="#scoring-formula" class="nav-pill">6. Scoring Engine Formula</a>
-        <a href="#quick-launch" class="nav-pill">7. How to Run (Windows/Mac/Docker)</a>
-        <a href="#evaluator-demo" class="nav-pill">8. 10-Step Evaluator Demo Walkthrough</a>
-        <a href="#glossary" class="nav-pill">9. Beginner Terms & Glossary</a>
+        <a href="#the-problem" class="nav-pill">1. The Big Picture</a>
+        <a href="#forensic-rules" class="nav-pill">2. Forensic Boundary Principle</a>
+        <a href="#the-data" class="nav-pill">3. The 4 Real Datasets</a>
+        <a href="#test-keys" class="nav-pill">4. Working Keys & Live Test Values</a>
+        <a href="#how-code-works" class="nav-pill">5. Step-by-Step System Flow</a>
+        <a href="#scoring-formula" class="nav-pill">6. The Confidence Score Formula</a>
+        <a href="#every-screen" class="nav-pill">7. Guide to Every Screen in App</a>
+        <a href="#evaluator-demo" class="nav-pill">8. 10-Step Hackathon Demo Script</a>
+        <a href="#glossary" class="nav-pill">9. Simple Beginner Glossary</a>
       </div>
     </div>
 
     <!-- ===================================================================== -->
     <!-- SECTION 1: THE BIG PICTURE -->
     <!-- ===================================================================== -->
-    <section id="big-picture" class="card">
+    <section id="the-problem" class="card">
       <h2 class="card-title">
         <span class="card-title-icon">1</span>
-        The Big Picture — What Are We Building & Why?
+        The Big Picture: What Problem Does TRACE-X Solve?
       </h2>
 
-      <p style="margin-bottom: 1rem;">
-        Welcome to the <strong>TRACE-X</strong> team! If you are a beginner, here is the simplest way to think about what this project does:
-      </p>
-
-      <div class="callout">
-        <h4>🎯 The Problem We Are Solving (SIH26151)</h4>
-        <p>
-          Cyber criminals and nation-state Advanced Persistent Threat (APT) groups operate in the shadows. They use the <strong>Dark Web (Tor)</strong> to communicate, <strong>cryptocurrency (Ethereum)</strong> to transfer funds, <strong>malware command servers</strong> to coordinate attacks, and <strong>PGP encryption keys</strong> to sign messages.
-          Because these activities are scattered across completely different networks, investigators struggle to connect the dots.
+      <div class="analogy-card">
+        <div class="analogy-title">💡 The Real-World Detective Analogy</div>
+        <p style="font-size: 0.95rem;">
+          Imagine a cyber criminal group operating across the world. They don't use their real names or real email addresses.
+          Instead, they leave pieces of digital footprints in completely separate places:
+        </p>
+        <ul style="margin: 0.5rem 0 0.5rem 1.5rem; font-size: 0.9rem;">
+          <li>They pay for bulletproof hosting using an <strong>Ethereum cryptocurrency wallet</strong>.</li>
+          <li>They infect victims using malware hosted on a <strong>Command & Control (C2) server IP</strong>.</li>
+          <li>They brag about their attacks in underground <strong>Dark Web forums</strong>.</li>
+          <li>They sign private security messages using an encrypted <strong>PGP digital signature</strong>.</li>
+        </ul>
+        <p style="font-size: 0.95rem; margin-top: 0.5rem;">
+          Normally, an investigator has to open 4 separate websites and manually try to remember: <em>"Wait, did this IP address appear in that dark web leak? Does this Ethereum wallet link to that phishing site?"</em>
         </p>
       </div>
 
-      <p>
-        <strong>TRACE-X</strong> solves this by acting as an <strong>intelligent correlation engine</strong>. It ingests pieces of evidence from all these sources, maps them into unified digital entities, calculates how likely they are related using mathematical confidence scores, and visualizes the connections on an interactive graph.
-      </p>
-
-      <div class="grid-3">
-        <div class="step-box">
-          <div class="step-num">Step 1</div>
-          <h4 style="margin-top: 0.5rem; margin-bottom: 0.35rem;">Ingest</h4>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">
-            Collect raw logs from Ethereum, threat intel (MISP), dark web forums, and PGP keyrings without altering the original files.
-          </p>
-        </div>
-        <div class="step-box">
-          <div class="step-num">Step 2</div>
-          <h4 style="margin-top: 0.5rem; margin-bottom: 0.35rem;">Correlate</h4>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">
-            Discover deterministic links (e.g. shared IPs, wallet transactions, co-occurring hashes) and calculate confidence scores.
-          </p>
-        </div>
-        <div class="step-box">
-          <div class="step-num">Step 3</div>
-          <h4 style="margin-top: 0.5rem; margin-bottom: 0.35rem;">Investigate</h4>
-          <p style="font-size: 0.85rem; color: var(--text-muted);">
-            Empower human cyber investigators with an interactive graph, AI Copilot, and court-ready forensic reports.
-          </p>
-        </div>
+      <div class="callout callout-success">
+        <h4>🎯 What TRACE-X Does Automatically</h4>
+        <p>
+          <strong>TRACE-X is an automated digital investigation board.</strong> It pulls in all these clues, standardizes them, calculates mathematical connection probabilities, and draws a visual spider web on an interactive map so investigators can see the full threat-actor network in seconds.
+        </p>
       </div>
     </section>
 
     <!-- ===================================================================== -->
     <!-- SECTION 2: FORENSIC BOUNDARY PRINCIPLE -->
     <!-- ===================================================================== -->
-    <section id="forensic-boundary" class="card">
+    <section id="forensic-rules" class="card">
       <h2 class="card-title">
         <span class="card-title-icon">2</span>
         The Forensic Boundary Principle (Why We Don't "Hack Tor")
       </h2>
 
       <div class="callout callout-warning">
-        <h4>⚖️ Crucial Concept for Evaluators & Judges</h4>
+        <h4>⚖️ Essential Rule for Evaluators & Judges</h4>
         <p>
-          Judges at the Smart India Hackathon (NTRO problem) will test whether our solution understands <strong>legal forensic boundaries</strong>. 
-          A tool that claims to magically break Tor encryption or reveal names of random citizens would be fraudulent and illegal. 
-          TRACE-X strictly separates facts from theories.
+          Judges at the Smart India Hackathon (NTRO problem) want to know: <em>"Does this team understand real cybersecurity law and forensics?"</em><br>
+          Any tool claiming to magically reveal real names of anonymous Tor users with a button click is fake. The Tor network uses multi-layered mathematical encryption. 
+          TRACE-X wins because it strictly respects <strong>four scientific levels of evidence</strong>:
         </p>
       </div>
-
-      <p style="margin-bottom: 1rem;">
-        TRACE-X classifies all digital telemetry into <strong>four distinct levels of confidence</strong>:
-      </p>
 
       <table>
         <thead>
@@ -569,275 +521,260 @@
         <tbody>
           <tr>
             <td><strong style="color: #0284c7;">1. Observed Evidence</strong></td>
-            <td><span class="badge badge-green">100% (1.0)</span></td>
-            <td>A mathematically or cryptographically verified digital event. No guessing involved.</td>
-            <td>Wallet A sent 0.5 ETH to Wallet B in Block #25947413; or CIRCL PGP key matches fingerprint <code>CA57...</code>.</td>
+            <td><span class="badge badge-green">100% (Fact)</span></td>
+            <td>A mathematical or cryptographic event recorded directly in data. Zero guessing.</td>
+            <td>Wallet A sent 0.5 ETH to Wallet B in Ethereum Block #25947413.</td>
           </tr>
           <tr>
             <td><strong style="color: #8b5cf6;">2. Inferred Relationship</strong></td>
-            <td><span class="badge badge-purple">60% – 75%</span></td>
-            <td>Two entities share digital infrastructure or patterns, suggesting common control.</td>
-            <td>Two distinct phishing domains (<code>noticias-al-dia.com</code> and <code>justiciaparatodos.org</code>) resolve to the exact same C2 IP: <code>198.12.150.249</code>.</td>
+            <td><span class="badge badge-purple">70% – 85%</span></td>
+            <td>Two entities share digital infrastructure or patterns, showing strong coordination.</td>
+            <td>Two phishing websites (<code>noticias-al-dia.com</code> & <code>justiciaparatodos.org</code>) resolve to the exact same IP <code>198.12.150.249</code>.</td>
           </tr>
           <tr>
-            <td><strong style="color: #f59e0b;">3. Strong Correlation</strong></td>
-            <td><span class="badge badge-warning">80% – 95%</span></td>
-            <td>Indicators verified across multiple independent datasets (multi-source boost).</td>
-            <td>A domain found in a Dark Web forum discussion matches an active C2 domain in a MISP malware threat advisory.</td>
+            <td><strong style="color: #f59e0b;">3. Multi-Source Correlation</strong></td>
+            <td><span class="badge badge-amber">85% – 95%</span></td>
+            <td>An indicator verified across multiple independent feeds (receives a 25% confidence boost).</td>
+            <td>A domain discussed in Dark Web forum database leaks matches an active C2 in a MISP threat advisory.</td>
           </tr>
           <tr>
             <td><strong style="color: #ef4444;">4. Verified Attribution</strong></td>
-            <td><span class="badge">Requires Legal KYC</span></td>
-            <td>Asserting that a digital entity belongs to a real-world human being.</td>
-            <td>Asserted <strong>only</strong> when judicial orders, ISP subscriber records, or exchange KYC documents are legally attached. In our demo, this is clearly tagged <code>[SYNTHETIC AUTHORIZED EVIDENCE]</code>.</td>
+            <td><span class="badge">Legal Subpoena Required</span></td>
+            <td>Asserting that a digital indicator belongs to a real physical person.</td>
+            <td>Requires court orders, judicial subpoenas, or exchange KYC records. (In our demo, this is clearly tagged <code>[SYNTHETIC AUTHORIZED EVIDENCE]</code> to prove the workflow without fabricating innocent citizens).</td>
           </tr>
         </tbody>
       </table>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- SECTION 3: THE 4 INGESTED DATASETS -->
+    <!-- SECTION 3: THE 4 REAL DATASETS -->
     <!-- ===================================================================== -->
-    <section id="data-sources" class="card">
+    <section id="the-data" class="card">
       <h2 class="card-title">
         <span class="card-title-icon">3</span>
-        The 4 Ingested Datasets (1,356+ Real Forensic Records)
+        The 4 Real Datasets Ingested (1,356+ Records)
       </h2>
 
       <p style="margin-bottom: 1.25rem;">
-        Everything in TRACE-X is loaded from real datasets located inside the <code>data/</code> folder. Here is what is inside each domain:
+        Everything in TRACE-X is grounded in <strong>real data files</strong> stored in the project's <code>data/</code> folder:
       </p>
 
       <div class="grid-2">
-        <!-- Dataset 1 -->
-        <div class="step-box" style="border-top: 4px solid #3b82f6;">
-          <h3 style="color: #1d4ed8; margin-bottom: 0.5rem;">🪙 1. Ethereum Blockchain</h3>
-          <p style="font-size: 0.85rem; margin-bottom: 0.75rem;">
-            <strong>Files:</strong> <code>data/blockchain/transactions.csv</code> (260 txs) & <code>latest_block.json</code>
+        <div class="feature-box" style="border-top: 4px solid #2563eb;">
+          <h4>🪙 1. Ethereum Blockchain Data</h4>
+          <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+            <strong>Files:</strong> <code>data/blockchain/transactions.csv</code> (260 txs)
           </p>
-          <ul style="font-size: 0.85rem; padding-left: 1.25rem; margin-bottom: 0.75rem;">
-            <li>Real Ethereum mainnet Block #25947413.</li>
-            <li>Tracks sender wallets, recipient wallets, gas, and ETH volumes.</li>
-            <li>Produces <strong>780 canonical records</strong> without assuming personal identities.</li>
-            <li>Integrated with live <strong>Alchemy JSON-RPC</strong> for real-time live Ethereum search!</li>
+          <ul style="font-size: 0.875rem; padding-left: 1.25rem;">
+            <li>Real transactions from Ethereum Mainnet Block #25947413.</li>
+            <li>Tracks sender wallets, recipient wallets, amounts, and fees.</li>
+            <li>Generates <strong>780 canonical records</strong>.</li>
+            <li><strong>Live Feature:</strong> Connected to live Alchemy RPC so you can search ANY real Ethereum address or transaction hash in the world!</li>
           </ul>
         </div>
 
-        <!-- Dataset 2 -->
-        <div class="step-box" style="border-top: 4px solid #ef4444;">
-          <h3 style="color: #b91c1c; margin-bottom: 0.5rem;">🛡️ 2. Cyber Threat Intelligence (CTI/MISP)</h3>
-          <p style="font-size: 0.85rem; margin-bottom: 0.75rem;">
-            <strong>Files:</strong> <code>data/cti/raw/packrat.json</code> (155 attributes)
+        <div class="feature-box" style="border-top: 4px solid #ef4444;">
+          <h4>🛡️ 2. Packrat APT Cyber Threat Feed (MISP)</h4>
+          <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem;">
+            <strong>Files:</strong> <code>data/cti/raw/packrat.json</code> (155 indicators)
           </p>
-          <ul style="font-size: 0.85rem; padding-left: 1.25rem; margin-bottom: 0.75rem;">
-            <li>Real CIRCL MISP threat advisory for the <strong>Packrat APT</strong> campaign.</li>
-            <li>Packrat targeted political figures & journalists in South America.</li>
-            <li>Contains command-and-control IP <code>198.12.150.249</code>, malicious hostnames, and MD5/SHA256 payload hashes.</li>
+          <ul style="font-size: 0.875rem; padding-left: 1.25rem;">
+            <li>Real CIRCL MISP OSINT intelligence for the <strong>Packrat APT</strong> cyberespionage group.</li>
+            <li>Targets: Journalists & political figures across South America (Ecuador, Argentina, Brazil, Venezuela).</li>
+            <li>Includes C2 server <code>198.12.150.249</code>, malicious hostnames, and SHA-256 malware payload hashes.</li>
           </ul>
         </div>
 
-        <!-- Dataset 3 -->
-        <div class="step-box" style="border-top: 4px solid #8b5cf6;">
-          <h3 style="color: #6d28d9; margin-bottom: 0.5rem;">🕵️ 3. Dark Web Safe Corpus</h3>
-          <p style="font-size: 0.85rem; margin-bottom: 0.75rem;">
+        <div class="feature-box" style="border-top: 4px solid #8b5cf6;">
+          <h4>🕵️ 3. Dark Web Safe Research Corpus</h4>
+          <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem;">
             <strong>Files:</strong> <code>data/darkweb/raw/safe_corpus.json</code> (201 threads)
           </p>
-          <ul style="font-size: 0.85rem; padding-left: 1.25rem; margin-bottom: 0.75rem;">
-            <li>Derived from underground breach forums (DarkForums leak discussions).</li>
-            <li>Thread topics: compromised databases, credential leaks, and target domains.</li>
-            <li><strong>Safety Rule:</strong> Author usernames are masked as <code>[AUTHOR]</code> to prevent accidental defamation or privacy violations.</li>
+          <ul style="font-size: 0.875rem; padding-left: 1.25rem;">
+            <li>Real underground forum leak threads (from DarkForums).</li>
+            <li>Discussions about hacked databases, target corporations, and leaked credentials.</li>
+            <li><strong>Privacy Safeguard:</strong> Author handles are masked as <code>[AUTHOR]</code> so innocent people are never falsely linked to crimes.</li>
           </ul>
         </div>
 
-        <!-- Dataset 4 -->
-        <div class="step-box" style="border-top: 4px solid #10b981;">
-          <h3 style="color: #047857; margin-bottom: 0.5rem;">🔐 4. OpenPGP Keyring</h3>
-          <p style="font-size: 0.85rem; margin-bottom: 0.75rem;">
+        <div class="feature-box" style="border-top: 4px solid #10b981;">
+          <h4>🔐 4. OpenPGP Keyring Intelligence</h4>
+          <p style="font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.5rem;">
             <strong>Files:</strong> <code>data/pgp/raw/pgp_keys.csv</code> & <code>circl_public_key.asc</code>
           </p>
-          <ul style="font-size: 0.85rem; padding-left: 1.25rem; margin-bottom: 0.75rem;">
-            <li>Authentic CIRCL public key with fingerprint <code>CA572205C0024E06BA70BE89EAADCFFC22BD4CD5</code>.</li>
+          <ul style="font-size: 0.875rem; padding-left: 1.25rem;">
+            <li>Authentic CIRCL public key (Fingerprint: <code>CA572205C0024E06BA70BE89EAADCFFC22BD4CD5</code>).</li>
             <li>UID: <code>CIRCL &lt;info@circl.lu&gt;</code>.</li>
-            <li>Provides baseline cryptographic integrity verification.</li>
-            <li>Supports live RFC 4880 ASCII armor key imports directly through the UI.</li>
+            <li>Verifies digital signatures on security bulletins and threat reports.</li>
+            <li>Supports live ASCII Armor key validation directly in the UI.</li>
           </ul>
         </div>
       </div>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- SECTION 4: WORKING KEYS & TEST INPUTS -->
+    <!-- SECTION 4: WORKING KEYS & TEST VALUES -->
     <!-- ===================================================================== -->
-    <section id="working-keys" class="card">
+    <section id="test-keys" class="card">
       <h2 class="card-title">
         <span class="card-title-icon">4</span>
-        Working Keys & Ready-to-Use Test Inputs
+        Working Keys & Live Test Values (Ready to Copy)
       </h2>
 
       <p style="margin-bottom: 1rem;">
-        Here are the active, live keys and ready-to-copy queries you and your teammates can use immediately when testing or giving a live demo:
+        Click the <strong>Copy</strong> button next to any value below to copy it and paste directly into TRACE-X during your testing or live presentations:
       </p>
 
-      <h3 style="font-size: 1rem; color: var(--text-dark); margin-top: 1rem; margin-bottom: 0.5rem;">
-        🔑 1. Active Ethereum Mainnet RPC URL (Alchemy)
+      <h3 style="font-size: 1rem; color: var(--text-dark); margin-top: 1rem; margin-bottom: 0.35rem;">
+        🌐 1. Live Ethereum RPC Connection (Alchemy)
       </h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">
-        Configured in <code>backend/app/config.py</code>. Powers live Ethereum wallet lookups and transaction checks:
+      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.4rem;">
+        Configured in <code>backend/app/config.py</code>. Gives TRACE-X real-time access to the Ethereum mainnet:
       </p>
       <div class="key-box">
-        <span id="key-rpc">https://eth-mainnet.g.alchemy.com/v2/alch_9YJOoCFSssXT0-cQvgk8I</span>
-        <button onclick="copyToClipboard('key-rpc')">Copy Key</button>
+        <span id="k-rpc">https://eth-mainnet.g.alchemy.com/v2/alch_9YJOoCFSssXT0-cQvgk8I</span>
+        <button class="copy-btn" onclick="copyId('k-rpc')">Copy Key</button>
       </div>
 
       <h3 style="font-size: 1rem; color: var(--text-dark); margin-top: 1.5rem; margin-bottom: 0.5rem;">
-        📋 2. Real Test Inputs to Paste in the Search Bar
+        📋 2. Real Values to Search in the TRACE-X Search Bar
       </h3>
 
       <table>
         <thead>
           <tr>
-            <th>Search Type</th>
-            <th>Value to Copy & Paste</th>
-            <th>Expected Result</th>
+            <th>Search Target</th>
+            <th>Value to Copy</th>
+            <th>What Happens When You Search It</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><strong>Threat Campaign</strong></td>
+            <td><strong>Threat Group</strong></td>
             <td>
               <code>packrat</code>
-              <button class="btn btn-outline" style="padding:0.15rem 0.4rem; font-size:0.7rem;" onclick="copyText('packrat')">Copy</button>
+              <button class="copy-btn" style="background:#2563eb; margin-left:0.5rem;" onclick="copyRaw('packrat')">Copy</button>
             </td>
-            <td>Returns Packrat APT campaign dossier, 155 IOCs, targeted nations (Ecuador, Argentina, Brazil, Venezuela).</td>
+            <td>Opens Packrat APT campaign dossier, shows targeted countries (Ecuador, Argentina, Brazil) and 155 indicators.</td>
           </tr>
           <tr>
-            <td><strong>C2 IP Address</strong></td>
+            <td><strong>C2 Server IP</strong></td>
             <td>
               <code>198.12.150.249</code>
-              <button class="btn btn-outline" style="padding:0.15rem 0.4rem; font-size:0.7rem;" onclick="copyText('198.12.150.249')">Copy</button>
+              <button class="copy-btn" style="background:#2563eb; margin-left:0.5rem;" onclick="copyRaw('198.12.150.249')">Copy</button>
             </td>
-            <td>Shows C2 server resolving to multiple malicious phishing domains on the Cytoscape graph.</td>
+            <td>Shows malicious command-and-control server linking 12 phishing domains on the interactive graph.</td>
           </tr>
           <tr>
-            <td><strong>Ethereum Wallet (Static)</strong></td>
+            <td><strong>Static Wallet</strong></td>
             <td>
               <code>0x51c72848c68a965f66fa7a88855f9f7784502a7f</code>
-              <button class="btn btn-outline" style="padding:0.15rem 0.4rem; font-size:0.7rem;" onclick="copyText('0x51c72848c68a965f66fa7a88855f9f7784502a7f')">Copy</button>
+              <button class="copy-btn" style="background:#2563eb; margin-left:0.5rem;" onclick="copyRaw('0x51c72848c68a965f66fa7a88855f9f7784502a7f')">Copy</button>
             </td>
-            <td>Displays Block #25947413 transaction history, fund transfers, and counterparty entities.</td>
+            <td>Shows transaction history from Block #25947413, fund flows, and connected counterparty wallets.</td>
           </tr>
           <tr>
-            <td><strong>Live Ethereum Wallet (Live RPC)</strong></td>
+            <td><strong>Live Ethereum Address</strong></td>
             <td>
               <code>0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5</code>
-              <button class="btn btn-outline" style="padding:0.15rem 0.4rem; font-size:0.7rem;" onclick="copyText('0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5')">Copy</button>
+              <button class="copy-btn" style="background:#2563eb; margin-left:0.5rem;" onclick="copyRaw('0x95222290DD7278Aa3Ddd389Cc1E1d165CC4BAfe5')">Copy</button>
             </td>
-            <td>Queries live Ethereum mainnet via Alchemy. Returns live balance, transaction count, and recent token transfers!</td>
+            <td>Queries live Ethereum mainnet via Alchemy! Displays real-time live balance, transaction count, and recent transfers.</td>
           </tr>
           <tr>
             <td><strong>Vitalik Buterin Wallet</strong></td>
             <td>
               <code>0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045</code>
-              <button class="btn btn-outline" style="padding:0.15rem 0.4rem; font-size:0.7rem;" onclick="copyText('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045')">Copy</button>
+              <button class="copy-btn" style="background:#2563eb; margin-left:0.5rem;" onclick="copyRaw('0xd8dA6BF26964aF9D7eEd9e03E53415D37aA96045')">Copy</button>
             </td>
-            <td>Queries live on-chain balance and recent transfers for vitalik.eth via Alchemy RPC.</td>
+            <td>Live query for <code>vitalik.eth</code> showing real-time on-chain balance via Alchemy RPC.</td>
           </tr>
           <tr>
             <td><strong>PGP Key Fingerprint</strong></td>
             <td>
               <code>CA572205C0024E06BA70BE89EAADCFFC22BD4CD5</code>
-              <button class="btn btn-outline" style="padding:0.15rem 0.4rem; font-size:0.7rem;" onclick="copyText('CA572205C0024E06BA70BE89EAADCFFC22BD4CD5')">Copy</button>
+              <button class="copy-btn" style="background:#2563eb; margin-left:0.5rem;" onclick="copyRaw('CA572205C0024E06BA70BE89EAADCFFC22BD4CD5')">Copy</button>
             </td>
-            <td>Verifies CIRCL public key, displays UID <code>CIRCL &lt;info@circl.lu&gt;</code> and key validity.</td>
+            <td>Verifies authentic CIRCL public key and UID <code>CIRCL &lt;info@circl.lu&gt;</code>.</td>
           </tr>
         </tbody>
       </table>
-
-      <h3 style="font-size: 1rem; color: var(--text-dark); margin-top: 1.5rem; margin-bottom: 0.5rem;">
-        🔐 3. Sample ASCII Armor PGP Public Key (For Live Testing)
-      </h3>
-      <p style="font-size: 0.85rem; color: var(--text-muted);">
-        You can paste this valid public key into the <strong>OpenPGP Keyring</strong> page in TRACE-X to test live key validation:
-      </p>
-      <pre><code>-----BEGIN PGP PUBLIC KEY BLOCK-----
-Version: OpenPGP.js v4.10.10
-Comment: https://openpgpjs.org
-
-mQGNBF8...[CIRCL Verification Test Key]...
------END PGP PUBLIC KEY BLOCK-----</code></pre>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- SECTION 5: STEP-BY-STEP ARCHITECTURE FLOW -->
+    <!-- SECTION 5: STEP-BY-STEP WORKING FLOW -->
     <!-- ===================================================================== -->
-    <section id="architecture-flow" class="card">
+    <section id="how-code-works" class="card">
       <h2 class="card-title">
         <span class="card-title-icon">5</span>
-        Step-by-Step Architecture Flow — How the Code Works
+        Step-by-Step Architecture Flow (Under the Hood)
       </h2>
 
       <p style="margin-bottom: 1rem;">
-        Here is the full journey of a piece of data from the raw disk file to the investigator's web browser:
+        Here is the exact step-by-step path every piece of evidence takes from raw file to browser screen:
       </p>
 
       <div class="diagram-box">
-[1. RAW FILES]
-data/blockchain/transactions.csv  |  data/cti/raw/packrat.json  |  data/darkweb/safe_corpus.json
-                           │
-                           ▼
-[2. MODULAR INGESTION ADAPTERS] (backend/app/adapters/)
-- BlockchainAdapter: Parses transfers, calculates Wei->ETH, hashes each row with SHA-256
-- CtiAdapter: Extracts domains, hostnames, IPs, hashes, and MITRE TTPs
-- DarkWebAdapter: Extracts thread titles, timestamps, masked author tokens
-- PgpAdapter: Parses fingerprints, key IDs, and RFC 4880 armor headers
-                           │
-                           ▼
-[3. NORMALIZATION & CANONICAL ENTITIES] (backend/app/engine/normalizer.py)
-- Resolves raw indicators into standardized IDs:
-    ENT-WALLET-0x51c7...   |   ENT-IP-198.12.150.249   |   ENT-DOM-noticias-al-dia.com
-- Computes SHA-256 integrity hash for unalterable chain-of-custody
-                           │
-                           ▼
-[4. CORRELATION ENGINE] (backend/app/engine/correlation.py)
-- Scans all entities for shared attributes:
-    * TRANSACTS_WITH: On-chain fund flow between sender and recipient
-    * SHARED_INFRASTRUCTURE: Multiple domains resolving to the same IP
-    * REFERENCES: Threat actor referenced in CTI advisories or leak threads
-- Evaluates confidence score using explainable weighting formula
-                           │
-                           ▼
-[5. GRAPH TOPOLOGY & FASTAPI REST API] (backend/app/engine/graph_engine.py & /api/)
-- Builds NetworkX graph object (calculates degree centrality, shortest paths)
-- Serves JSON payloads through FastAPI endpoints (/api/dashboard, /api/graph, etc.)
-                           │
-                           ▼
-[6. REACT SOC FRONTEND] (frontend/src/)
-- Renders interactive Cytoscape.js canvas with clickable edge rationales
-- Displays real-time telemetry, 360° dossiers, AI Copilot, and report generator
+  [STEP 1: RAW EVIDENCE FILES]
+  data/blockchain/transactions.csv  |  data/cti/raw/packrat.json  |  data/darkweb/safe_corpus.json
+                              │
+                              ▼
+  [STEP 2: INGESTION ADAPTERS] (backend/app/adapters/)
+  - Reads raw CSV/JSON records.
+  - Generates an immutable SHA-256 integrity hash for each clue.
+  - Ensures chain-of-custody timestamps.
+                              │
+                              ▼
+  [STEP 3: NORMALIZATION & CANONICAL ENTITIES] (backend/app/engine/normalizer.py)
+  - Transforms raw strings into standardized Canonical IDs:
+      * ENT-WALLET-0x51c7...
+      * ENT-IP-198.12.150.249
+      * ENT-DOM-noticias-al-dia.com
+      * ENT-ACTOR-packrat
+                              │
+                              ▼
+  [STEP 4: DETERMINISTIC CORRELATION ENGINE] (backend/app/engine/correlation.py)
+  - Discovers cross-domain connections:
+      * TRANSACTS_WITH: On-chain transfer between sender & recipient
+      * SHARED_INFRASTRUCTURE: Multiple domains pointing to the same server IP
+      * REFERENCES: Threat actor named in CTI advisories or Dark Web threads
+                              │
+                              ▼
+  [STEP 5: CONFIDENCE SCORING FORMULA] (backend/app/config.py)
+  - Calculates explainable score:
+      Score = min(1.0, BaseWeight × MultiSourceBoost × ProvenanceFactor)
+                              │
+                              ▼
+  [STEP 6: GRAPH TOPOLOGY & FASTAPI REST API] (backend/app/api/)
+  - NetworkX builds graph nodes and edges.
+  - FastAPI endpoints (/api/dashboard, /api/graph, /api/search) deliver data in milliseconds.
+                              │
+                              ▼
+  [STEP 7: REACT + TYPESCRIPT SOC UI] (frontend/src/)
+  - Renders Cytoscape.js interactive graph canvas.
+  - Displays clickable edge rationales: "Why are these two clues connected?".
+  - Powers AI Copilot and court-ready PDF/Markdown report generator.
       </div>
 
-      <div class="grid-2">
-        <div class="step-box">
-          <h4 style="color: var(--text-dark); margin-bottom: 0.5rem;">📁 Backend Directory Breakdown</h4>
-          <ul style="font-size: 0.85rem; padding-left: 1.25rem;">
-            <li><code>backend/app/main.py</code>: App startup, CORS, and SPA static file mounting.</li>
-            <li><code>backend/app/adapters/</code>: Parsers for Blockchain, CTI, Dark Web, and PGP.</li>
-            <li><code>backend/app/engine/</code>: Normalizer, Correlation, and Graph engines.</li>
-            <li><code>backend/app/api/</code>: REST routes (Dashboard, Graph, Blockchain, etc.).</li>
-            <li><code>backend/app/models/</code>: SQLAlchemy database tables.</li>
-            <li><code>backend/tests/</code>: 19 automated pytest tests.</li>
-          </ul>
+      <div class="grid-3">
+        <div class="feature-box">
+          <h4>1. Ingestion</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Loads raw logs without altering original files. Assigns unique <code>EVD-...</code> IDs and SHA-256 hashes.
+          </p>
         </div>
-
-        <div class="step-box">
-          <h4 style="color: var(--text-dark); margin-bottom: 0.5rem;">💻 Frontend Directory Breakdown</h4>
-          <ul style="font-size: 0.85rem; padding-left: 1.25rem;">
-            <li><code>frontend/src/App.tsx</code>: Main routing and application frame.</li>
-            <li><code>frontend/src/pages/</code>: All 12 pages (Dashboard, Graph, Blockchain, etc.).</li>
-            <li><code>frontend/src/components/</code>: Reusable UI cards, tables, Cytoscape graph canvas.</li>
-            <li><code>frontend/src/services/api.ts</code>: Axios client connecting to backend <code>/api</code>.</li>
-            <li><code>frontend/dist/</code>: Built production assets served directly by FastAPI.</li>
-          </ul>
+        <div class="feature-box">
+          <h4>2. Correlation</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Discovers links automatically based on shared IPs, wallet transfers, and co-occurring payload hashes.
+          </p>
+        </div>
+        <div class="feature-box">
+          <h4>3. Presentation</h4>
+          <p style="font-size: 0.85rem; color: var(--text-muted);">
+            Visualizes findings in an interactive Cytoscape graph canvas with 360° dossiers and AI investigation copilot.
+          </p>
         </div>
       </div>
     </section>
@@ -848,16 +785,16 @@ data/blockchain/transactions.csv  |  data/cti/raw/packrat.json  |  data/darkweb/
     <section id="scoring-formula" class="card">
       <h2 class="card-title">
         <span class="card-title-icon">6</span>
-        Explainable Scoring Engine — How TRACE-X Calculates Confidence
+        The Confidence Score Formula (No Black Boxes)
       </h2>
 
       <p style="margin-bottom: 1rem;">
-        Judges love when an AI system can explain <strong>WHY</strong> it made a decision rather than acting as an opaque black box. In TRACE-X, every connection has a deterministic score calculated via this formula:
+        In forensics, you must be able to justify <strong>WHY</strong> two clues are connected. TRACE-X never uses random guesses. Every connection uses this exact formula:
       </p>
 
-      <div class="callout callout-success">
-        <h4>📐 The Mathematical Confidence Formula</h4>
-        <p style="font-family: monospace; font-size: 1rem; margin-top: 0.25rem;">
+      <div class="callout callout-purple">
+        <h4>📐 Mathematical Confidence Formula</h4>
+        <p style="font-family: monospace; font-size: 1.05rem; margin-top: 0.35rem; color: #4c1d95;">
           Final Confidence = min(1.0, BaseWeight × MultiSourceBoost × ProvenanceFactor)
         </p>
       </div>
@@ -865,179 +802,211 @@ data/blockchain/transactions.csv  |  data/cti/raw/packrat.json  |  data/darkweb/
       <table>
         <thead>
           <tr>
-            <th>Factor</th>
+            <th>Rule Name</th>
             <th>Weight Value</th>
-            <th>Forensic Logic</th>
+            <th>Why This Weight Was Chosen</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><code>EXACT_CRYPTO_HASH</code></td>
             <td><strong>0.95</strong></td>
-            <td>SHA-256 or MD5 collision is mathematically near-impossible.</td>
+            <td>Cryptographic hash collision (SHA-256) is mathematically impossible.</td>
           </tr>
           <tr>
             <td><code>EXACT_PGP_FINGERPRINT</code></td>
             <td><strong>0.95</strong></td>
-            <td>Cryptographic fingerprint uniquely identifies the public key.</td>
+            <td>PGP key fingerprint uniquely identifies the public key author.</td>
           </tr>
           <tr>
             <td><code>EXACT_WALLET</code></td>
             <td><strong>0.90</strong></td>
-            <td>Direct Ethereum address interaction recorded immutably on-chain.</td>
+            <td>Direct Ethereum address interaction is immutable on the blockchain ledger.</td>
           </tr>
           <tr>
             <td><code>SHARED_INFRASTRUCTURE</code></td>
             <td><strong>0.75</strong></td>
-            <td>Multiple malicious hostnames resolving to the exact same hosting IP.</td>
+            <td>Two or more phishing domains resolving to the same server IP.</td>
           </tr>
           <tr>
             <td><code>APPEARS_IN_LEAK</code></td>
             <td><strong>0.65</strong></td>
-            <td>Textual mention of an entity in a leaked forum breach thread.</td>
+            <td>An entity mentioned inside an underground breach forum thread.</td>
           </tr>
           <tr>
             <td><code>MULTI_SOURCE_BOOST</code></td>
             <td><strong>× 1.25</strong></td>
-            <td><strong>Crucial multiplier:</strong> If an indicator appears in 2 or more independent sources (e.g. MISP CTI + Dark Web), its confidence score is boosted by 25%.</td>
+            <td><strong>The Golden Multiplier:</strong> If an indicator appears in 2 or more independent sources (e.g. MISP + Dark Web), its confidence is multiplied by 1.25!</td>
           </tr>
         </tbody>
       </table>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- SECTION 7: QUICK LAUNCH (HOW TO RUN) -->
+    <!-- SECTION 7: GUIDE TO EVERY SCREEN IN THE APP -->
     <!-- ===================================================================== -->
-    <section id="quick-launch" class="card">
+    <section id="every-screen" class="card">
       <h2 class="card-title">
         <span class="card-title-icon">7</span>
-        How to Run TRACE-X on Any Machine (Windows, Mac, Docker)
+        Guide to Every Screen in TRACE-X
       </h2>
 
-      <div class="grid-3">
-        <!-- Windows Option -->
-        <div class="step-box" style="border-left: 4px solid #0284c7;">
-          <h3 style="color: #0369a1; margin-bottom: 0.5rem;">🪟 On Windows</h3>
-          <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">
-            <strong>Method A (Easiest):</strong> Double-click <code>run.bat</code> in Windows File Explorer!
-          </p>
-          <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">
-            <strong>Method B (PowerShell):</strong>
-          </p>
-          <pre><code>Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass
-.\run.ps1</code></pre>
-          <p style="font-size: 0.8rem; color: var(--text-muted);">
-            Opens backend on port 8000 and frontend on port 5173 automatically.
+      <p style="margin-bottom: 1.25rem;">
+        Here is what every page in the web interface does and what teammates should point out when viewing it:
+      </p>
+
+      <div class="grid-2">
+        <div class="feature-box">
+          <h4>📊 1. Overview Dashboard</h4>
+          <p style="font-size: 0.875rem;">
+            The central command center. Displays live counters for <strong>1,356 Evidence Records</strong>, <strong>1,010 Entities</strong>, and <strong>407 Correlated Links</strong>, plus a chronological live activity stream.
           </p>
         </div>
 
-        <!-- Mac/Linux Option -->
-        <div class="step-box" style="border-left: 4px solid #10b981;">
-          <h3 style="color: #047857; margin-bottom: 0.5rem;">🍎 On macOS / Linux</h3>
-          <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">
-            Run the 1-click startup shell script:
-          </p>
-          <pre><code>chmod +x run.sh
-./run.sh</code></pre>
-          <p style="font-size: 0.8rem; color: var(--text-muted);">
-            Starts both Uvicorn and Vite. Press Ctrl+C anytime to stop cleanly.
+        <div class="feature-box">
+          <h4>🔍 2. Universal Search</h4>
+          <p style="font-size: 0.875rem;">
+            One search bar to query everything. Search by IP (<code>198.12.150.249</code>), campaign name (<code>packrat</code>), wallet, or hash to see instant cross-dataset matches.
           </p>
         </div>
 
-        <!-- Docker Option -->
-        <div class="step-box" style="border-left: 4px solid #8b5cf6;">
-          <h3 style="color: #6d28d9; margin-bottom: 0.5rem;">🐳 With Docker</h3>
-          <p style="font-size: 0.85rem; margin-bottom: 0.5rem;">
-            No Python or Node installation required:
-          </p>
-          <pre><code>docker compose up --build -d</code></pre>
-          <p style="font-size: 0.8rem; color: var(--text-muted);">
-            Builds multi-stage container and exposes port 80 / 8000.
+        <div class="feature-box">
+          <h4>🕸️ 3. Interactive Connection Map (Cytoscape Graph)</h4>
+          <p style="font-size: 0.875rem;">
+            A visual network graph. Nodes are color-coded (blue = wallet, red = C2 IP, purple = dark web). 
+            <strong>Click any edge:</strong> A popup explains exactly why the two clues are linked!
           </p>
         </div>
-      </div>
 
-      <div class="callout callout-success">
-        <h4>🌐 Access Points Once Running</h4>
-        <ul style="padding-left: 1.25rem; font-size: 0.9rem; margin-top: 0.25rem;">
-          <li><strong>Investigator Web UI:</strong> <a href="http://localhost:5173" target="_blank">http://localhost:5173</a> (or <code>http://localhost:8000</code> in Docker)</li>
-          <li><strong>Backend REST API:</strong> <a href="http://localhost:8000" target="_blank">http://localhost:8000</a></li>
-          <li><strong>Interactive Swagger API Docs:</strong> <a href="http://localhost:8000/docs" target="_blank">http://localhost:8000/docs</a></li>
-        </ul>
+        <div class="feature-box">
+          <h4>🪙 4. Cryptocurrency Wallets</h4>
+          <p style="font-size: 0.875rem;">
+            Inspects 260 transactions from Block #25947413. Also features the <strong>Live Ethereum Search</strong> bar to query any on-chain wallet or transaction hash in the world via Alchemy RPC.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <h4>🛡️ 5. Threat Intelligence (CTI / MISP)</h4>
+          <p style="font-size: 0.875rem;">
+            Packrat APT campaign dossier. Shows targeted nations, threat severity levels, C2 hostnames, and 155 Indicators of Compromise (IOCs).
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <h4>🕵️ 6. Dark Web Forum Discussions</h4>
+          <p style="font-size: 0.875rem;">
+            Browse 201 forum leak discussions. Notice author handles are masked as <code>[AUTHOR]</code> to protect civilian privacy under ethical guidelines.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <h4>🔐 7. Digital Signature Keys (OpenPGP)</h4>
+          <p style="font-size: 0.875rem;">
+            Inspect CIRCL's authentic PGP key and test live ASCII armor public key imports with checksum validation.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <h4>🕒 8. Event Timeline</h4>
+          <p style="font-size: 0.875rem;">
+            Synthesizes all events chronologically so investigators can see what happened first: the forum discussion, the domain registration, or the crypto payment.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <h4>🗄️ 9. Evidence Vault</h4>
+          <p style="font-size: 0.875rem;">
+            Court-admissible chain-of-custody table. Displays SHA-256 integrity hashes, collection dates, and raw source references for every record.
+          </p>
+        </div>
+
+        <div class="feature-box">
+          <h4>📄 10. Formal Investigation Reports</h4>
+          <p style="font-size: 0.875rem;">
+            Compiles case findings into an executive, formatted investigation report with confidence metrics and legal attribution verdicts. Ready to print or export as Markdown.
+          </p>
+        </div>
+
+        <div class="feature-box" style="grid-column: 1 / -1;">
+          <h4>🤖 11. AI Investigation Copilot</h4>
+          <p style="font-size: 0.875rem;">
+            Click the <strong>"AI Copilot"</strong> button on the top right. An interactive investigative assistant that answers questions about suspects and always returns the supporting Evidence ID citations!
+          </p>
+        </div>
       </div>
     </section>
 
     <!-- ===================================================================== -->
-    <!-- SECTION 8: 10-STEP EVALUATOR DEMO WALKTHROUGH -->
+    <!-- SECTION 8: 10-STEP EVALUATOR DEMO SCRIPT -->
     <!-- ===================================================================== -->
     <section id="evaluator-demo" class="card">
       <h2 class="card-title">
         <span class="card-title-icon">8</span>
-        10-Step Hackathon Evaluator Demo Script
+        10-Step Hackathon Evaluator Presentation Script
       </h2>
 
       <p style="margin-bottom: 1rem;">
-        When presenting to hackathon evaluators and NTRO officials, open the <strong>"Evaluator Demo Walkthrough"</strong> button on the top right of the TRACE-X navbar, or follow these exact 10 steps:
+        When presenting to judges, follow this step-by-step script. Each step explains what to click and what to say:
       </p>
 
       <table>
         <thead>
           <tr>
             <th>Step</th>
-            <th>Action to Take</th>
+            <th>What to Click</th>
             <th>What to Say to the Judges</th>
           </tr>
         </thead>
         <tbody>
           <tr>
             <td><strong>1</strong></td>
-            <td>Click <strong>"Load Demo Case"</strong></td>
-            <td><em>"We are loading Case CASE-SIH-26151 ('Operation Packrat'). Notice that our system strictly applies forensic safeguards so no innocent person is misidentified."</em></td>
+            <td>Click <strong>"Tour"</strong> → <strong>"Load Demo Case"</strong></td>
+            <td><em>"We are loading Case CASE-SIH-26151 ('Operation Packrat'). Notice TRACE-X applies strict forensic boundaries so no innocent civilian is falsely accused."</em></td>
           </tr>
           <tr>
             <td><strong>2</strong></td>
-            <td>Type <code>packrat</code> in the Unified Search bar</td>
-            <td><em>"TRACE-X indexes all four heterogeneous sources simultaneously—Blockchain, MISP CTI, Dark Web, and PGP keyrings—in sub-second response times."</em></td>
+            <td>Search <code>packrat</code> in Universal Search</td>
+            <td><em>"TRACE-X indexes all four heterogeneous sources simultaneously—Blockchain, MISP CTI, Dark Web, and PGP keyrings—with sub-second response times."</em></td>
           </tr>
           <tr>
             <td><strong>3</strong></td>
-            <td>Open <strong>Evidence Explorer</strong></td>
-            <td><em>"Every piece of evidence receives an immutable SHA-256 cryptographic stamp and collection timestamp, adhering to digital forensics chain-of-custody standards."</em></td>
+            <td>Click <strong>Activity Vault</strong> → <strong>Evidence Vault</strong></td>
+            <td><em>"Every clue has an immutable SHA-256 cryptographic hash and collection timestamp, adhering to ISO/IEC 27037 digital chain-of-custody standards."</em></td>
           </tr>
           <tr>
             <td><strong>4</strong></td>
-            <td>Open <strong>Correlation Graph</strong> & click any edge</td>
-            <td><em>"Notice this edge between domain and IP. When I click it, TRACE-X pops up an explainable rationale: 'Why are these two considered related?'. No black-box guesses."</em></td>
+            <td>Click <strong>Interactive Map</strong> & click any line</td>
+            <td><em>"Notice this edge. When I click it, TRACE-X opens a popup explaining exactly WHY they are related. There are no opaque black-box assumptions."</em></td>
           </tr>
           <tr>
             <td><strong>5</strong></td>
-            <td>Open <strong>Blockchain Forensic Ledger</strong></td>
-            <td><em>"Here we trace 260 Ethereum transactions. Notice we can inspect counterparty clusters and query live Ethereum mainnet addresses in real-time via Alchemy RPC."</em></td>
+            <td>Click <strong>Cryptocurrency Wallets</strong></td>
+            <td><em>"Here we trace 260 Ethereum transactions. We can also query live on-chain mainnet balances and transactions in real-time via Alchemy RPC."</em></td>
           </tr>
           <tr>
             <td><strong>6</strong></td>
-            <td>Open <strong>CTI Packrat Overview</strong></td>
-            <td><em>"We cross-reference the threat group's infrastructure with real CIRCL MISP OSINT feeds, mapping C2 IP 198.12.150.249 and malicious payloads."</em></td>
+            <td>Click <strong>Malware & C2</strong></td>
+            <td><em>"We cross-reference threat actor infrastructure with CIRCL MISP OSINT feeds, mapping C2 IP 198.12.150.249 and malicious payload hashes."</em></td>
           </tr>
           <tr>
             <td><strong>7</strong></td>
-            <td>Open <strong>Dark Web Corpus</strong></td>
-            <td><em>"We analyze 201 forum leak threads. Notice author names are strictly masked as [AUTHOR] to protect civilian privacy under ethical guidelines."</em></td>
+            <td>Click <strong>Dark Web Discussions</strong></td>
+            <td><em>"We analyze 201 forum leak threads. Author handles are masked as [AUTHOR] to protect civilian privacy under ethical guidelines."</em></td>
           </tr>
           <tr>
             <td><strong>8</strong></td>
-            <td>Open <strong>OpenPGP Keyring</strong></td>
-            <td><em>"We verify digital signatures and RFC 4880 ASCII armor keys, authenticating communication channels used by research organizations and actors."</em></td>
+            <td>Click <strong>Digital Signature Keys</strong></td>
+            <td><em>"We verify digital signatures and RFC 4880 ASCII armor keys, validating authentic threat advisories from research organizations."</em></td>
           </tr>
           <tr>
             <td><strong>9</strong></td>
-            <td>Open <strong>Master Unified Timeline</strong></td>
-            <td><em>"All events—blockchain payments, C2 domain registrations, and dark web leaks—are synthesized into a single chronological master timeline."</em></td>
+            <td>Click <strong>Event Timeline</strong></td>
+            <td><em>"All events—crypto payments, domain registrations, and dark web leaks—are synthesized into a single master chronological timeline."</em></td>
           </tr>
           <tr>
             <td><strong>10</strong></td>
-            <td>Open <strong>Investigation Report Generator</strong></td>
-            <td><em>"Finally, TRACE-X automatically compiles an executive, court-admissible forensic report with complete evidence citations, ready to print or export as Markdown."</em></td>
+            <td>Click <strong>Formal Reports</strong></td>
+            <td><em>"Finally, TRACE-X compiles a court-ready forensic report with complete evidence citations, confidence scores, and legal disclaimers ready to print or export."</em></td>
           </tr>
         </tbody>
       </table>
@@ -1049,63 +1018,49 @@ data/blockchain/transactions.csv  |  data/cti/raw/packrat.json  |  data/darkweb/
     <section id="glossary" class="card">
       <h2 class="card-title">
         <span class="card-title-icon">9</span>
-        Beginner Cyber & Tech Terms Glossary
+        Simple Beginner Glossary (Cyber Jargon Made Easy)
       </h2>
 
       <div class="grid-2">
-        <div class="step-box">
+        <div class="feature-box">
           <strong style="color: var(--primary);">APT (Advanced Persistent Threat)</strong>
           <p style="font-size: 0.85rem; margin-top: 0.25rem;">
-            A sophisticated, long-term cyber attack campaign typically conducted by a nation-state or well-funded cybercriminal organization. (Example: Packrat).
+            A sophisticated, organized hacking group that conducts long-term espionage campaigns. Example: <em>Packrat</em>.
           </p>
         </div>
 
-        <div class="step-box">
+        <div class="feature-box">
           <strong style="color: var(--primary);">C2 (Command and Control)</strong>
           <p style="font-size: 0.85rem; margin-top: 0.25rem;">
-            The central server or IP address used by hackers to send instructions to infected computers and receive stolen data. (Example: <code>198.12.150.249</code>).
+            A central computer server used by attackers to send commands to infected machines and receive stolen data.
           </p>
         </div>
 
-        <div class="step-box">
+        <div class="feature-box">
           <strong style="color: var(--primary);">IOC (Indicator of Compromise)</strong>
           <p style="font-size: 0.85rem; margin-top: 0.25rem;">
-            Digital evidence that an attack occurred, such as a malicious IP address, a phishing domain, or a file hash.
+            A piece of digital evidence showing an attack happened—such as a malicious IP address, malware hash, or phishing domain.
           </p>
         </div>
 
-        <div class="step-box">
-          <strong style="color: var(--primary);">MISP</strong>
+        <div class="feature-box">
+          <strong style="color: var(--primary);">SHA-256 Hash</strong>
           <p style="font-size: 0.85rem; margin-top: 0.25rem;">
-            Malware Information Sharing Platform. An open-source threat intelligence sharing platform used by cybersecurity teams worldwide.
+            A unique 64-character digital fingerprint. If even a single comma in a file changes, the hash changes completely.
           </p>
         </div>
 
-        <div class="step-box">
-          <strong style="color: var(--primary);">SHA-256</strong>
-          <p style="font-size: 0.85rem; margin-top: 0.25rem;">
-            A cryptographic hashing algorithm that creates a unique 64-character digital fingerprint of any data. If even 1 character changes, the hash changes completely.
-          </p>
-        </div>
-
-        <div class="step-box">
+        <div class="feature-box">
           <strong style="color: var(--primary);">RPC (Remote Procedure Call)</strong>
           <p style="font-size: 0.85rem; margin-top: 0.25rem;">
-            A protocol that allows our application to ask a live blockchain node (like Alchemy) for real-time account balances and transaction data.
+            A live connection that allows our app to talk directly to an Ethereum blockchain node (Alchemy) to get real-time balances.
           </p>
         </div>
 
-        <div class="step-box">
+        <div class="feature-box">
           <strong style="color: var(--primary);">Cytoscape.js</strong>
           <p style="font-size: 0.85rem; margin-top: 0.25rem;">
-            The high-performance graph theory library used by TRACE-X to render nodes (entities) and edges (relationships) on the interactive map canvas.
-          </p>
-        </div>
-
-        <div class="step-box">
-          <strong style="color: var(--primary);">Canonical Entity ID</strong>
-          <p style="font-size: 0.85rem; margin-top: 0.25rem;">
-            A normalized identifier like <code>ENT-WALLET-...</code> or <code>ENT-IP-...</code> used by TRACE-X so that the same indicator is never duplicated in the graph.
+            The graph theory engine we use to draw interactive circles (nodes) and connecting lines (edges) on our correlation map.
           </p>
         </div>
       </div>
@@ -1113,26 +1068,30 @@ data/blockchain/transactions.csv  |  data/cti/raw/packrat.json  |  data/darkweb/
 
     <!-- FOOTER -->
     <footer style="text-align: center; padding: 2rem 0; color: var(--text-muted); font-size: 0.85rem; border-top: 1px solid var(--border);">
-      <p><strong>TRACE-X Forensic Platform</strong> — Smart India Hackathon (SIH26151) Project</p>
+      <p><strong>TRACE-X Threat Actor Correlation & Attribution Engine</strong> — SIH26151 Project</p>
       <p>National Technical Research Organisation (NTRO) • Developed by Mulla Adil & Team</p>
       <p style="margin-top: 0.5rem;">
-        Click <strong>Print / Save as PDF</strong> at the top to save this entire document offline!
+        Click <strong>Print / Save as PDF</strong> at the top to save this entire handbook offline!
       </p>
     </footer>
 
   </main>
 
   <script>
-    function copyToClipboard(elementId) {
-      const text = document.getElementById(elementId).innerText;
+    function copyId(id) {
+      const text = document.getElementById(id).innerText;
       navigator.clipboard.writeText(text).then(() => {
         alert("Copied to clipboard: " + text);
+      }).catch(() => {
+        prompt("Copy this value:", text);
       });
     }
 
-    function copyText(text) {
+    function copyRaw(text) {
       navigator.clipboard.writeText(text).then(() => {
         alert("Copied: " + text);
+      }).catch(() => {
+        prompt("Copy this value:", text);
       });
     }
   </script>
