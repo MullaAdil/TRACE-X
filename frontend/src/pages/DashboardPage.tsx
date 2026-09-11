@@ -234,9 +234,23 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               className="card-slide-stack-sm p-5 hover:border-emerald-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4 h-full"
             >
               <div className="space-y-3">
+                <div className="relative h-28 rounded-2xl overflow-hidden border border-slate-200/80 mb-1 group-hover:shadow-sm">
+                  <img
+                    src="/src/assets/visuals/crypto_visual.jpg"
+                    alt="Blockchain Ledger Service Visual"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent flex items-end p-2">
+                    <span className="text-[10px] font-mono font-bold text-white uppercase tracking-wider flex items-center space-x-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                      <span>On-Chain Tracking</span>
+                    </span>
+                  </div>
+                </div>
+
                 <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center font-bold">
-                    <Coins className="w-5 h-5" />
+                  <div className="w-8 h-8 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-600 flex items-center justify-center font-bold">
+                    <Coins className="w-4 h-4" />
                   </div>
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-700">
                     SVC-01: CRYPTO
@@ -265,9 +279,23 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               className="card-slide-stack-sm p-5 hover:border-purple-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4 h-full"
             >
               <div className="space-y-3">
+                <div className="relative h-28 rounded-2xl overflow-hidden border border-slate-200/80 mb-1 group-hover:shadow-sm">
+                  <img
+                    src="/src/assets/visuals/darkweb_visual.jpg"
+                    alt="Dark Web Leak Service Visual"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent flex items-end p-2">
+                    <span className="text-[10px] font-mono font-bold text-white uppercase tracking-wider flex items-center space-x-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-purple-400 animate-pulse" />
+                      <span>Tor Onion Feeds</span>
+                    </span>
+                  </div>
+                </div>
+
                 <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-2xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center font-bold">
-                    <Globe2 className="w-5 h-5" />
+                  <div className="w-8 h-8 rounded-xl bg-purple-50 border border-purple-200 text-purple-600 flex items-center justify-center font-bold">
+                    <Globe2 className="w-4 h-4" />
                   </div>
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-purple-50 border border-purple-200 text-purple-700">
                     SVC-02: DARKNET
@@ -296,9 +324,23 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               className="card-slide-stack-sm p-5 hover:border-amber-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4 h-full"
             >
               <div className="space-y-3">
+                <div className="relative h-28 rounded-2xl overflow-hidden border border-slate-200/80 mb-1 group-hover:shadow-sm">
+                  <img
+                    src="/src/assets/visuals/cti_visual.jpg"
+                    alt="Malware & C2 Service Visual"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent flex items-end p-2">
+                    <span className="text-[10px] font-mono font-bold text-white uppercase tracking-wider flex items-center space-x-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse" />
+                      <span>MISP Indicators</span>
+                    </span>
+                  </div>
+                </div>
+
                 <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-2xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold">
-                    <Bug className="w-5 h-5" />
+                  <div className="w-8 h-8 rounded-xl bg-amber-50 border border-amber-200 text-amber-600 flex items-center justify-center font-bold">
+                    <Bug className="w-4 h-4" />
                   </div>
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-amber-50 border border-amber-200 text-amber-700">
                     SVC-03: CTI-IOC
@@ -327,9 +369,23 @@ export const DashboardPage: React.FC<DashboardPageProps> = ({
               className="card-slide-stack-sm p-5 hover:border-blue-400 hover:shadow-lg transition-all duration-300 cursor-pointer shadow-2xs group flex flex-col justify-between space-y-4 h-full"
             >
               <div className="space-y-3">
+                <div className="relative h-28 rounded-2xl overflow-hidden border border-slate-200/80 mb-1 group-hover:shadow-sm">
+                  <img
+                    src="/src/assets/visuals/pgp_visual.jpg"
+                    alt="PGP Keyring Service Visual"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent flex items-end p-2">
+                    <span className="text-[10px] font-mono font-bold text-white uppercase tracking-wider flex items-center space-x-1.5">
+                      <span className="w-1.5 h-1.5 rounded-full bg-blue-400 animate-pulse" />
+                      <span>CIRCL Standard</span>
+                    </span>
+                  </div>
+                </div>
+
                 <div className="flex items-center justify-between">
-                  <div className="w-10 h-10 rounded-2xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center font-bold">
-                    <KeyRound className="w-5 h-5" />
+                  <div className="w-8 h-8 rounded-xl bg-blue-50 border border-blue-200 text-blue-600 flex items-center justify-center font-bold">
+                    <KeyRound className="w-4 h-4" />
                   </div>
                   <span className="text-[10px] font-mono font-bold px-2 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700">
                     SVC-04: CRYPTO-ID

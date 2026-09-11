@@ -116,11 +116,11 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
 
   return (
     <div className="p-8 space-y-8 max-w-7xl mx-auto">
-      {/* Top Banner with Problem Statement Attribution & Slide-on-Slide Theme */}
+      {/* Top Problem Statement & De-anonymization Header with Slide-on-Slide Theme */}
       <div className="mr-3 mb-4">
         <div className="card-slide-stack relative overflow-hidden bg-gradient-to-br from-white via-blue-50/50 to-slate-50 border border-slate-200/90 rounded-3xl p-8 shadow-sm">
-          <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
-            <div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div className="lg:col-span-7 space-y-3">
               <div className="flex items-center space-x-2 text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">
                 <span className="inline-block w-2.5 h-2.5 rounded-full bg-blue-600 animate-pulse"></span>
                 <span>NTRO PROBLEM ID: SIH26151</span>
@@ -136,23 +136,38 @@ export const DeanonymizationPage: React.FC<DeanonymizationPageProps> = ({
               <p className="text-sm text-slate-600 mt-2.5 max-w-3xl leading-relaxed font-normal">
                 Connect anonymous forum posts, encryption keys, server networks, and cryptocurrency trails into an airtight case that holds up in court.
               </p>
+              <div className="flex items-center gap-3 pt-2">
+                <button
+                  onClick={() => onNavigateToGraph()}
+                  className="btn-liquid-secondary px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2"
+                >
+                  <Share2 className="w-4 h-4 text-blue-600" />
+                  <span>Interactive Map</span>
+                </button>
+                <button
+                  onClick={onNavigateToReports}
+                  className="btn-liquid px-6 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2"
+                >
+                  <FileText className="w-4 h-4" />
+                  <span>Official Report</span>
+                </button>
+              </div>
             </div>
 
-            <div className="flex items-center gap-3 shrink-0">
-              <button
-                onClick={() => onNavigateToGraph()}
-                className="btn-liquid-secondary px-5 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2"
-              >
-                <Share2 className="w-4 h-4 text-blue-600" />
-                <span>Interactive Map</span>
-              </button>
-              <button
-                onClick={onNavigateToReports}
-                className="btn-liquid px-6 py-2.5 rounded-2xl text-xs font-bold flex items-center space-x-2"
-              >
-                <FileText className="w-4 h-4" />
-                <span>Official Report</span>
-              </button>
+            <div className="lg:col-span-5">
+              <div className="relative rounded-2xl overflow-hidden border border-slate-300 shadow-xl group">
+                <img
+                  src="/src/assets/visuals/deanonymize_visual.jpg"
+                  alt="De-anonymization Command Interface"
+                  className="w-full h-44 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-3.5">
+                  <span className="text-[11px] font-mono text-cyan-300 font-bold flex items-center space-x-1.5">
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
+                    <span>Multimodal Unmasking Matrix Active</span>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 

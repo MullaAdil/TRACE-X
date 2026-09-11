@@ -50,17 +50,35 @@ export const CtiPage: React.FC<CtiPageProps> = ({ onSelectEvidence }) => {
       {/* Apple-style Header with Dedicated Microservice Banner & Slide-on-Slide Theme */}
       <div className="mr-3 mb-4">
         <div className="card-slide-stack relative overflow-hidden bg-gradient-to-br from-slate-900 via-amber-950/40 to-slate-950 border border-amber-900/50 p-8 shadow-xl text-white">
-          <div className="space-y-3 max-w-3xl">
-            <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-bold">
-              <Bug className="w-3.5 h-3.5" />
-              <span>STANDALONE MICROSERVICE • CTI & MALWARE ATTRIBUTION</span>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div className="lg:col-span-7 space-y-3">
+              <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-bold">
+                <Bug className="w-3.5 h-3.5" />
+                <span>STANDALONE MICROSERVICE • CTI & MALWARE ATTRIBUTION</span>
+              </div>
+              <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+                Malware & Threat Infrastructure. Real campaigns, decoded.
+              </h1>
+              <p className="text-sm text-slate-300 leading-relaxed font-normal">
+                CitizenLab and MISP documented the servers, phishing domains, and malicious software used in targeted cyber campaigns. TRACE-X organizes these into tamper-proof clues that link directly to blockchain and forum evidence.
+              </p>
             </div>
-            <h1 className="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
-              Malware & Threat Infrastructure. Real campaigns, decoded.
-            </h1>
-            <p className="text-sm text-slate-300 leading-relaxed font-normal">
-              CitizenLab and MISP documented the servers, phishing domains, and malicious software used in targeted cyber campaigns. TRACE-X organizes these into tamper-proof clues that link directly to blockchain and forum evidence.
-            </p>
+
+            <div className="lg:col-span-5">
+              <div className="relative rounded-2xl overflow-hidden border border-amber-700/60 shadow-2xl group">
+                <img
+                  src="/src/assets/visuals/cti_visual.jpg"
+                  alt="Malware Analysis & C2 Infrastructure Visual"
+                  className="w-full h-44 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-3.5">
+                  <span className="text-[11px] font-mono text-amber-300 font-bold flex items-center space-x-1.5">
+                    <span className="w-2 h-2 rounded-full bg-amber-400 animate-ping" />
+                    <span>MISP Threat Telemetry • C2 Beacons Active</span>
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>

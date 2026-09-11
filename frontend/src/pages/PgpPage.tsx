@@ -59,8 +59,8 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
       {/* Apple-style Hero Header with Dedicated Microservice Banner & Slide-on-Slide Theme */}
       <div className="mr-3 mb-4">
         <div className="card-slide-stack relative overflow-hidden bg-gradient-to-br from-slate-900 via-blue-950/80 to-slate-950 border border-blue-900/50 p-8 shadow-xl text-white">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div className="space-y-3 max-w-3xl">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+            <div className="lg:col-span-7 space-y-4">
               <div className="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold">
                 <KeyRound className="w-3.5 h-3.5" />
                 <span>STANDALONE MICROSERVICE • PGP CRYPTOGRAPHIC ID BENCHMARK</span>
@@ -71,15 +71,32 @@ export const PgpPage: React.FC<PgpPageProps> = () => {
               <p className="text-sm text-slate-300 leading-relaxed font-normal">
                 Public OpenPGP keys serve as unforgeable digital identity seals. TRACE-X validates cryptographic fingerprints and user handles against official European key servers (CIRCL), guaranteeing tamper-proof verification.
               </p>
+              <div>
+                <button
+                  onClick={() => setShowImport(true)}
+                  className="btn-liquid px-6 py-2.5 rounded-2xl text-xs font-bold shadow-lg flex items-center space-x-2"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Import OpenPGP Key</span>
+                </button>
+              </div>
             </div>
 
-            <button
-              onClick={() => setShowImport(true)}
-              className="btn-liquid px-6 py-3 rounded-2xl text-xs font-bold shrink-0 self-start md:self-auto shadow-lg flex items-center space-x-2"
-            >
-              <Plus className="w-4 h-4" />
-              <span>Import OpenPGP Key</span>
-            </button>
+            <div className="lg:col-span-5">
+              <div className="relative rounded-2xl overflow-hidden border border-blue-700/60 shadow-2xl group">
+                <img
+                  src="/src/assets/visuals/pgp_visual.jpg"
+                  alt="PGP Cryptographic Signature Matrix"
+                  className="w-full h-44 object-cover object-center transform group-hover:scale-105 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent flex items-end p-3.5">
+                  <span className="text-[11px] font-mono text-blue-300 font-bold flex items-center space-x-1.5">
+                    <span className="w-2 h-2 rounded-full bg-blue-400 animate-pulse" />
+                    <span>RSA 4096-bit • Key Escrow Anchor Active</span>
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
